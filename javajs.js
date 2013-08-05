@@ -2,15 +2,25 @@
     'use strict';
 
     function __import (clazz) {
-        var indexOfLastPeriod = clazz.getArrayLastIndexOf( '.' ),
+        var indexOfLastPeriod = clazz.lastIndexOf( '.' ),
             clazzName = clazz.substring( indexOfLastPeriod + 1, clazz.length );
-        // TODO
+        
+        // TODO improve to not need jQuery
+        $.getScript( clazz.replace(/\./g, '/') + '.js')
+            .done( function () {
+                var _clazz = window,
+                    packages = clazz.split(/\./);
+                for( var i = 0; i < packages.length; i++ ) {
+                    _clazz = _clazz[packages[i]];
+                }
 
-        if( typeof window[clazzName] !== 'undefined' ) {
-            throw new Error( 'Class name conflict for <' + clazzName + '>!' );
-        }
+                window[clazzName] = _clazz;
+            } );
 
-        window[clazzName] = window[clazz];
+
+        //if( typeof window[clazzName] !== 'undefined' ) {
+        //    throw new Error( 'Class name conflict for <' + clazzName + '>!' );
+        //}
     }
 
     function __importStatic (method) {
@@ -28,7 +38,9 @@
     }
 
     window[namespace] = {
+        // TODO : several files, optional namespace shortening
         import: __import,
+        // use import without namespace shortening, then shorten only method
         importStatic: __importStatic
     };
 
