@@ -5,14 +5,12 @@ qx.Class.define( 'java.util.AbstractMap', {
     type: 'abstract',
 
     construct: function () {
-        this.base( arguments );
-        // TODO
     },
 
     members: {
-        // TODO has to be java.util.Set (validation?)
+        /** @type java.util.Set */
         _keySet: null,
-        // TODO has to be java.util.Collection (validation?)
+        /** @type java.util.Collection */
         _values: null,
 
         entrySet: function () {
