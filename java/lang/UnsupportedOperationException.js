@@ -1,5 +1,6 @@
 qx.Class.define( 'java.lang.UnsupportedOperationException', {
-    extend: qx.core.Object,
+    // TODO fix inheritance to RuntimeException
+    extend: java.lang.Object,
 
     construct: function () {
         this.base( arguments );

@@ -49,6 +49,7 @@ qx.Class.define( 'java.util.AbstractMap.SimpleEntry', {
         },
 
         equals: function (other) {
+            // TODO use qx.Class.isSubClassOf
             if( !(other instanceof java.util.Map.Entry) ) {
                 return false;
             }

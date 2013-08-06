@@ -1,5 +1,5 @@
 qx.Class.define( 'java.util.AbstractMap', {
-    extend: qx.core.Object,
+    extend: java.lang.Object,
     implement: java.util.Map,
 
     type: 'abstract',
