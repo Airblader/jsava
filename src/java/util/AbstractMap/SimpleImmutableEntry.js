@@ -8,7 +8,6 @@ qx.Class.define( 'java.util.AbstractMap.SimpleImmutableEntry', {
         var args = Array.prototype.slice.call( arguments );
         switch( args.length ) {
             case 1:
-                // TODO use qx.Interface.classImplements
                 this.assertInterface( args[0], java.util.Map.Entry );
                 this.__key = args[0].getKey();
                 this.__value = args[0].getValue();
@@ -18,7 +17,7 @@ qx.Class.define( 'java.util.AbstractMap.SimpleImmutableEntry', {
                 this.__value = args[1];
                 break;
             default:
-                /* TODO throw error */
+                throw new java.lang.IllegalArgumentException();
                 break;
         }
     },
@@ -49,7 +48,7 @@ qx.Class.define( 'java.util.AbstractMap.SimpleImmutableEntry', {
 
         equals: function (other) {
             // TODO use qx.Class.isSubClassOf
-            if( !(other instanceof java.util.Map.Entry) ) {
+            if( !( qx.Class.isSubClassOf( other, java.util.Map.Entry ) ) ) {
                 return false;
             }
 

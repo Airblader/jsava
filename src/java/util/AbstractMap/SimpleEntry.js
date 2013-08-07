@@ -17,7 +17,7 @@ qx.Class.define( 'java.util.AbstractMap.SimpleEntry', {
                 this.__value = args[1];
                 break;
             default:
-                /* TODO throw error */
+                throw new java.lang.IllegalArgumentException();
                 break;
         }
     },
@@ -49,8 +49,7 @@ qx.Class.define( 'java.util.AbstractMap.SimpleEntry', {
         },
 
         equals: function (other) {
-            // TODO use qx.Class.isSubClassOf
-            if( !(other instanceof java.util.Map.Entry) ) {
+            if( !( qx.Interface.classImplements( other, java.util.Map.Entry ) ) ) {
                 return false;
             }
 
