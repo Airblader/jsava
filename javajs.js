@@ -28,7 +28,7 @@
     }
 
     function __import (target, doShorten) {
-        if( target.trim() === '' || target === 'qx.core.Object' ) {
+        if( typeof target === 'undefined' || target === null || target.replace( /\s*/, '' ) === '' || target === 'qx.core.Object' ) {
             return;
         }
 
@@ -48,7 +48,7 @@
         // TODO improve to not need jQuery
         var done = false;
         $.ajax( {
-            url: target.replace( /\./g, '/' ) + '.js',
+            url: 'src/' + target.replace( /\./g, '/' ) + '.js',
             dataType: 'text',
             async: false
         } )
