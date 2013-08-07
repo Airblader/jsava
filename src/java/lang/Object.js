@@ -5,8 +5,8 @@ qx.Class.define( 'java.lang.Object', {
         },
 
         hashCode: function () {
-            // TODO
-            throw new java.lang.UnsupportedOperationException();
+            // TODO this is a valid hashCode, but pretty dull
+            return 0;
         },
 
         equals: function (other) {
@@ -19,8 +19,7 @@ qx.Class.define( 'java.lang.Object', {
         },
 
         toString: function () {
-            // TODO not exact implementation
-            return this.getClass().name + '@' + this.hashCode();
+            return this.getClass().name + '@' + this.hashCode().toString( 16 );
         },
 
         notify: function () {
