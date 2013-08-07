@@ -1,13 +1,23 @@
 (function () {
     'use strict';
 
-    var __cache = {};
+    var __cache = {},
+        CacheStatus = {
+            NEW: 0,
+            LOADED_UNSHORTENED: 1,
+            LOADED_SHORTENED: 2,
+            LOADED_UNSHORTENED_CHECKED: 3
+        },
+        getCacheStatus = function (target) {
+            return typeof __cache[target] !== 'undefined' ? __cache[target] : CacheStatus.NEW;
+        };
 
     function __shortenName (fullName) {
+        __cache[fullName] = CacheStatus.LOADED_UNSHORTENED_CHECKED;
         var shortName = fullName.substring( fullName.lastIndexOf( '.' ) + 1, fullName.length );
 
         if( typeof window[shortName] !== 'undefined' ) {
-            log( 'Name ' + shortName + ' already in use' );
+            log( 'Cannot shorten ' + fullName + ' because the name is reserved' );
             return;
         }
 
@@ -18,9 +28,9 @@
         }
 
         window[shortName] = __clazz;
-        __cache[fullName] = true;
+        __cache[fullName] = CacheStatus.LOADED_UNSHORTENED;
 
-        log( 'Shortened ' + fullName + ' to ' + shortName );
+        log( 'Imported ' + fullName + ' as ' + shortName );
     }
 
     function log (msg) {
@@ -28,17 +38,18 @@
     }
 
     function __import (target, doShorten) {
-        if( typeof target === 'undefined' || target === null || target.replace( /\s*/, '' ) === '' || target === 'qx.core.Object' ) {
+        if( typeof target === 'undefined' || target === null
+            || target.replace( /\s*/, '' ) === '' || target === 'qx.core.Object' ) {
             return;
         }
 
         log( 'Importing ' + target );
+
         doShorten = (typeof doShorten === 'undefined') ? true : doShorten;
 
-        if( __cache.hasOwnProperty( target ) ) {
-            log( 'Target ' + target + ' already in cache' );
-
-            if( __cache[target] === false && doShorten ) {
+        var cacheStatus = getCacheStatus( target );
+        if( cacheStatus !== CacheStatus.NEW ) {
+            if( cacheStatus === CacheStatus.LOADED_UNSHORTENED && doShorten ) {
                 __shortenName( target );
             }
 
@@ -66,12 +77,12 @@
                 }
 
                 for( var i = 0; i < listOfInterfaces.length; i++ ) {
-                    __import( listOfInterfaces[i].name, false );
+                    __import( listOfInterfaces[i], false );
                 }
 
                 var regExpInheritance = content.match( /extend\s*:\s*(.+?),/m );
                 if( regExpInheritance !== null && typeof regExpInheritance[1] !== 'undefined' ) {
-                    __import( regExpInheritance[1].replace( /\s*/g, '' ) );
+                    __import( regExpInheritance[1].replace( /\s*/g, '' ), false );
                 }
 
                 $.globalEval( content );
@@ -87,7 +98,8 @@
                 // TODO scan script content for more classes?
             } )
             .fail( function () {
-                console.log( arguments );
+                console.log( 'Failed to import ' + 'src/' + target.replace( /\./g, '/' ) + '.js', arguments );
+                done = true;
             } );
 
         while( !done ) {
@@ -95,12 +107,17 @@
         }
     }
 
-    // TODO other name
+    // TODO other name (also change in generator script)
     window['jimport'] = function () {
         var clazzes = Array.prototype.slice.call( arguments );
         for( var i = 0; i < clazzes.length; i++ ) {
             __import( clazzes[i], true );
         }
+    };
+
+    // TODO remove
+    window['showCache'] = function () {
+        return __cache;
     };
 
     // TODO import static methods (check for name conflicts)
