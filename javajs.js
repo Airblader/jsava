@@ -43,7 +43,7 @@
             return;
         }
 
-        log( 'Importing ' + target );
+        log( 'Importing "' + target + '"' );
 
         doShorten = (typeof doShorten === 'undefined') ? true : doShorten;
 
@@ -88,8 +88,8 @@
                 $.globalEval( content );
                 done = true;
 
-                log( 'Imported ' + target );
-                __cache[target] = false;
+                log( 'Imported "' + target + '"' );
+                __cache[target] = CacheStatus.LOADED_UNSHORTENED;
 
                 if( doShorten ) {
                     __shortenName( target );
