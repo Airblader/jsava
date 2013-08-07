@@ -1,4 +1,4 @@
-(function () {
+(function (isDebug) {
     'use strict';
 
     var __cache = {},
@@ -34,7 +34,9 @@
     }
 
     function log (msg) {
-        console.log( msg );
+        if( isDebug && console && console.log ) {
+            console.log( msg );
+        }
     }
 
     function __import (target, doShorten) {
@@ -121,4 +123,4 @@
     };
 
     // TODO import static methods (check for name conflicts)
-})();
+})( true );
