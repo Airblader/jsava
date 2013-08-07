@@ -3,7 +3,8 @@ qx.Class.define( 'java.lang.UnsupportedOperationException', {
     extend: java.lang.Object,
 
     construct: function () {
-        this.base( arguments );
+    // TODO fix when above is fixed
+    //    this.base( arguments );
 
         this.message = arguments[0] || null;
         this.cause = arguments[1] || null;

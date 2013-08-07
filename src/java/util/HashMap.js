@@ -3,8 +3,6 @@ qx.Class.define( 'java.util.HashMap', {
     implement: [java.util.Map],
 
     constructor: function () {
-        // TODO
-        this.base( arguments );
     }
 
     // TODO
