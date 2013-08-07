@@ -1,4 +1,6 @@
 qx.Interface.define( "java.util.Map", {
+    extend: java.lang.Object,
+
     members: {
         size: function () {
         },

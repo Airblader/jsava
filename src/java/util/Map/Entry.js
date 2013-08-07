@@ -1,4 +1,6 @@
 qx.Interface.define( 'java.util.Map.Entry', {
+    extend: java.lang.Object,
+
     members: {
         getKey: function () {
         },
