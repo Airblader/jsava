@@ -25,7 +25,6 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         containsValue: function (value) {
-            // TODO rewrite others to use Iterator like this
             var iterator = this.entrySet().iterator();
             if( value === null ) {
                 while( iterator.hasNext() ) {
@@ -47,17 +46,18 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         containsKey: function (key) {
-            // TODO rewrite to use iterator
-            var entrySet = this.entrySet();
+            var iterator = this.entrySet().iterator();
             if( key === null ) {
-                for( var entry in entrySet ) {
-                    if( entrySet.hasOwnProperty( entry ) && entrySet[entry].getKey() === null ) {
+                while( iterator.hasNext() ) {
+                    var entry = iterator.next();
+                    if( entry.getKey() === null ) {
                         return true;
                     }
                 }
             } else {
-                for( var entry in entrySet ) {
-                    if( entrySet.hasOwnProperty( entry ) && key.equals( entrySet[entry].getKey() ) ) {
+                while( iterator.hasNext() ) {
+                    var entry = iterator.next();
+                    if( key.equals( entry.getKey() ) ) {
                         return true;
                     }
                 }
@@ -67,17 +67,19 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         get: function (key) {
-            var entrySet = this.entrySet();
+            var iterator = this.entrySet().iterator();
             if( key === null ) {
-                for( var entry in entrySet ) {
-                    if( entrySet.hasOwnProperty( entry ) && entrySet[entry].getKey() === null ) {
-                        return entrySet[entry].getValue();
+                while( iterator.hasNext() ) {
+                    var entry = iterator.next();
+                    if( entry.getKey() === null ) {
+                        return entry.getValue();
                     }
                 }
             } else {
-                for( var entry in entrySet ) {
-                    if( entrySet.hasOwnProperty( entry ) && key.equals( entrySet[entry].getKey() ) ) {
-                        return entrySet[entry].getValue();
+                while( iterator.hasNext() ) {
+                    var entry = iterator.next();
+                    if( key.equals( entry.getKey() ) ) {
+                        return entry.getValue();
                     }
                 }
             }
@@ -95,9 +97,10 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         putAll: function (map) {
-            var entrySet = map.entrySet();
-            for( var entry in entrySet ) {
-                this.put( entrySet[entry].getKey(), entrySet[entry].getValue() );
+            var iterator = map.entrySet().iterator();
+            while( iterator.hasNext() ) {
+                var entry = iterator.next();
+                this.put( entry.getKey(), entry.getValue() );
             }
         },
 
