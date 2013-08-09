@@ -1,6 +1,4 @@
 qx.Interface.define( "jsava.util.Map", {
-    extend: jsava.lang.Object,
-
     members: {
         size: function () {
         },
