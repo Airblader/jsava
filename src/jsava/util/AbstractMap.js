@@ -1,6 +1,6 @@
-qx.Class.define( 'java.util.AbstractMap', {
-    extend: java.lang.Object,
-    implement: java.util.Map,
+qx.Class.define( 'jsava.util.AbstractMap', {
+    extend: jsava.lang.Object,
+    implement: jsava.util.Map,
 
     type: 'abstract',
 
@@ -8,9 +8,9 @@ qx.Class.define( 'java.util.AbstractMap', {
     },
 
     members: {
-        /** @type java.util.Set */
+        /** @type jsava.util.Set */
         _keySet: null,
-        /** @type java.util.Collection */
+        /** @type jsava.util.Collection */
         _values: null,
 
         entrySet: function () {
@@ -25,16 +25,19 @@ qx.Class.define( 'java.util.AbstractMap', {
         },
 
         containsValue: function (value) {
-            var entrySet = this.entrySet();
+            // TODO rewrite others to use Iterator like this
+            var iterator = this.entrySet().iterator();
             if( value === null ) {
-                for( var entry in entrySet ) {
-                    if( entrySet.hasOwnProperty( entry ) && entrySet[entry].getValue() === null ) {
+                while( iterator.hasNext() ) {
+                    var entry = iterator.next();
+                    if( entry.getValue() === null ) {
                         return true;
                     }
                 }
             } else {
-                for( var entry in entrySet ) {
-                    if( entrySet.hasOwnProperty( entry ) && value.equals( entrySet[entry].getValue() ) ) {
+                while( iterator.hasNext() ) {
+                    var entry = iterator.next();
+                    if( value.equals( entry.getValue() ) ) {
                         return true;
                     }
                 }
@@ -44,6 +47,7 @@ qx.Class.define( 'java.util.AbstractMap', {
         },
 
         containsKey: function (key) {
+            // TODO rewrite to use iterator
             var entrySet = this.entrySet();
             if( key === null ) {
                 for( var entry in entrySet ) {
@@ -82,12 +86,12 @@ qx.Class.define( 'java.util.AbstractMap', {
         },
 
         put: function (key, value) {
-            throw new java.lang.UnsupportedOperationException();
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         remove: function (key) {
             // TODO implement
-            throw new java.lang.UnsupportedOperationException();
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         putAll: function (map) {
@@ -99,26 +103,25 @@ qx.Class.define( 'java.util.AbstractMap', {
 
         clear: function () {
             // TODO implement
-            throw new java.lang.UnsupportedOperationException();
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         keySet: function () {
-            // TODO see java implementation
+            // TODO see jsava implementation
             return this._keySet;
         },
 
         values: function () {
-            // TODO see java implementation
+            // TODO see jsava implementation
             return this._values;
         },
 
         equals: function (other) {
-            // TODO does this even work?
             if( other === this ) {
                 return true;
             }
 
-            if( !other.hasInterface( java.util.Map ) ) {
+            if( !other.hasInterface( jsava.util.Map ) ) {
                 return false;
             }
 
@@ -132,17 +135,18 @@ qx.Class.define( 'java.util.AbstractMap', {
 
         hashCode: function () {
             // TODO implement
-            throw new java.lang.UnsupportedOperationException();
+            return this.base( arguments );
+            //throw new jsava.lang.UnsupportedOperationException();
         },
 
         toString: function () {
             // TODO implement
-            throw new java.lang.UnsupportedOperationException();
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         clone: function () {
             // TODO implement
-            throw new java.lang.UnsupportedOperationException();
+            throw new jsava.lang.UnsupportedOperationException();
         }
     }
 } );

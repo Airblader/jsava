@@ -1,5 +1,5 @@
-qx.Interface.define( "java.util.Map", {
-    extend: java.lang.Object,
+qx.Interface.define( "jsava.util.Map", {
+    extend: jsava.lang.Object,
 
     members: {
         size: function () {
@@ -29,7 +29,7 @@ qx.Interface.define( "java.util.Map", {
         },
 
         putAll: function (map) {
-            this.assertInterface( map, java.util.Map );
+            this.assertInterface( map, jsava.util.Map );
         },
 
         clear: function () {

@@ -1,5 +1,5 @@
-qx.Interface.define( 'java.util.Collection', {
-    extend: java.lang.Iterable,
+qx.Interface.define( 'jsava.util.Collection', {
+    extend: jsava.lang.Iterable,
 
     members: {
         size: function () {
@@ -27,19 +27,19 @@ qx.Interface.define( 'java.util.Collection', {
         },
 
         containsAll: function (collection) {
-            this.assertInterface( collection, java.util.Collection );
+            this.assertInterface( collection, jsava.util.Collection );
         },
 
         addAll: function (collection) {
-            this.assertInterface( collection, java.util.Collection );
+            this.assertInterface( collection, jsava.util.Collection );
         },
 
         removeAll: function (collection) {
-            this.assertInterface( collection, java.util.Collection );
+            this.assertInterface( collection, jsava.util.Collection );
         },
 
         retainAll: function (collection) {
-            this.assertInterface( collection, java.util.Collection );
+            this.assertInterface( collection, jsava.util.Collection );
         },
 
         clear: function () {

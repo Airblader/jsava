@@ -1,5 +1,5 @@
-qx.Interface.define( 'java.util.Map.Entry', {
-    extend: java.lang.Object,
+qx.Interface.define( 'jsava.util.Map.Entry', {
+    extend: jsava.lang.Object,
 
     members: {
         getKey: function () {

@@ -1,5 +1,5 @@
-qx.Class.define( 'java.lang.RuntimeException', {
-    extend: java.lang.Exception,
+qx.Class.define( 'jsava.lang.UnsupportedOperationException', {
+    extend: jsava.lang.RuntimeException,
 
     construct: function () {
         this.base( arguments );

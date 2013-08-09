@@ -1,5 +1,5 @@
-qx.Class.define( 'java.lang.Exception', {
-    extend: java.lang.Throwable,
+qx.Class.define( 'jsava.lang.IllegalArgumentException', {
+    extend: jsava.lang.RuntimeException,
 
     construct: function () {
         this.base( arguments );

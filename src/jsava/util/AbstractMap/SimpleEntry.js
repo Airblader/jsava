@@ -1,6 +1,6 @@
-qx.Class.define( 'java.util.AbstractMap.SimpleEntry', {
-    extend: java.util.Map.Entry,
-    implement: [java.io.Serializable],
+qx.Class.define( 'jsava.util.AbstractMap.SimpleEntry', {
+    extend: jsava.util.Map.Entry,
+    implement: [jsava.io.Serializable],
 
     /* Note : this class is not static since unlike in Java, it is not represented as an inner class */
 
@@ -8,7 +8,7 @@ qx.Class.define( 'java.util.AbstractMap.SimpleEntry', {
         var args = Array.prototype.slice.call( arguments );
         switch( args.length ) {
             case 1:
-                this.assertInterface( args[0], java.util.Map.Entry );
+                this.assertInterface( args[0], jsava.util.Map.Entry );
                 this.__key = args[0].getKey();
                 this.__value = args[0].getValue();
                 break;
@@ -17,7 +17,7 @@ qx.Class.define( 'java.util.AbstractMap.SimpleEntry', {
                 this.__value = args[1];
                 break;
             default:
-                throw new java.lang.IllegalArgumentException();
+                throw new jsava.lang.IllegalArgumentException();
                 break;
         }
     },
@@ -49,7 +49,7 @@ qx.Class.define( 'java.util.AbstractMap.SimpleEntry', {
         },
 
         equals: function (other) {
-            if( !( qx.Interface.classImplements( other, java.util.Map.Entry ) ) ) {
+            if( !( qx.Interface.classImplements( other, jsava.util.Map.Entry ) ) ) {
                 return false;
             }
 

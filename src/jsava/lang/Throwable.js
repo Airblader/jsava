@@ -1,18 +1,18 @@
-qx.Class.define( 'java.lang.Throwable', {
-    extend: java.lang.Object,
-    implement: [java.io.Serializable],
+qx.Class.define( 'jsava.lang.Throwable', {
+    extend: jsava.lang.Object,
+    implement: [jsava.io.Serializable],
 
     construct: function () {
         var args = Array.prototype.slice.call( arguments );
         this.fillInStackTrace();
 
-        if( args.length === 1 && qx.Class.isSubClassOf( args[0], java.lang.Throwable ) ) {
+        if( args.length === 1 && qx.Class.isSubClassOf( args[0], jsava.lang.Throwable ) ) {
             this.__detailMessage = (args[0] === null) ? null : args[0].toString();
             this.__cause = args[0];
         } else if( args.length >= 1 && typeof args[0] === 'string' ) {
             this.__detailMessage = args[0];
 
-            if( args.length === 2 && qx.Class.isSubClassOf( args[1], java.lang.Throwable ) ) {
+            if( args.length === 2 && qx.Class.isSubClassOf( args[1], jsava.lang.Throwable ) ) {
                 this.__cause = args[1];
             }
         }
@@ -23,8 +23,8 @@ qx.Class.define( 'java.lang.Throwable', {
     },
 
     members: {
-        __backTrace: undefined,
         __detailMessage: undefined,
+        /** @type jsava.lang.Throwable */
         __cause: this,
         __stackTrace: undefined,
 
