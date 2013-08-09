@@ -156,14 +156,33 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                 return false;
             }
 
-            // TODO the rest of comparison
+            try {
+                var iterator = this.entrySet().iterator();
+                while( iterator.hasNext() ) {
+                    var entry = iterator.next(),
+                        key = entry.getKey(),
+                        value = entry.getValue();
+                    if( value === null ) {
+                        if( !(other.get( key ) === null && other.containsKey( key )) ) {
+                            return false;
+                        }
+                    } else {
+                        if( !value.equals( other.get( key ) ) ) {
+                            return false
+                        }
+                    }
+                }
+            } catch( e ) {
+                // TODO : catch explicitly named exceptions
+                return false;
+            }
+
             return true;
         },
 
         hashCode: function () {
             // TODO implement
             return this.base( arguments );
-            //throw new jsava.lang.UnsupportedOperationException();
         },
 
         toString: function () {
