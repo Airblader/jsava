@@ -13,6 +13,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         /** @type jsava.util.Collection */
         _values: null,
 
+        /** @abstract */
         entrySet: function () {
         },
 
