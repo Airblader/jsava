@@ -92,8 +92,31 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         remove: function (key) {
-            // TODO implement
-            throw new jsava.lang.UnsupportedOperationException();
+            var iterator = this.entrySet().iterator(),
+                correctEntry = null;
+            if( key === null ) {
+                while( correctEntry === null && iterator.hasNext() ) {
+                    var entry = iterator.next();
+                    if( entry.getKey() === null ) {
+                        correctEntry = entry;
+                    }
+                }
+            } else {
+                while( correctEntry === null && iterator.hasNext() ) {
+                    var entry = iterator.next();
+                    if( key.equals( entry.getKey() ) ) {
+                        correctEntry = entry;
+                    }
+                }
+            }
+
+            var oldValue = null;
+            if( correctEntry !== null ) {
+                oldValue = correctEntry.getValue();
+                iterator.remove();
+            }
+
+            return oldValue;
         },
 
         putAll: function (map) {
