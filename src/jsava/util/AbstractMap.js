@@ -181,8 +181,13 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         hashCode: function () {
-            // TODO implement
-            return this.base( arguments );
+            var hashCode = 0,
+                iterator = this.entrySet().iterator();
+            while( iterator.hasNext() ) {
+                hashCode += iterator.next().hashCode();
+            }
+
+            return hashCode;
         },
 
         toString: function () {
