@@ -191,8 +191,27 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         toString: function () {
-            // TODO implement
-            throw new jsava.lang.UnsupportedOperationException();
+            var iterator = this.entrySet().iterator();
+            if( !iterator.hasNext() ) {
+                return '{}';
+            }
+
+            // TODO use java.lang.StringBuilder
+            var result = '{';
+            for( ; ; ) {
+                var entry = iterator.next(),
+                    key = entry.getKey(),
+                    value = entry.getValue();
+                result += (key === this) ? '(this Map)' : key;
+                result += '=';
+                result += (value === this) ? '(this Map)' : value;
+
+                if( !iterator.hasNext() ) {
+                    return result += '}';
+                }
+
+                result += ', ';
+            }
         },
 
         clone: function () {
