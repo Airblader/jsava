@@ -1,4 +1,4 @@
-qx.Class.define( 'AbstractSet', {
+qx.Class.define( 'jsava.util.AbstractSet', {
     extend: jsava.util.AbstractCollection,
     implement: [jsava.util.Set],
 
