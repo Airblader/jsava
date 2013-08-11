@@ -2,7 +2,8 @@ qx.Class.define( 'jsava.util.AbstractMap', {
     extend: jsava.lang.Object,
     implement: jsava.util.Map,
 
-    type: 'abstract',
+    // TODO not abstract to allow inline instanciation – there could be a better way for this
+    //type: 'abstract',
 
     /** @protected */
     construct: function () {
@@ -134,12 +135,20 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         keySet: function () {
-            // TODO see java implementation
+            if( this._keySet === null ) {
+                // TODO see java implementation
+                throw new jsava.lang.UnsupportedOperationException();
+            }
+
             return this._keySet;
         },
 
         values: function () {
-            // TODO see java implementation
+            if( this._values === null ) {
+                // TODO see java implementation
+                throw new jsava.lang.UnsupportedOperationException();
+            }
+            
             return this._values;
         },
 
