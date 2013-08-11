@@ -136,8 +136,41 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
         keySet: function () {
             if( this._keySet === null ) {
-                // TODO see java implementation
-                throw new jsava.lang.UnsupportedOperationException();
+                // TODO can these patterns for anonymous inner classes be improved?
+                this._keySet = (function (abstractMap) {
+                    var __abstractSet = new jsava.util.AbstractSet();
+
+                    __abstractSet.iterator = function () {
+                        return (function () {
+                            var __iterator = new jsava.util.Iterator.Iterator(),
+                                iterator = abstractMap.entrySet().iterator();
+
+                            __iterator.hasNext = function () {
+                                return iterator.hasNext();
+                            };
+
+                            __iterator.next = function () {
+                                return iterator.next().getKey();
+                            };
+
+                            __iterator.remove = function () {
+                                iterator.remove();
+                            };
+
+                            return __iterator;
+                        })();
+                    };
+
+                    __abstractSet.size = function () {
+                        return abstractMap.size();
+                    };
+
+                    __abstractSet.contains = function (obj) {
+                        return abstractMap.containsKey( obj );
+                    };
+
+                    return __abstractSet;
+                })( this );
             }
 
             return this._keySet;
@@ -145,8 +178,39 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
         values: function () {
             if( this._values === null ) {
-                // TODO see java implementation
-                throw new jsava.lang.UnsupportedOperationException();
+                // TODO can these patterns for anonymous inner classes be improved?
+                this._values = (function (abstractMap) {
+                    var __abstractCollection = new jsava.util.AbstractCollection();
+
+                    __abstractCollection.iterator = function () {
+                        return (function () {
+                            var __iterator = new jsava.util.Iterator.Iterator(),
+                                iterator = abstractMap.entrySet().iterator();
+
+                            __iterator.hasNext = function () {
+                                return iterator.hasNext();
+                            };
+
+                            __iterator.next = function () {
+                                return iterator.next().getValue();
+                            };
+
+                            __iterator.remove = function () {
+                                iterator.remove();
+                            };
+                        })();
+                    };
+
+                    __abstractCollection.size = function () {
+                        return abstractMap.size();
+                    };
+
+                    __abstractCollection.contains = function (value) {
+                        return abstractMap.containsValue( value );
+                    };
+
+                    return __abstractCollection;
+                })( this );
             }
 
             return this._values;
