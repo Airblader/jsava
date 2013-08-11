@@ -1,4 +1,6 @@
 qx.Class.define( 'jsava.util.AbstractMap.SimpleEntry', {
+    // TODO move into inner class
+
     extend: jsava.util.Map.Entry,
     implement: [jsava.io.Serializable],
 
