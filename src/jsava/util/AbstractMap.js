@@ -197,39 +197,50 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
         values: function () {
             if( this._values === null ) {
-                // TODO can these patterns for anonymous inner classes be improved?
-                this._values = (function (abstractMap) {
-                    var __abstractCollection = new jsava.util.AbstractCollection();
+                var _this = this;
 
-                    __abstractCollection.iterator = function () {
-                        return (function () {
-                            var __iterator = new jsava.util.Iterator.Iterator(),
-                                iterator = abstractMap.entrySet().iterator();
+                this._values = new (jsava.util.AbstractMap.__createAnonymousInnerClass( {
+                    extend: jsava.util.AbstractCollection,
 
-                            __iterator.hasNext = function () {
-                                return iterator.hasNext();
-                            };
+                    construct: function () {
+                    },
 
-                            __iterator.next = function () {
-                                return iterator.next().getValue();
-                            };
+                    members: {
+                        iterator: function () {
+                            return new (jsava.util.AbstractMap.__createAnonymousInnerClass( {
+                                extend: jsava.util.Object(),
+                                implement: [jsava.util.Iterator],
 
-                            __iterator.remove = function () {
-                                iterator.remove();
-                            };
-                        })();
-                    };
+                                construct: function () {
+                                },
 
-                    __abstractCollection.size = function () {
-                        return abstractMap.size();
-                    };
+                                members: {
+                                    __iterator: _this.entrySet().iterator(),
 
-                    __abstractCollection.contains = function (value) {
-                        return abstractMap.containsValue( value );
-                    };
+                                    hasNext: function () {
+                                        return this.__iterator.hasNext();
+                                    },
 
-                    return __abstractCollection;
-                })( this );
+                                    next: function () {
+                                        return this.__iterator.next().getValue();
+                                    },
+
+                                    remove: function () {
+                                        this.__iterator.remove();
+                                    }
+                                }
+                            } ) );
+                        },
+
+                        size: function () {
+                            return _this.size();
+                        },
+
+                        contains: function (value) {
+                            return _this.containsValue( value );
+                        }
+                    }
+                } ) );
             }
 
             return this._values;
