@@ -25,7 +25,7 @@ qx.Class.define( 'jsava.lang.Object', {
             return this === other;
         },
 
-        clone: function () {
+        _clone: function () {
             // TODO
             throw new jsava.lang.UnsupportedOperationException();
         },
@@ -49,7 +49,7 @@ qx.Class.define( 'jsava.lang.Object', {
             throw new jsava.lang.UnsupportedOperationException();
         },
 
-        finalize: function () {
+        _finalize: function () {
             throw new jsava.lang.UnsupportedOperationException();
         }
     }

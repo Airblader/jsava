@@ -214,9 +214,11 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             }
         },
 
-        clone: function () {
-            // TODO implement
-            throw new jsava.lang.UnsupportedOperationException();
+        _clone: function () {
+            var result = this.base( arguments );
+            result._keySet = null;
+            result._values = null;
+            return result;
         }
     }
 } );
