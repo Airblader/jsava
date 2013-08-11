@@ -1,6 +1,6 @@
 qx.Class.define( 'jsava.util.AbstractCollection', {
     extend: jsava.lang.Object,
-    implement: [jsava.lang.Collection],
+    implement: [jsava.util.Collection],
 
     // TODO not abstract to allow inline instanciation – there could be a better way for this
     //type: 'abstract',
