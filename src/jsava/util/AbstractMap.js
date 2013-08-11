@@ -9,6 +9,16 @@ qx.Class.define( 'jsava.util.AbstractMap', {
     construct: function () {
     },
 
+    statics: {
+        // TODO move into new class and use as mix-in
+        __createAnonymousInnerClass: function (config) {
+            var name = 'Anonymous',
+                clazz = qx.Class.define( name, config );
+            qx.Class.undefine( name );
+            return clazz;
+        }
+    },
+
     members: {
         /** @type jsava.util.Set */
         _keySet: null,
@@ -136,41 +146,50 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
         keySet: function () {
             if( this._keySet === null ) {
-                // TODO can these patterns for anonymous inner classes be improved?
-                this._keySet = (function (abstractMap) {
-                    var __abstractSet = new jsava.util.AbstractSet();
+                var _this = this;
 
-                    __abstractSet.iterator = function () {
-                        return (function () {
-                            var __iterator = new jsava.util.Iterator.Iterator(),
-                                iterator = abstractMap.entrySet().iterator();
+                this._keySet = new (jsava.util.AbstractMap.__createAnonymousInnerClass( {
+                    extend: jsava.util.AbstractSet,
 
-                            __iterator.hasNext = function () {
-                                return iterator.hasNext();
-                            };
+                    construct: function () {
+                    },
 
-                            __iterator.next = function () {
-                                return iterator.next().getKey();
-                            };
+                    members: {
+                        iterator: function () {
+                            return new (jsava.util.AbstractMap.__createAnonymousInnerClass( {
+                                extend: jsava.lang.Object,
+                                implement: [jsava.util.Iterator],
 
-                            __iterator.remove = function () {
-                                iterator.remove();
-                            };
+                                construct: function () {
+                                },
 
-                            return __iterator;
-                        })();
-                    };
+                                members: {
+                                    __iterator: _this.entrySet().iterator(),
 
-                    __abstractSet.size = function () {
-                        return abstractMap.size();
-                    };
+                                    hasNext: function () {
+                                        return this.__iterator.hasNext();
+                                    },
 
-                    __abstractSet.contains = function (obj) {
-                        return abstractMap.containsKey( obj );
-                    };
+                                    next: function () {
+                                        return this.__iterator.next().getKey();
+                                    },
 
-                    return __abstractSet;
-                })( this );
+                                    remove: function () {
+                                        this.__iterator.remove();
+                                    }
+                                }
+                            } ) );
+                        },
+
+                        size: function () {
+                            return _this.size();
+                        },
+
+                        contains: function (key) {
+                            return _this.containsKey( key );
+                        }
+                    }
+                } ) );
             }
 
             return this._keySet;
@@ -292,6 +311,8 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             result._keySet = null;
             result._values = null;
             return result;
-        }
+        },
+
+
     }
 } );
