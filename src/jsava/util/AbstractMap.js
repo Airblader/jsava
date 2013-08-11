@@ -129,17 +129,16 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         clear: function () {
-            // TODO implement
-            throw new jsava.lang.UnsupportedOperationException();
+            this.entrySet().clear();
         },
 
         keySet: function () {
-            // TODO see jsava implementation
+            // TODO see java implementation
             return this._keySet;
         },
 
         values: function () {
-            // TODO see jsava implementation
+            // TODO see java implementation
             return this._values;
         },
 
