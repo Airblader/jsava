@@ -148,7 +148,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                 // TODO see java implementation
                 throw new jsava.lang.UnsupportedOperationException();
             }
-            
+
             return this._values;
         },
 
