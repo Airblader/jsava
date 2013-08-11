@@ -2,10 +2,16 @@ qx.Class.define( 'jsava.lang.Object', {
     extend: qx.core.Object,
 
     members: {
+        /**
+         * @returns {String}
+         */
         getClass: function () {
             return this.name;
         },
 
+        /**
+         * @returns {Integer}
+         */
         hashCode: function () {
             var hashCode = 0;
 
@@ -25,15 +31,21 @@ qx.Class.define( 'jsava.lang.Object', {
             return hashCode;
         },
 
+        /**
+         * @param other
+         * @returns {Boolean}
+         */
         equals: function (other) {
             return this === other;
         },
 
         _clone: function () {
-            // TODO
-            throw new jsava.lang.UnsupportedOperationException();
+            return this.clone();
         },
 
+        /**
+         * @returns {String}
+         */
         toString: function () {
             return this.getClass().name + '@' + this.hashCode().toString( 16 );
         },
