@@ -13,9 +13,11 @@ qx.Class.define( 'jsava.lang.Object', {
         },
 
         hashCode: function () {
+            // TODO use qx's internal toHashCode() ?
             if( typeof this.__hashCode === 'undefined' ) {
-                // TODO better way to access the static property
-                this.__hashCode = jsava.lang.Object.__hashCodeCache++;
+                // TODO this is incorrect as objects that are equal will not report the same hashCode
+                //this.__hashCode = jsava.lang.Object.__hashCodeCache++;
+                return 0;
             }
 
             return this.__hashCode;
