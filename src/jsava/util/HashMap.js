@@ -3,12 +3,44 @@ qx.Class.define( 'jsava.util.HashMap', {
     implement: [jsava.util.Map, jsava.io.Serializable, jsava.lang.Cloneable],
 
     construct: function () {
-        // TODO overloaded signatures
-        if( Array.prototype.slice.call( arguments ).length !== 0 ) {
-            throw new jsava.lang.UnsupportedOperationException();
+        var args = Array.prototype.slice.call( arguments ),
+            initialCapacity = this.self( arguments ).DEFAULT_INITIAL_CAPACITY,
+            loadFactor = this.self( arguments ).DEFAULT_INITIAL_CAPACITY;
+
+        switch( args.length ) {
+            case 1:
+                if( qx.Class.implementsInterface( args[0], jsava.util.Map ) ) {
+                    // TODO
+                    throw new jsava.lang.UnsupportedOperationException();
+                } else {
+                    initialCapacity = args[0];
+                }
+                break;
+            case 2:
+                initialCapacity = args[0];
+                loadFactor = args[1];
+                break;
         }
 
-        // TODO
+        if( initialCapacity < 0 ) {
+            throw new jsava.lang.IllegalArgumentException( 'Illegal initial capacity: ' + initialCapacity );
+        }
+        if( initialCapacity > this.self( arguments ).MAXIMUM_CAPACITY ) {
+            initialCapacity = this.self( arguments ).MAXIMUM_CAPACITY;
+        }
+        if( loadFactor <= 0 || isNaN( loadFactor ) ) {
+            throw new jsava.lang.IllegalArgumentException( 'Illegal load factor: ' + loadFactor );
+        }
+
+        var capacity = 1;
+        while( capacity < initialCapacity ) {
+            capacity <<= 1;
+        }
+
+        this._loadFactor = loadFactor;
+        this._threshold = (capacity * loadFactor) | 0;
+        this._table = undefined; // TODO
+        this._init();
     },
 
     statics: {
