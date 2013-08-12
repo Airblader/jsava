@@ -57,7 +57,86 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         _indexFor: function (hashCode, length) {
             return hashCode & (length - 1);
-        }
+        },
+
+        Entry: qx.Class.define( 'jsava.util.HashMap.Entry', {
+            extend: jsava.lang.Object,
+            implement: [jsava.util.Map.Entry],
+
+            construct: function (hash, key, value, nextEntry) {
+                this._value = value;
+                this._next = nextEntry;
+                this._key = key;
+                this._hash = hash;
+            },
+
+            members: {
+                _key: undefined,
+                _value: undefined,
+                /** @type jsava.util.HashMap.Entry */
+                _next: undefined,
+                /** @type Integer */
+                _hash: undefined,
+
+                getKey: function () {
+                    return this._key;
+                },
+
+                getValue: function () {
+                    return this._value;
+                },
+
+                setValue: function (newValue) {
+                    var oldValue = this._value;
+                    this._value = newValue;
+                    return oldValue;
+                },
+
+                equals: function (obj) {
+                    if( !qx.Class.isSubClassOf( obj, jsava.util.HashMap.Entry ) ) {
+                        return false;
+                    }
+
+                    /** @type jsava.util.HashMap.Entry */
+                    var entry = obj,
+                        key1 = this.getKey(),
+                        key2 = entry.getKey();
+                    if( key1 === key2 || (key1 !== null && key1.equals( key2 )) ) {
+                        var value1 = this.getValue(),
+                            value2 = entry.getValue();
+                        if( value1 === value2 || (value1 !== null && value1.equals( value2 )) ) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                },
+
+                hashCode: function () {
+                    return (this._key === null ? 0 : this._key.hashCode()) ^
+                        (this._value === null ? 0 : this._value.hashCode());
+                },
+
+                toString: function () {
+                    return this.getKey() + '=' + this.getValue();
+                },
+
+                /**
+                 * This method is invoked whenever the value in an entry is
+                 * overwritten by an invocation of put(k,v) for a key k that's already
+                 * in the HashMap.
+                 */
+                _recordAccess: function () {
+                },
+
+                /**
+                 * This method is invoked whenever the entry is
+                 * removed from the table.
+                 */
+                _recordRemoval: function () {
+                }
+            }
+        } )
     },
 
     members: {
