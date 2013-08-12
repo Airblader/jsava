@@ -63,11 +63,15 @@ qx.Class.define( 'jsava.util.HashMap', {
     members: {
         /** @type jsava.util.HashMap.Entry */
         _table: undefined,
-        // TODO types
+        /** @type Integer */
         _size: undefined,
+        /** @type Integer */
         _threshold: undefined,
+        /** @type Number */
         _loadFactor: undefined,
+        /** @type Integer */
         _modCount: undefined,
+        /** @type jsava.util.Set */
         __entrySet: undefined,
 
         /**
@@ -81,11 +85,11 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         size: function () {
-            // TODO
+            return this._size;
         },
 
         isEmpty: function () {
-            // TODO
+            return this._size === 0;
         },
 
         get: function (obj) {
