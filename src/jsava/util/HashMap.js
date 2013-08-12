@@ -61,7 +61,7 @@ qx.Class.define( 'jsava.util.HashMap', {
     },
 
     members: {
-        /** @type jsava.util.HashMap.Entry */
+        /** @type jsava.util.HashMap.Entry[] */
         _table: undefined,
         /** @type Integer */
         _size: undefined,
