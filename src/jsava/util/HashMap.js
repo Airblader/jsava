@@ -92,8 +92,23 @@ qx.Class.define( 'jsava.util.HashMap', {
             return this._size === 0;
         },
 
-        get: function (obj) {
-            // TODO
+        get: function (key) {
+            if( key === null ) {
+                // TODO
+            }
+
+            var hash = this._hash( key.hashCode() );
+            for( var entry = this._table[this._indexFor( hash, this._table.length )];
+                 entry !== null; entry = entry.next() ) {
+                /** @type jsava.lang.Object */
+                var k;
+                // TODO revisit this when inner classes are implemented to check names
+                if( entry._hash === hash && ((k = entry._key) === key || key.equals( k )) ) {
+                    return entry._value;
+                }
+            }
+
+            return null;
         },
 
         containsKey: function (key) {
