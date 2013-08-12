@@ -7,27 +7,22 @@ qx.Interface.define( "jsava.util.Map", {
         },
 
         containsKey: function (key) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         containsValue: function (value) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         get: function (key) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         put: function (key, value) {
-            this.assertArgumentsCount( arguments, 2, 2 );
+
         },
 
         remove: function (key) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         putAll: function (map) {
-            this.assertInterface( map, jsava.util.Map );
         },
 
         clear: function () {
@@ -44,7 +39,6 @@ qx.Interface.define( "jsava.util.Map", {
         },
 
         equals: function (other) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         hashCode: function () {

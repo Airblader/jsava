@@ -9,11 +9,9 @@ qx.Interface.define( 'jsava.util.Map.Entry', {
         },
 
         setValue: function (value) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         equals: function (other) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         hashCode: function () {

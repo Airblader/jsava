@@ -322,8 +322,6 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             result._keySet = null;
             result._values = null;
             return result;
-        },
-
-
+        }
     }
 } );
