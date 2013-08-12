@@ -9,16 +9,6 @@ qx.Class.define( 'jsava.util.AbstractMap', {
     construct: function () {
     },
 
-    statics: {
-        // TODO move into new class and use as mix-in
-        __createAnonymousInnerClass: function (config) {
-            var name = 'Anonymous',
-                clazz = qx.Class.define( name, config );
-            qx.Class.undefine( name );
-            return clazz;
-        }
-    },
-
     members: {
         /** @type jsava.util.Set */
         _keySet: null,
@@ -148,7 +138,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             if( this._keySet === null ) {
                 var _this = this;
 
-                this._keySet = new (jsava.util.AbstractMap.__createAnonymousInnerClass( {
+                this._keySet = new (jsava.JsavaUtils.createAnonymousClass( {
                     extend: jsava.util.AbstractSet,
 
                     construct: function () {
@@ -156,7 +146,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
                     members: {
                         iterator: function () {
-                            return new (jsava.util.AbstractMap.__createAnonymousInnerClass( {
+                            return new (jsava.JsavaUtils.createAnonymousClass( {
                                 extend: jsava.lang.Object,
                                 implement: [jsava.util.Iterator],
 
@@ -199,7 +189,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             if( this._values === null ) {
                 var _this = this;
 
-                this._values = new (jsava.util.AbstractMap.__createAnonymousInnerClass( {
+                this._values = new (jsava.JsavaUtils.createAnonymousClass( {
                     extend: jsava.util.AbstractCollection,
 
                     construct: function () {
@@ -207,7 +197,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
                     members: {
                         iterator: function () {
-                            return new (jsava.util.AbstractMap.__createAnonymousInnerClass( {
+                            return new (jsava.JsavaUtils.createAnonymousClass( {
                                 extend: jsava.util.Object(),
                                 implement: [jsava.util.Iterator],
 
