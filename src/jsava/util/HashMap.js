@@ -56,7 +56,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         _indexFor: function (hashCode, length) {
-            // TODO
+            return hashCode & (length - 1);
         }
     },
 
