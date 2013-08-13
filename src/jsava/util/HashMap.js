@@ -317,11 +317,37 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         remove: function (key) {
-            // TODO
+            var entry = this._removeEntryForKey( key );
+            return entry === null ? null : entry._value;
         },
 
         _removeEntryForKey: function (key) {
-            // TODO
+            var hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() ),
+                i = this.self( arguments )._indexFor( hash, this._table.length ),
+                prev = this._table[i],
+                entry = prev;
+
+            while( entry !== null ) {
+                var next = entry._next,
+                    /** @type jsava.lang.Object */
+                        k;
+                if( entry._hash === hash
+                    && ( (k = entry._key) === key || ( key !== null && key.equals( k ) ) ) ) {
+                    this._modCount++;
+                    this._size--;
+                    if( prev === entry ) {
+                        this._table[i] = next;
+                    } else {
+                        prev._next = next;
+                    }
+                    entry._recordRemoval( this );
+                    return entry;
+                }
+                prev = entry;
+                entry = next;
+            }
+
+            return entry;
         },
 
         _removeMapping: function (obj) {
