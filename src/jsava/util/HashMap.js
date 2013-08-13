@@ -273,7 +273,21 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         _transfer: function (newTable) {
-            // TODO
+            var src = this._table,
+                newCapacity = newTable.length;
+            for( var j = 0; j < src.length; j++ ) {
+                var entry = src[j];
+                if( entry !== null ) {
+                    src[j] = null;
+                    do {
+                        var next = entry._next,
+                            i = this.self( arguments )._indexFor( entry._hash, newCapacity );
+                        entry._next = newTable[i];
+                        newTable[i] = entry;
+                        entry = next;
+                    } while( entry !== null );
+                }
+            }
         },
 
         putAll: function (map) {
