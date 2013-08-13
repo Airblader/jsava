@@ -17,7 +17,7 @@
         var shortName = fullName.substring( fullName.lastIndexOf( '.' ) + 1, fullName.length );
 
         if( typeof window[shortName] !== 'undefined' ) {
-            log( 'Cannot shorten ' + fullName + ' because the name is reserved' );
+            log( fullName, 'shorted name already in use' );
             return;
         }
 
@@ -30,13 +30,39 @@
         window[shortName] = __clazz;
         __cache[fullName] = CacheStatus.LOADED_UNSHORTENED;
 
-        log( 'Imported ' + fullName + ' as ' + shortName );
+        log( fullName, 'shortened to <' + shortName + '>' );
     }
 
-    function log (msg) {
+    function log (target, msg) {
         if( isDebug && console && console.log ) {
-            console.log( msg );
+            console.log( '[' + target + '] ' + msg );
         }
+    }
+
+    function getRequiredClasses (content) {
+        var requiredClasses = [];
+
+        // TODO be more specific as this could appear in the source code
+        var regExpInterfaces = /implement\s*:\s*(?:([^\[]+?),|\[\s*(.+?)\s*\]\s*,)/mg,
+            matchesA;
+        while( (matchesA = regExpInterfaces.exec( content )) !== null ) {
+            if( typeof matchesA[1] !== 'undefined' ) {
+                requiredClasses.push( matchesA[1].replace( /\s*/g, '' ) );
+            } else {
+                var interfazzes = matchesA[2].replace( /\s*/g, '' ).split( /,/ );
+                for( var i = 0; i < interfazzes.length; i++ ) {
+                    requiredClasses.push( interfazzes[i] );
+                }
+            }
+        }
+
+        var regExpInheritance = /(?:extend\s*:\s*)(.+?),/mg,
+            matchesB;
+        while( (matchesB = regExpInheritance.exec( content )) !== null ) {
+            requiredClasses.push( matchesB[1].replace( /\s*/g, '' ) );
+        }
+
+        return requiredClasses;
     }
 
     function __import (target, doShorten) {
@@ -45,7 +71,7 @@
             return;
         }
 
-        log( 'Importing "' + target + '"' );
+        log( target, 'starting import...' );
 
         doShorten = (typeof doShorten === 'undefined') ? true : doShorten;
 
@@ -66,31 +92,23 @@
             async: false
         } )
             .done( function (content) {
-                // TODO there has to be a wait for this
-                // TODO be more precise in the unlikely case it appears in the source
-                var regExpInterfaces = content.match( /implement\s*:\s*(?:([^\[]+?),|\[\s*(.+?)\s*\]\s*,)/m ),
-                    listOfInterfaces = [];
-                if( regExpInterfaces !== null ) {
-                    if( typeof regExpInterfaces[1] !== 'undefined' ) {
-                        listOfInterfaces = [regExpInterfaces[1]];
-                    } else if( typeof regExpInterfaces[2] !== 'undefined' ) {
-                        listOfInterfaces = regExpInterfaces[2].replace( /\s*/g, '' ).split( /,/ );
-                    }
+                var requiredClasses = getRequiredClasses( content );
+                if( requiredClasses.length !== 0 ) {
+                    log( target, 'requires classes [' + requiredClasses + ']' );
                 }
 
-                for( var i = 0; i < listOfInterfaces.length; i++ ) {
-                    __import( listOfInterfaces[i], false );
+                for( var i = 0; i < requiredClasses.length; i++ ) {
+                    __import( requiredClasses[i], false );
                 }
 
-                var regExpInheritance = content.match( /extend\s*:\s*(.+?),/m );
-                if( regExpInheritance !== null && typeof regExpInheritance[1] !== 'undefined' ) {
-                    __import( regExpInheritance[1].replace( /\s*/g, '' ), false );
+                if( requiredClasses.length !== 0 ) {
+                    log( target, 'all required classes imported' );
                 }
 
                 $.globalEval( content );
                 done = true;
 
-                log( 'Imported "' + target + '"' );
+                log( target, 'imported' );
                 __cache[target] = CacheStatus.LOADED_UNSHORTENED;
 
                 if( doShorten ) {
@@ -100,7 +118,7 @@
                 // TODO scan script content for more classes?
             } )
             .fail( function () {
-                console.log( 'Failed to import ' + 'src/' + target.replace( /\./g, '/' ) + '.js', arguments );
+                log( target, 'failed to import [' + arguments + ']' );
                 done = true;
             } );
 
