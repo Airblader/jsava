@@ -198,7 +198,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                     members: {
                         iterator: function () {
                             return new (jsava.JsavaUtils.createAnonymousClass( {
-                                extend: jsava.util.Object(),
+                                extend: jsava.lang.Object,
                                 implement: [jsava.util.Iterator],
 
                                 construct: function () {
