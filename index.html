@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<input type="button" id="btnImportAll" value="Import all"/>
+<script src="qx-oo-3.0.min.js"></script>
+<script src="jquery.min.js"></script>
+<script src="javajs.js"></script>
+<script>
+    /*
+     TODO
+
+     - check all "isSubClassOf" calls if they actually reference interfaces
+     - inline Entry.js and Simple*Entry.js
+     - check for protected/private methods
+     - generic types : how to verify types?
+     */
+
+    $( document ).ready( function () {
+        $( '#btnImportAll' ).on( 'click', function () {
+            var startTime = new Date().getTime();
+
+            // TODO have script only write an array and then load it here
+            $.getScript( 'imports.js' )
+                    .done( function () {
+                        var cache = showCache(),
+                                numberOfImportedClasses = 0;
+                        for( var i in cache ) {
+                            if( cache.hasOwnProperty( i ) ) {
+                                numberOfImportedClasses++;
+                            }
+                        }
+
+                        console.log( 'Done importing ' + numberOfImportedClasses + ' classes in '
+                                + (new Date().getTime() - startTime) + 'ms.' );
+                    } )
+                    .fail( function () {
+                        console.log( 'Error during import.' );
+                        console.log( arguments );
+                    } );
+        } );
+    } );
+</script>
+</body>
+</html>
