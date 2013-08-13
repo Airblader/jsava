@@ -356,6 +356,26 @@ qx.Class.define( 'jsava.util.HashMap', {
                     return this._nextEntry()._value;
                 }
             }
+        } ),
+
+        KeyIterator: qx.Class.define( 'jsava.util.HashMap.KeyIterator', {
+            extend: jsava.util.HashMap.HashIterator,
+
+            members: {
+                next: function () {
+                    return this._nextEntry().getKey();
+                }
+            }
+        } ),
+
+        EntryIterator: qx.Class.define( 'jsava.util.HashMap.EntryIterator', {
+            extend: jsava.util.HashMap.HashIterator,
+
+            members: {
+                next: function () {
+                    return this._nextEntry();
+                }
+            }
         } )
     }
 } );
