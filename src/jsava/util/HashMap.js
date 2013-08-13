@@ -39,8 +39,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         this._loadFactor = loadFactor;
         this._threshold = (capacity * loadFactor) | 0;
-        // TODO use capacity here
-        this._table = [];
+        this._table = jsava.JsavaUtils.emptyArrayOfGivenSize( capacity );
         this._init();
     },
 
@@ -265,8 +264,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 return;
             }
 
-            // TODO use newCapacity here
-            var newTable = [];
+            var newTable = jsava.JsavaUtils.emptyArrayOfGivenSize( newCapacity );
             this._transfer( newTable );
             this._table = newTable;
             this._threshold = (newCapacity * this._loadFactor) | 0;

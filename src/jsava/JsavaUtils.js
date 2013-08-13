@@ -15,6 +15,18 @@ qx.Class.define( 'jsava.JsavaUtils', {
             qx.Class.undefine( clazzName );
 
             return clazz;
+        },
+
+        /**
+         * Creates and returns an empty array of given size.
+         * @param size
+         * @returns {Array}
+         */
+        emptyArrayOfGivenSize: function (size) {
+            var result = [];
+            result[size - 1] = undefined;
+
+            return result;
         }
     }
 } );
