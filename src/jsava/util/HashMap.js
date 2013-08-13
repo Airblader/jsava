@@ -268,6 +268,84 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         entrySet: function () {
             // TODO
-        }
+        },
+
+        /** @private */
+        HashIterator: (function () {
+            var thisHashMap = this;
+
+            qx.Class.define( 'jsava.util.HashMap.HashIterator', {
+                extend: jsava.lang.Object,
+                implement: [jsava.lang.Iterator],
+
+                type: 'abstract',
+
+                /** @protected */
+                construct: function () {
+                    this._expectedModCount = thisHashMap._modCount;
+                    if( thisHashMap._size > 0 ) {
+                        var table = thisHashMap._table;
+                        while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
+                            // do nothing
+                        }
+                    }
+                },
+
+                members: {
+                    /** @type jsava.util.HashMap.Entry */
+                    _next: undefined,
+                    /** @type Integer */
+                    _expectedModCount: undefined,
+                    /** @type Integer */
+                    _index: undefined,
+                    /** @type jsava.util.HashMap.Entry */
+                    _current: undefined,
+
+                    hasNext: function () {
+                        return this._next !== null;
+                    },
+
+                    _nextEntry: function () {
+                        if( thisHashMap._modCount !== this._expectedModCount ) {
+                            // TODO throw ConcurrentModificationException
+                            throw new jsava.lang.Exception();
+                        }
+
+                        var entry = this._next;
+                        if( entry === null ) {
+                            // TODO throw NoSuchElementException
+                            throw new jsava.lang.Exception();
+                        }
+
+                        if( (this._next = entry._next) === null ) {
+                            var table = thisHashMap.table;
+                            while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
+                                // do nothing
+                            }
+                        }
+
+                        this._current = entry;
+                        return entry;
+                    },
+
+                    remove: function () {
+                        if( this._current === null ) {
+                            // TODO throw IllegalStateException
+                            throw new jsava.lang.Exception();
+                        }
+
+                        if( thisHashMap._modCount !== this._expectedModCount ) {
+                            // TODO throw ConcurrentModificationException
+                            throw new jsava.lang.Exception();
+                        }
+
+                        var key = this._current._key;
+                        this._current = null;
+                        thisHashMap._removeEntryForKey( key );
+                        this._expectedModCount = thisHashMap._modCount;
+                    }
+                }
+            } );
+        })()
     }
 } );
