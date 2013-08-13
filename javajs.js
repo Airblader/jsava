@@ -121,6 +121,7 @@
                 // TODO scan script content for more classes?
             } )
             .fail( function () {
+                // TODO might happen with inner classes -- ignore for nows
                 log( target, 'failed to import' );
                 done = true;
             } );

@@ -346,6 +346,16 @@ qx.Class.define( 'jsava.util.HashMap', {
                     }
                 }
             } );
-        })()
+        })(),
+
+        ValueIterator: qx.Class.define( 'jsava.util.HashMap.ValueIterator', {
+            extend: jsava.util.HashMap.HashIterator,
+
+            members: {
+                next: function () {
+                    return this._nextEntry()._value;
+                }
+            }
+        } )
     }
 } );
