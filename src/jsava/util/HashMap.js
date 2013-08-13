@@ -126,14 +126,14 @@ qx.Class.define( 'jsava.util.HashMap', {
                  * overwritten by an invocation of put(k,v) for a key k that's already
                  * in the HashMap.
                  */
-                _recordAccess: function () {
+                _recordAccess: function (map) {
                 },
 
                 /**
                  * This method is invoked whenever the entry is
                  * removed from the table.
                  */
-                _recordRemoval: function () {
+                _recordRemoval: function (map) {
                 }
             }
         } )
@@ -219,7 +219,41 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         put: function (key, value) {
-            // TODO
+            if( key === null ) {
+                return this.__putForNullKey( value );
+            }
+
+            var hash = this.self( arguments )._hash( key.hashCode() ),
+                i = this.self( arguments )._indexFor( hash, this._table.length );
+            for( var entry = this._table[i]; entry !== null; entry = entry._next ) {
+                /** @type jsava.lang.Object */
+                var k;
+                if( entry._hash === hash && ( (k = entry._key) === key || key.equals( k ) ) ) {
+                    var oldValue = entry._value;
+                    entry._value = value;
+                    entry._recordAccess( this );
+                    return oldValue;
+                }
+            }
+
+            this._modCount++;
+            this._addEntry( hash, key, value, i );
+            return null;
+        },
+
+        __putForNullKey: function (value) {
+            for( var entry = this._table[0]; entry !== null; entry = entry._next ) {
+                if( entry._key === null ) {
+                    var oldValue = entry._value;
+                    entry._value = value;
+                    entry._recordAccess( this );
+                    return oldValue;
+                }
+            }
+
+            this._modCount++;
+            this._addEntry( 0, null, value, 0 );
+            return null;
         },
 
         _resize: function (newCapacity) {
