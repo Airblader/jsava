@@ -2,8 +2,7 @@ qx.Class.define( 'jsava.util.AbstractSet', {
     extend: jsava.util.AbstractCollection,
     implement: [jsava.util.Set],
 
-    // TODO not abstract to allow inline instanciation – there could be a better way for this
-    //type: 'abstract',
+    type: 'abstract',
 
     /** @protected */
     construct: function () {
