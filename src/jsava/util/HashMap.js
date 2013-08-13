@@ -201,7 +201,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         containsKey: function (key) {
-            // TODO
+            return this._getEntry( key ) !== null;
         },
 
         _getEntry: function (key) {
