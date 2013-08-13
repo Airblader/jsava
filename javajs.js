@@ -101,6 +101,9 @@
                     __import( requiredClasses[i], false );
                 }
 
+                // TODO check here in cache if current class is even still needed
+                // idea : put into cache before and check cache to avoid circular reference loops
+
                 if( requiredClasses.length !== 0 ) {
                     log( target, 'all required classes imported' );
                 }
@@ -118,7 +121,7 @@
                 // TODO scan script content for more classes?
             } )
             .fail( function () {
-                log( target, 'failed to import [' + arguments + ']' );
+                log( target, 'failed to import' );
                 done = true;
             } );
 

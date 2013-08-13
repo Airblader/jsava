@@ -274,9 +274,9 @@ qx.Class.define( 'jsava.util.HashMap', {
         HashIterator: (function () {
             var thisHashMap = this;
 
-            qx.Class.define( 'jsava.util.HashMap.HashIterator', {
+            return qx.Class.define( 'jsava.util.HashMap.HashIterator', {
                 extend: jsava.lang.Object,
-                implement: [jsava.lang.Iterator],
+                implement: [jsava.util.Iterator],
 
                 type: 'abstract',
 
