@@ -39,7 +39,8 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         this._loadFactor = loadFactor;
         this._threshold = (capacity * loadFactor) | 0;
-        this._table = undefined; // TODO
+        // TODO use capacity here
+        this._table = [];
         this._init();
     },
 
@@ -257,7 +258,18 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         _resize: function (newCapacity) {
-            // TODO
+            var oldTable = this._table,
+                oldCapacity = oldTable.length;
+            if( oldCapacity === this.self( arguments ).MAXIMUM_CAPACITY ) {
+                this._threshold = Number.MAX_VALUE;
+                return;
+            }
+
+            // TODO use newCapacity here
+            var newTable = [];
+            this._transfer( newTable );
+            this._table = newTable;
+            this._threshold = (newCapacity * this._loadFactor) | 0;
         },
 
         _transfer: function (newTable) {
