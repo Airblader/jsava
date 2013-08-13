@@ -289,7 +289,31 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         putAll: function (map) {
-            // TODO
+            var numKeyToBeAdded = map.size();
+            if( numKeyToBeAdded === 0 ) {
+                return;
+            }
+
+            if( numKeyToBeAdded > this._threshold ) {
+                var targetCapacity = (numKeyToBeAdded / this._loadFactor + 1) | 0;
+                if( targetCapacity > this.self( arguments ).MAXIMUM_CAPACITY ) {
+                    targetCapacity = this.self( arguments ).MAXIMUM_CAPACITY;
+                }
+
+                var newCapacity = this._table.length;
+                while( newCapacity < targetCapacity ) {
+                    newCapacity <<= 1;
+                }
+                if( newCapacity > this._table.length ) {
+                    this._resize( newCapacity );
+                }
+            }
+
+            var iterator = map.entrySet().iterator();
+            while( iterator.hasNext() ) {
+                var entry = iterator.next();
+                this.put( entry.getKey(), entry.getValue() );
+            }
         },
 
         remove: function (key) {
