@@ -427,7 +427,11 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         _addEntry: function (hash, key, value, bucketIndex) {
-            // TODO
+            var entry = this._table[bucketIndex];
+            this._table[bucketIndex] = new jsava.util.HashMap.Entry( hash, key, value, entry );
+            if( this._size++ >= this._threshold ) {
+                this._resize( 2 * this._table.length );
+            }
         },
 
         _createEntry: function (hash, key, value, bucketIndex) {
