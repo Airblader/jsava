@@ -14,7 +14,7 @@ qx.Class.define( 'jsava.util.AbstractSet', {
                 return true;
             }
 
-            if( !qx.Class.isSubClassOf( obj, jsava.util.Set ) ) {
+            if( !qx.Class.implementsInterface( obj, jsava.util.Set ) ) {
                 return false;
             }
 

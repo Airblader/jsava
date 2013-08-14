@@ -49,8 +49,7 @@ qx.Class.define( 'jsava.util.AbstractMap.SimpleImmutableEntry', {
         },
 
         equals: function (other) {
-            // TODO use qx.Class.isSubClassOf
-            if( !( qx.Class.isSubClassOf( other, jsava.util.Map.Entry ) ) ) {
+            if( !( qx.Class.implementsInterface( other, jsava.util.Map.Entry ) ) ) {
                 return false;
             }
 

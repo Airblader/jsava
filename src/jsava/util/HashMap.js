@@ -94,7 +94,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 },
 
                 equals: function (obj) {
-                    if( !qx.Class.isSubClassOf( obj, jsava.util.HashMap.Entry ) ) {
+                    if( !qx.Class.implementsInterface( obj, jsava.util.HashMap.Entry ) ) {
                         return false;
                     }
 
