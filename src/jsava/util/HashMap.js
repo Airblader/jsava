@@ -453,7 +453,9 @@ qx.Class.define( 'jsava.util.HashMap', {
             try {
                 result = this.base( arguments );
             } catch( e ) {
-                // TODO catch specific exception
+                if( !qx.Class.isSubClassOf( e, jsava.lang.CloneNotSupportedException ) ) {
+                    throw e;
+                }
             }
 
             result._table = jsava.JsavaUtils.emptyArrayOfGivenSize( this._table.length, null );
@@ -536,14 +538,12 @@ qx.Class.define( 'jsava.util.HashMap', {
 
                     _nextEntry: function () {
                         if( thisHashMap._modCount !== this._expectedModCount ) {
-                            // TODO throw ConcurrentModificationException
-                            throw new jsava.lang.Exception();
+                            throw new jsava.lang.ConcurrentModificationException();
                         }
 
                         var entry = this._next;
                         if( entry === null ) {
-                            // TODO throw NoSuchElementException
-                            throw new jsava.lang.Exception();
+                            throw new jsava.lang.NoSuchElementException();
                         }
 
                         if( (this._next = entry._next) === null ) {
@@ -559,13 +559,11 @@ qx.Class.define( 'jsava.util.HashMap', {
 
                     remove: function () {
                         if( this._current === null ) {
-                            // TODO throw IllegalStateException
-                            throw new jsava.lang.Exception();
+                            throw new jsava.lang.IllegalStateException();
                         }
 
                         if( thisHashMap._modCount !== this._expectedModCount ) {
-                            // TODO throw ConcurrentModificationException
-                            throw new jsava.lang.Exception();
+                            throw new jsava.lang.ConcurrentModificationException();
                         }
 
                         var key = this._current._key;
