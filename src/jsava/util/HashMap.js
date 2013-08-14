@@ -480,8 +480,8 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         keySet: function () {
-            // TODO
-
+            var keySet = this._keySet;
+            return keySet !== null ? keySet : ( this._keySet = new jsava.util.HashMap.KeySet() );
         },
 
         values: function () {
@@ -586,6 +586,10 @@ qx.Class.define( 'jsava.util.HashMap', {
         ValueIterator: qx.Class.define( 'jsava.util.HashMap.ValueIterator', {
             extend: jsava.util.HashMap.HashIterator,
 
+            construct: function () {
+                this.base( arguments );
+            },
+
             members: {
                 next: function () {
                     return this._nextEntry()._value;
@@ -596,6 +600,10 @@ qx.Class.define( 'jsava.util.HashMap', {
         /** @private */
         KeyIterator: qx.Class.define( 'jsava.util.HashMap.KeyIterator', {
             extend: jsava.util.HashMap.HashIterator,
+
+            construct: function () {
+                this.base( arguments );
+            },
 
             members: {
                 next: function () {
@@ -608,11 +616,50 @@ qx.Class.define( 'jsava.util.HashMap', {
         EntryIterator: qx.Class.define( 'jsava.util.HashMap.EntryIterator', {
             extend: jsava.util.HashMap.HashIterator,
 
+            construct: function () {
+                this.base( arguments );
+            },
+
             members: {
                 next: function () {
                     return this._nextEntry();
                 }
             }
-        } )
+        } ),
+
+        /** @private */
+        KeySet: (function () {
+            var thisHashMap = this;
+
+            return qx.Class.define( 'jsava.util.HashMap.KeySet', {
+                extend: jsava.util.AbstractSet,
+
+                construct: function () {
+                    this.base( arguments );
+                },
+
+                members: {
+                    iterator: function () {
+                        return thisHashMap._newKeyIterator();
+                    },
+
+                    size: function () {
+                        return thisHashMap._size;
+                    },
+
+                    contains: function (obj) {
+                        return thisHashMap.containsKey( obj );
+                    },
+
+                    remove: function (obj) {
+                        return thisHashMap._removeEntryForKey( obj ) !== null;
+                    },
+
+                    clear: function () {
+                        thisHashMap.clear();
+                    }
+                }
+            } )
+        })()
     }
 } );
