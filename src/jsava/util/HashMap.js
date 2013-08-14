@@ -5,7 +5,7 @@ qx.Class.define( 'jsava.util.HashMap', {
     construct: function () {
         var args = Array.prototype.slice.call( arguments ),
             initialCapacity = this.self( arguments ).DEFAULT_INITIAL_CAPACITY,
-            loadFactor = this.self( arguments ).DEFAULT_INITIAL_CAPACITY;
+            loadFactor = this.self( arguments ).DEFAULT_LOAD_FACTOR;
 
         switch( args.length ) {
             case 1:
