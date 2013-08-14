@@ -490,7 +490,12 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         entrySet: function () {
-            // TODO
+            return this.__entrySet0();
+        },
+
+        __entrySet0: function () {
+            var entrySet = this.__entrySet;
+            return entrySet !== null ? entrySet : ( this.__entrySet = new jsava.util.HashMap.EntrySet() );
         },
 
         /** @private */
@@ -685,6 +690,48 @@ qx.Class.define( 'jsava.util.HashMap', {
 
                     contains: function (obj) {
                         return thisHashMap.containsValue( obj );
+                    },
+
+                    clear: function () {
+                        thisHashMap.clear();
+                    }
+                }
+            } );
+        })(),
+
+        /** @private */
+        EntrySet: (function () {
+            var thisHashMap = this;
+
+            return qx.Class.define( 'jsava.util.HashMap.EntrySet', {
+                extend: jsava.util.AbstractSet,
+
+                construct: function () {
+                    this.base( arguments );
+                },
+
+                members: {
+                    iterator: function () {
+                        return thisHashMap._newEntryIterator();
+                    },
+
+                    size: function () {
+                        return thisHashMap._size;
+                    },
+
+                    contains: function (obj) {
+                        if( !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
+                            return false;
+                        }
+
+                        /** @type jsava.util.Map.Entry */
+                        var entry = obj,
+                            candidate = thisHashMap._getEntry( entry.getKey() );
+                        return candidate !== null && candidate.equals( entry );
+                    },
+
+                    remove: function (obj) {
+                        return thisHashMap._removeMapping( obj ) !== null;
                     },
 
                     clear: function () {
