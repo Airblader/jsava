@@ -16,8 +16,6 @@ jimport('jsava.util.Set');
 jimport('jsava.util.HashMap');
 jimport('jsava.util.Collection');
 jimport('jsava.util.AbstractMap');
-jimport('jsava.util.AbstractMap.SimpleEntry');
-jimport('jsava.util.AbstractMap.SimpleImmutableEntry');
 jimport('jsava.util.Map');
 jimport('jsava.util.Iterator');
 jimport('jsava.util.AbstractCollection');
