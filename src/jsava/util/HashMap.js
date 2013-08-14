@@ -393,7 +393,33 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         containsValue: function (value) {
-            // TODO
+            if( value === null ) {
+                return this.__containsNullValue();
+            }
+
+            var table = this._table;
+            for( var i = 0; i < table.length; i++ ) {
+                for( var entry = table[i]; entry !== null; entry = entry._next ) {
+                    if( value.equals( entry._value ) ) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        },
+
+        __containsNullValue: function () {
+            var table = this._table;
+            for( var i = 0; i < table.length; i++ ) {
+                for( var entry = table[i]; entry !== null; entry = entry._next ) {
+                    if( entry._value === null ) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         },
 
         clone: function () {
