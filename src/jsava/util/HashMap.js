@@ -485,7 +485,8 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         values: function () {
-            // TODO
+            var values = this._values;
+            return values !== null ? values : ( this._values = new jsava.util.HashMap.Values() );
         },
 
         entrySet: function () {
@@ -659,7 +660,38 @@ qx.Class.define( 'jsava.util.HashMap', {
                         thisHashMap.clear();
                     }
                 }
-            } )
+            } );
+        })(),
+
+        /** @private */
+        Values: (function () {
+            var thisHashMap = this;
+
+            return qx.Class.define( 'jsava.util.HashMap.Values', {
+                extend: jsava.util.AbstractCollection,
+
+                construct: function () {
+                    this.base( arguments );
+                },
+
+                members: {
+                    iterator: function () {
+                        return thisHashMap._newValueIterator();
+                    },
+
+                    size: function () {
+                        return thisHashMap._size;
+                    },
+
+                    contains: function (obj) {
+                        return thisHashMap.containsValue( obj );
+                    },
+
+                    clear: function () {
+                        thisHashMap.clear();
+                    }
+                }
+            } );
         })()
     }
 } );
