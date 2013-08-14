@@ -481,6 +481,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         keySet: function () {
             // TODO
+
         },
 
         values: function () {
@@ -581,6 +582,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             return this.EntryIterator();
         },
 
+        /** @private */
         ValueIterator: qx.Class.define( 'jsava.util.HashMap.ValueIterator', {
             extend: jsava.util.HashMap.HashIterator,
 
@@ -591,6 +593,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
         } ),
 
+        /** @private */
         KeyIterator: qx.Class.define( 'jsava.util.HashMap.KeyIterator', {
             extend: jsava.util.HashMap.HashIterator,
 
@@ -601,6 +604,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
         } ),
 
+        /** @private */
         EntryIterator: qx.Class.define( 'jsava.util.HashMap.EntryIterator', {
             extend: jsava.util.HashMap.HashIterator,
 
