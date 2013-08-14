@@ -143,13 +143,13 @@ qx.Class.define( 'jsava.util.HashMap', {
         /** @type jsava.util.HashMap.Entry[] */
         _table: undefined,
         /** @type Integer */
-        _size: undefined,
+        _size: 0,
         /** @type Integer */
         _threshold: undefined,
         /** @type Number */
         _loadFactor: undefined,
         /** @type Integer */
-        _modCount: undefined,
+        _modCount: 0,
         /** @type jsava.util.Set */
         __entrySet: undefined,
 
