@@ -10,8 +10,9 @@ qx.Class.define( 'jsava.util.HashMap', {
         switch( args.length ) {
             case 1:
                 if( qx.Class.implementsInterface( args[0], jsava.util.Map ) ) {
-                    // TODO
-                    throw new jsava.lang.UnsupportedOperationException();
+                    initialCapacity = Math.max( ((args[0].size() / this.self( arguments ).DEFAULT_LOAD_FACTOR) | 0) + 1,
+                        this.self( arguments ).DEFAULT_INITIAL_CAPACITY );
+                    loadFactor = this.self( arguments ).DEFAULT_LOAD_FACTOR;
                 } else {
                     initialCapacity = args[0];
                 }
