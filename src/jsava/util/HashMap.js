@@ -479,18 +479,6 @@ qx.Class.define( 'jsava.util.HashMap', {
             this._size++;
         },
 
-        _newKeyIterator: function () {
-            // TODO
-        },
-
-        _newValueIterator: function () {
-            // TODO
-        },
-
-        _newEntryIterator: function () {
-            // TODO
-        },
-
         keySet: function () {
             // TODO
         },
