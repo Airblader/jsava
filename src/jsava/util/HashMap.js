@@ -474,7 +474,9 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         _createEntry: function (hash, key, value, bucketIndex) {
-            // TODO
+            var entry = this._table[bucketIndex];
+            this._table[bucketIndex] = new jsava.util.HashMap.Entry( hash, key, value, entry );
+            this._size++;
         },
 
         _newKeyIterator: function () {
