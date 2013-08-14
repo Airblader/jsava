@@ -256,6 +256,30 @@ qx.Class.define( 'jsava.util.HashMap', {
             return null;
         },
 
+        __putForCreate: function (key, value) {
+            var hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() ),
+                i = this.self( arguments )._indexFor( hash, this._table.length );
+            for( var entry = this._table[i]; entry !== null; entry = entry._next ) {
+                /** @type jsava.lang.Object */
+                var k;
+                if( entry._hash === hash
+                    && ( (k = entry._key) === key || ( key !== null && key.equals( k ) ) ) ) {
+                    entry._value = value;
+                    return;
+                }
+            }
+
+            this._createEntry( hash, key, value, i );
+        },
+
+        __putAllForCreate: function (map) {
+            var iterator = map.entrySet().iterator();
+            while( iterator.hasNext() ) {
+                var entry = iterator.next();
+                this.__putForCreate( entry.getKey(), entry.getValue() );
+            }
+        },
+
         _resize: function (newCapacity) {
             var oldTable = this._table,
                 oldCapacity = oldTable.length;
@@ -423,7 +447,22 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         clone: function () {
-            // TODO
+            /** @type jsava.util.HashMap */
+            var result = null;
+            try {
+                result = this.base( arguments );
+            } catch( e ) {
+                // TODO catch specific exception
+            }
+
+            result._table = jsava.JsavaUtils.emptyArrayOfGivenSize( this._table.length, null );
+            result.__entrySet = null;
+            result._modCount = 0;
+            result._size = 0;
+            result._init();
+            result.__putAllForCreate( this );
+
+            return result;
         },
 
         _addEntry: function (hash, key, value, bucketIndex) {
