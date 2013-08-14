@@ -547,7 +547,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                         }
 
                         if( (this._next = entry._next) === null ) {
-                            var table = thisHashMap.table;
+                            var table = thisHashMap._table;
                             while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
                                 // do nothing
                             }
