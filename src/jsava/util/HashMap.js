@@ -142,17 +142,17 @@ qx.Class.define( 'jsava.util.HashMap', {
 
     members: {
         /** @type jsava.util.HashMap.Entry[] */
-        _table: undefined,
+        _table: null,
         /** @type Integer */
         _size: 0,
         /** @type Integer */
-        _threshold: undefined,
+        _threshold: 0,
         /** @type Number */
-        _loadFactor: undefined,
+        _loadFactor: 0,
         /** @type Integer */
         _modCount: 0,
         /** @type jsava.util.Set */
-        __entrySet: undefined,
+        __entrySet: null,
 
         /**
          * Initialization hook for subclasses. This method is called
