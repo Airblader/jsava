@@ -484,12 +484,12 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         keySet: function () {
             var keySet = this._keySet;
-            return keySet !== null ? keySet : ( this._keySet = new jsava.util.HashMap.KeySet() );
+            return keySet !== null ? keySet : ( this._keySet = new this.KeySet( this ) );
         },
 
         values: function () {
             var values = this._values;
-            return values !== null ? values : ( this._values = new jsava.util.HashMap.Values() );
+            return values !== null ? values : ( this._values = new this.Values( this ) );
         },
 
         entrySet: function () {
@@ -498,101 +498,100 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         __entrySet0: function () {
             var entrySet = this.__entrySet;
-            return entrySet !== null ? entrySet : ( this.__entrySet = new jsava.util.HashMap.EntrySet() );
+            return entrySet !== null ? entrySet : ( this.__entrySet = new this.EntrySet( this ) );
         },
 
         /** @private */
-        HashIterator: (function () {
-            var thisHashMap = this;
+        HashIterator: qx.Class.define( 'jsava.util.HashMap.HashIterator', {
+            extend: jsava.lang.Object,
+            implement: [jsava.util.Iterator],
 
-            return qx.Class.define( 'jsava.util.HashMap.HashIterator', {
-                extend: jsava.lang.Object,
-                implement: [jsava.util.Iterator],
+            type: 'abstract',
 
-                type: 'abstract',
+            /** @protected */
+            construct: function (thisHashMap) {
+                this.__thisHashMap = thisHashMap;
+                this._expectedModCount = this.__thisHashMap._modCount;
+                if( this.__thisHashMap._size > 0 ) {
+                    var table = this.__thisHashMap._table;
+                    while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
+                        // do nothing
+                    }
+                }
+            },
 
-                /** @protected */
-                construct: function () {
-                    this._expectedModCount = thisHashMap._modCount;
-                    if( thisHashMap._size > 0 ) {
-                        var table = thisHashMap._table;
+            members: {
+                __thisHashMap: undefined,
+
+                /** @type jsava.util.HashMap.Entry */
+                _next: null,
+                /** @type Integer */
+                _expectedModCount: 0,
+                /** @type Integer */
+                _index: 0,
+                /** @type jsava.util.HashMap.Entry */
+                _current: null,
+
+                hasNext: function () {
+                    return this._next !== null;
+                },
+
+                _nextEntry: function () {
+                    if( this.__thisHashMap._modCount !== this._expectedModCount ) {
+                        throw new jsava.lang.ConcurrentModificationException();
+                    }
+
+                    var entry = this._next;
+                    if( entry === null ) {
+                        throw new jsava.lang.NoSuchElementException();
+                    }
+
+                    if( (this._next = entry._next) === null ) {
+                        var table = this.__thisHashMap._table;
                         while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
                             // do nothing
                         }
                     }
+
+                    this._current = entry;
+                    return entry;
                 },
 
-                members: {
-                    /** @type jsava.util.HashMap.Entry */
-                    _next: undefined,
-                    /** @type Integer */
-                    _expectedModCount: undefined,
-                    /** @type Integer */
-                    _index: undefined,
-                    /** @type jsava.util.HashMap.Entry */
-                    _current: undefined,
-
-                    hasNext: function () {
-                        return this._next !== null;
-                    },
-
-                    _nextEntry: function () {
-                        if( thisHashMap._modCount !== this._expectedModCount ) {
-                            throw new jsava.lang.ConcurrentModificationException();
-                        }
-
-                        var entry = this._next;
-                        if( entry === null ) {
-                            throw new jsava.lang.NoSuchElementException();
-                        }
-
-                        if( (this._next = entry._next) === null ) {
-                            var table = thisHashMap._table;
-                            while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
-                                // do nothing
-                            }
-                        }
-
-                        this._current = entry;
-                        return entry;
-                    },
-
-                    remove: function () {
-                        if( this._current === null ) {
-                            throw new jsava.lang.IllegalStateException();
-                        }
-
-                        if( thisHashMap._modCount !== this._expectedModCount ) {
-                            throw new jsava.lang.ConcurrentModificationException();
-                        }
-
-                        var key = this._current._key;
-                        this._current = null;
-                        thisHashMap._removeEntryForKey( key );
-                        this._expectedModCount = thisHashMap._modCount;
+                remove: function () {
+                    if( this._current === null ) {
+                        throw new jsava.lang.IllegalStateException();
                     }
+
+                    if( this.__thisHashMap._modCount !== this._expectedModCount ) {
+                        throw new jsava.lang.ConcurrentModificationException();
+                    }
+
+                    var key = this._current._key;
+                    this._current = null;
+                    this.__thisHashMap._removeEntryForKey( key );
+                    this._expectedModCount = this.__thisHashMap._modCount;
                 }
-            } );
-        })(),
+            }
+        } ),
 
         _newKeyIterator: function () {
-            return new this.KeyIterator();
+            return new this.KeyIterator( this );
         },
 
         _newValueIterator: function () {
-            return new this.ValueIterator();
+            return new this.ValueIterator( this );
         },
 
         _newEntryIterator: function () {
-            return this.EntryIterator();
+            return new this.EntryIterator( this );
         },
 
         /** @private */
         ValueIterator: qx.Class.define( 'jsava.util.HashMap.ValueIterator', {
             extend: jsava.util.HashMap.HashIterator,
 
-            construct: function () {
-                this.base( arguments );
+            construct: function (thisHashMap) {
+                this.base( arguments, thisHashMap );
             },
 
             members: {
@@ -606,8 +605,8 @@ qx.Class.define( 'jsava.util.HashMap', {
         KeyIterator: qx.Class.define( 'jsava.util.HashMap.KeyIterator', {
             extend: jsava.util.HashMap.HashIterator,
 
-            construct: function () {
-                this.base( arguments );
+            construct: function (thisHashMap) {
+                this.base( arguments, thisHashMap );
             },
 
             members: {
@@ -621,8 +620,8 @@ qx.Class.define( 'jsava.util.HashMap', {
         EntryIterator: qx.Class.define( 'jsava.util.HashMap.EntryIterator', {
             extend: jsava.util.HashMap.HashIterator,
 
-            construct: function () {
-                this.base( arguments );
+            construct: function (thisHashMap) {
+                this.base( arguments, thisHashMap );
             },
 
             members: {
@@ -633,111 +632,108 @@ qx.Class.define( 'jsava.util.HashMap', {
         } ),
 
         /** @private */
-        KeySet: (function () {
-            var thisHashMap = this;
+        KeySet: qx.Class.define( 'jsava.util.HashMap.KeySet', {
+            extend: jsava.util.AbstractSet,
 
-            return qx.Class.define( 'jsava.util.HashMap.KeySet', {
-                extend: jsava.util.AbstractSet,
+            construct: function (thisHashMap) {
+                this.base( arguments );
+                this.__thisHashMap = thisHashMap;
+            },
 
-                construct: function () {
-                    this.base( arguments );
+            members: {
+                __thisHashMap: undefined,
+
+                iterator: function () {
+                    return this.__thisHashMap._newKeyIterator();
                 },
 
-                members: {
-                    iterator: function () {
-                        return thisHashMap._newKeyIterator();
-                    },
+                size: function () {
+                    return this.__thisHashMap._size;
+                },
 
-                    size: function () {
-                        return thisHashMap._size;
-                    },
+                contains: function (obj) {
+                    return this.__thisHashMap.containsKey( obj );
+                },
 
-                    contains: function (obj) {
-                        return thisHashMap.containsKey( obj );
-                    },
+                remove: function (obj) {
+                    return this.__thisHashMap._removeEntryForKey( obj ) !== null;
+                },
 
-                    remove: function (obj) {
-                        return thisHashMap._removeEntryForKey( obj ) !== null;
-                    },
-
-                    clear: function () {
-                        thisHashMap.clear();
-                    }
+                clear: function () {
+                    this.__thisHashMap.clear();
                 }
-            } );
-        })(),
+            }
+        } ),
 
         /** @private */
-        Values: (function () {
-            var thisHashMap = this;
+        Values: qx.Class.define( 'jsava.util.HashMap.Values', {
+            extend: jsava.util.AbstractCollection,
 
-            return qx.Class.define( 'jsava.util.HashMap.Values', {
-                extend: jsava.util.AbstractCollection,
+            construct: function (thisHashMap) {
+                this.base( arguments );
+                this.__thisHashMap = thisHashMap;
+            },
 
-                construct: function () {
-                    this.base( arguments );
+            members: {
+                __thisHashMap: undefined,
+
+                iterator: function () {
+                    return this.__thisHashMap._newValueIterator();
                 },
 
-                members: {
-                    iterator: function () {
-                        return thisHashMap._newValueIterator();
-                    },
+                size: function () {
+                    return this.__thisHashMap._size;
+                },
 
-                    size: function () {
-                        return thisHashMap._size;
-                    },
+                contains: function (obj) {
+                    return this.__thisHashMap.containsValue( obj );
+                },
 
-                    contains: function (obj) {
-                        return thisHashMap.containsValue( obj );
-                    },
-
-                    clear: function () {
-                        thisHashMap.clear();
-                    }
+                clear: function () {
+                    this.__thisHashMap.clear();
                 }
-            } );
-        })(),
+            }
+        } ),
 
         /** @private */
-        EntrySet: (function () {
-            var thisHashMap = this;
+        EntrySet: qx.Class.define( 'jsava.util.HashMap.EntrySet', {
+            extend: jsava.util.AbstractSet,
 
-            return qx.Class.define( 'jsava.util.HashMap.EntrySet', {
-                extend: jsava.util.AbstractSet,
+            construct: function (thisHashMap) {
+                this.base( arguments );
+                this.__thisHashMap = thisHashMap;
+            },
 
-                construct: function () {
-                    this.base( arguments );
+            members: {
+                __thisHashMap: undefined,
+
+                iterator: function () {
+                    return this.__thisHashMap._newEntryIterator();
                 },
 
-                members: {
-                    iterator: function () {
-                        return thisHashMap._newEntryIterator();
-                    },
+                size: function () {
+                    return this.__thisHashMap._size;
+                },
 
-                    size: function () {
-                        return thisHashMap._size;
-                    },
-
-                    contains: function (obj) {
-                        if( !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
-                            return false;
-                        }
-
-                        /** @type jsava.util.Map.Entry */
-                        var entry = obj,
-                            candidate = thisHashMap._getEntry( entry.getKey() );
-                        return candidate !== null && candidate.equals( entry );
-                    },
-
-                    remove: function (obj) {
-                        return thisHashMap._removeMapping( obj ) !== null;
-                    },
-
-                    clear: function () {
-                        thisHashMap.clear();
+                contains: function (obj) {
+                    if( !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
+                        return false;
                     }
+
+                    /** @type jsava.util.Map.Entry */
+                    var entry = obj,
+                        candidate = this.__thisHashMap._getEntry( entry.getKey() );
+                    return candidate !== null && candidate.equals( entry );
+                },
+
+                remove: function (obj) {
+                    return this.__thisHashMap._removeMapping( obj ) !== null;
+                },
+
+                clear: function () {
+                    this.__thisHashMap.clear();
                 }
-            } );
-        })()
+            }
+        } )
     }
 } );
