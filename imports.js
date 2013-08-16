@@ -1,7 +1,9 @@
 jimport('jsava.lang.IllegalArgumentException');
 jimport('jsava.lang.CloneNotSupportedException');
+jimport('jsava.lang.NullPointerException');
 jimport('jsava.lang.Cloneable');
 jimport('jsava.lang.Exception');
+jimport('jsava.lang.ClassCastException');
 jimport('jsava.lang.IllegalStateException');
 jimport('jsava.lang.Iterable');
 jimport('jsava.lang.UnsupportedOperationException');

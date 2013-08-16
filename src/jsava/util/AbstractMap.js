@@ -399,8 +399,10 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                     }
                 }
             } catch( e ) {
-                // TODO : catch explicitly named exceptions
-                return false;
+                if( e.constructor && ( qx.Class.isSubClassOf( e.constructor, jsava.lang.ClassCastException )
+                    || (qx.Class.isSubClassOf( e.constructor, jsava.lang.NullPointerException )) ) ) {
+                    return false;
+                }
             }
 
             return true;
