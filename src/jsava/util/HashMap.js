@@ -76,7 +76,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 _value: undefined,
                 /** @type jsava.util.HashMap.Entry */
                 _next: undefined,
-                /** @type Integer */
+                /** @type Number */
                 _hash: undefined,
 
                 getKey: function () {
@@ -143,13 +143,13 @@ qx.Class.define( 'jsava.util.HashMap', {
     members: {
         /** @type jsava.util.HashMap.Entry[] */
         _table: null,
-        /** @type Integer */
+        /** @type Number */
         _size: 0,
-        /** @type Integer */
+        /** @type Number */
         _threshold: 0,
         /** @type Number */
         _loadFactor: 0,
-        /** @type Integer */
+        /** @type Number */
         _modCount: 0,
         /** @type jsava.util.Set */
         __entrySet: null,
@@ -525,9 +525,9 @@ qx.Class.define( 'jsava.util.HashMap', {
 
                 /** @type jsava.util.HashMap.Entry */
                 _next: null,
-                /** @type Integer */
+                /** @type Number */
                 _expectedModCount: 0,
-                /** @type Integer */
+                /** @type Number */
                 _index: 0,
                 /** @type jsava.util.HashMap.Entry */
                 _current: null,
