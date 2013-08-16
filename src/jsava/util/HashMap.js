@@ -380,7 +380,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 return null;
             }
 
-            /** @type jsava.util.Map.Entry */
+            /** @implements jsava.util.Map.Entry */
             var entry = obj,
                 key = entry.getKey(),
                 hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() ),
@@ -720,7 +720,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                         return false;
                     }
 
-                    /** @type jsava.util.Map.Entry */
+                    /** @implements jsava.util.Map.Entry */
                     var entry = obj,
                         candidate = this.__thisHashMap._getEntry( entry.getKey() );
                     return candidate !== null && candidate.equals( entry );

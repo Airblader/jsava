@@ -18,7 +18,7 @@ qx.Class.define( 'jsava.util.AbstractSet', {
                 return false;
             }
 
-            /** @type jsava.util.Collection */
+            /** @implements jsava.util.Collection */
             var collection = obj;
 
             if( collection.size() !== this.size() ) {
