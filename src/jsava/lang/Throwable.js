@@ -23,10 +23,10 @@ qx.Class.define( 'jsava.lang.Throwable', {
     },
 
     members: {
-        __detailMessage: undefined,
+        __detailMessage: null,
         /** @type jsava.lang.Throwable */
         __cause: this,
-        __stackTrace: undefined,
+        __stackTrace: null,
 
         getMessage: function () {
             return this.__detailMessage;

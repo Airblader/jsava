@@ -36,8 +36,8 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             },
 
             members: {
-                __key: undefined,
-                __value: undefined,
+                __key: null,
+                __value: null,
 
                 __eq: function (obj1, obj2) {
                     return obj1 === null ? obj2 === null : obj1.equals( obj2 );
@@ -103,8 +103,8 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             },
 
             members: {
-                __key: undefined,
-                __value: undefined,
+                __key: null,
+                __value: null,
 
                 __eq: function (obj1, obj2) {
                     return obj1 === null ? obj2 === null : obj1.equals( obj2 );
