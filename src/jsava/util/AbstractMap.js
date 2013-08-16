@@ -143,9 +143,9 @@ qx.Class.define( 'jsava.util.AbstractMap', {
     },
 
     members: {
-        /** @type jsava.util.Set */
+        /** @implements jsava.util.Set */
         _keySet: null,
-        /** @type jsava.util.Collection */
+        /** @implements jsava.util.Collection */
         _values: null,
 
         /** @abstract */

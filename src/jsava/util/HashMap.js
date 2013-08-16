@@ -151,7 +151,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         _loadFactor: 0,
         /** @type Number */
         _modCount: 0,
-        /** @type jsava.util.Set */
+        /** @implements jsava.util.Set */
         __entrySet: null,
 
         /**
