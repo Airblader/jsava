@@ -41,12 +41,11 @@ qx.Class.define( 'jsava.lang.Throwable', {
         },
 
         initCause: function (cause) {
-            // TODO verify type
             if( this.__cause !== this ) {
-                // TODO throw IllegalStateException
+                throw new jsava.lang.IllegalStateException( 'Can\'t overwrite cause' );
             }
             if( cause === this ) {
-                // TODO throw IllegalStateException
+                throw new jsava.lang.IllegalArgumentException( 'Self-causation is not permitted' );
             }
 
             this.__cause = cause;
@@ -60,7 +59,7 @@ qx.Class.define( 'jsava.lang.Throwable', {
         },
 
         printStackTrace: function () {
-            // TODO
+            // TODO other method signatures
             if( console && console.error ) {
                 console.error( this.__stackTrace );
             }
