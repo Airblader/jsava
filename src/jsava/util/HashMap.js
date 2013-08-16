@@ -453,7 +453,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             try {
                 result = this.base( arguments );
             } catch( e ) {
-                if( !qx.Class.isSubClassOf( e, jsava.lang.CloneNotSupportedException ) ) {
+                if( !e.constructor || !qx.Class.isSubClassOf( e.constructor, jsava.lang.CloneNotSupportedException ) ) {
                     throw e;
                 }
             }
