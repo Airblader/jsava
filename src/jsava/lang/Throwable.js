@@ -53,7 +53,7 @@ qx.Class.define( 'jsava.lang.Throwable', {
         },
 
         toString: function () {
-            var className = this.getClass().getName(),
+            var className = this.getClassName(),
                 message = this.getLocalizedMessage();
             return message !== null ? (className + ': ' + message) : className;
         },

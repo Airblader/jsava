@@ -6,6 +6,13 @@ qx.Class.define( 'jsava.lang.Object', {
          * @returns {String}
          */
         getClass: function () {
+            // TODO return Class object
+            return this.name;
+        },
+
+        /** @returns {String} */
+        getClassName: function () {
+            // TODO remove this method and replace with getClass().getName()
             return this.name;
         },
 
