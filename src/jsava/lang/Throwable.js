@@ -7,14 +7,14 @@ qx.Class.define( 'jsava.lang.Throwable', {
         this.fillInStackTrace();
 
         if( args.length === 1
-            && args[0].constructor && qx.Class.isSubClassOf( args[0].constructor, jsava.lang.Throwable ) ) {
+            && qx.Class.isSubClassOf( args[0].constructor, jsava.lang.Throwable ) ) {
             this.__detailMessage = (args[0] === null) ? null : args[0].toString();
             this.__cause = args[0];
         } else if( args.length >= 1 && typeof args[0] === 'string' ) {
             this.__detailMessage = args[0];
 
             if( args.length === 2
-                && args[1].constructor && qx.Class.isSubClassOf( args[1].constructor, jsava.lang.Throwable ) ) {
+                && qx.Class.isSubClassOf( args[1].constructor, jsava.lang.Throwable ) ) {
                 this.__cause = args[1];
             }
         }

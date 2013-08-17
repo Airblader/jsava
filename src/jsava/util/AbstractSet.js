@@ -28,8 +28,8 @@ qx.Class.define( 'jsava.util.AbstractSet', {
             try {
                 return this.containsAll( collection );
             } catch( e ) {
-                if( e.constructor && ( qx.Class.isSubClassOf( e.constructor, jsava.lang.ClassCastException )
-                    || (qx.Class.isSubClassOf( e.constructor, jsava.lang.NullPointerException )) ) ) {
+                if( qx.Class.isSubClassOf( e.constructor, jsava.lang.ClassCastException )
+                    || qx.Class.isSubClassOf( e.constructor, jsava.lang.NullPointerException ) ) {
                     return false;
                 }
             }
