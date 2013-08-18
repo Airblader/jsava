@@ -3,10 +3,10 @@
 <head></head>
 <body>
 <input type="button" id="btnImportAll" value="Import all"/>
-<script src="qx-oo-3.0.min.js"></script>
-<script src="jquery.min.js"></script>
-<script src="jsavaPrimitivesStubs.js"></script>
-<script src="javajs.js"></script>
+<script src="lib/qx-oo-3.0.min.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/jsavaPrimitivesStubs.js"></script>
+<script src="lib/javajs.js"></script>
 <script>
     /*
      TODO
@@ -26,7 +26,7 @@
             var startTime = new Date().getTime();
 
             // TODO have script only write an array and then load it here
-            $.getScript( 'imports.js' )
+            $.getScript( 'lib/imports.js' )
                     .done( function () {
                         var cache = showCache(),
                                 numberOfImportedClasses = 0;

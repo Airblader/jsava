@@ -10,10 +10,10 @@
     <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine-html.js"></script>
 
     <!-- include source files here... -->
-    <script type="text/javascript" src="qx-oo-3.0.min.js"></script>
-    <script type="text/javascript" src="jsavaPrimitivesStubs.js"></script>
-    <script src="jquery.min.js"></script>
-    <script src="javajs.js"></script>
+    <script type="text/javascript" src="lib/qx-oo-3.0.min.js"></script>
+    <script type="text/javascript" src="lib/jsavaPrimitivesStubs.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/javajs.js"></script>
 
     <!-- include spec files here... -->
     <script type="text/javascript" src="spec/HashMapSpec.js"></script>
@@ -22,7 +22,7 @@
         $( document ).ready( function () {
             var startTime = new Date().getTime();
 
-            $.getScript( 'imports.js' )
+            $.getScript( 'lib/imports.js' )
                     .done( function () {
                         var cache = showCache(),
                                 numberOfImportedClasses = 0;
