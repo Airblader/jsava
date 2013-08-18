@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Jasmine Spec Runner</title>
+
+    <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.3.1/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="lib/jasmine-1.3.1/jasmine.css">
+    <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine.js"></script>
+    <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine-html.js"></script>
+
+    <!-- include source files here... -->
+    <script type="text/javascript" src="qx-oo-3.0.min.js"></script>
+    <script type="text/javascript" src="jsavaPrimitivesStubs.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="javajs.js"></script>
+
+    <!-- include spec files here... -->
+    <script type="text/javascript" src="spec/HashMapSpec.js"></script>
+
+    <script type="text/javascript">
+        $( document ).ready( function () {
+            var startTime = new Date().getTime();
+
+            $.getScript( 'imports.js' )
+                    .done( function () {
+                        var cache = showCache(),
+                                numberOfImportedClasses = 0;
+                        for( var i in cache ) {
+                            if( cache.hasOwnProperty( i ) ) {
+                                numberOfImportedClasses++;
+                            }
+                        }
+
+                        console.log( 'Done importing ' + numberOfImportedClasses + ' classes in '
+                                + (new Date().getTime() - startTime) + 'ms.' );
+
+                        (function () {
+                            var jasmineEnv = jasmine.getEnv();
+                            jasmineEnv.updateInterval = 1000;
+
+                            var htmlReporter = new jasmine.HtmlReporter();
+
+                            jasmineEnv.addReporter( htmlReporter );
+
+                            jasmineEnv.specFilter = function (spec) {
+                                return htmlReporter.specFilter( spec );
+                            };
+
+                            execJasmine();
+
+                            function execJasmine () {
+                                jasmineEnv.execute();
+                            }
+
+                        })();
+                    } )
+                    .fail( function () {
+                        console.log( 'Error during import.' );
+                        console.log( arguments );
+                    } );
+        } );
+
+        /*        (function () {
+         var jasmineEnv = jasmine.getEnv();
+         jasmineEnv.updateInterval = 1000;
+
+         var htmlReporter = new jasmine.HtmlReporter();
+
+         jasmineEnv.addReporter( htmlReporter );
+
+         jasmineEnv.specFilter = function (spec) {
+         return htmlReporter.specFilter( spec );
+         };
+
+         var currentWindowOnload = window.onload;
+
+         window.onload = function () {
+         if( currentWindowOnload ) {
+         currentWindowOnload();
+         }
+         execJasmine();
+         };
+
+         function execJasmine () {
+         jasmineEnv.execute();
+         }
+
+         })();*/
+    </script>
+
+</head>
+
+<body>
+</body>
+</html>
