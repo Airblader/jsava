@@ -1,10 +1,35 @@
-jsava
-=====
+jsava (Porting Java to Javascript)
+==================================
 
-Porting Java to Javascript
+jsava is an attempt to port Java base classes into Javascript.
 
-## Description
+Background
+----------
 
-JsAva (upper-case spelling & pronounciation yet to be defined :)) is an attempt to port Java base classes into Javascript. The OOP framework in use is [qooxdoo](http://qooxdoo.org/) as it allows most of the required features (inheritance, interfaces, …).
+The OOP framework to model classes is [qooxdoo](http://qooxdoo.org/)'s OOP layer as it provides most of the required
+features, such as inheritance and interfaces. However, jsava currently uses its own dependency injection / compile
+script rather than the tools provided with the qooxdoo toolchain.
+For testing, the Javascript framework [Jasmine](http://pivotal.github.io/jasmine/) is used.
 
-JsAva is experimental and a toy project.
+
+Goal
+----
+
+jsava is a pure free-time, experimental toy project.
+
+
+Standards
+---------
+
+For consistent development, a set of rules shall be established on how to port Java code. This list is heavily
+under construction:
+
+* Public and protected fields / methods shall be implemented as close to the Java code as possible.
+* Private fields / methods are optional and don't necessarily have to be implemented.
+* Methods that (currently or permanently) cannot be implemented shall throw an UnsupportedOperationException.
+* Fields shall never be initialized as undefined; the default value (if it is undeclared in Java) shall either be null
+for complex types or the appropriate corresponding default in Java (e.g. int -> 0, String -> null).
+* Unlike Java, jsava shall treat Javascript's primitive types as complex types (e.g. a Javascript "number" type variable
+shall be usable as an Integer); for this purpose, method stubs may be added to those types.
+* Differences in behavior or implementation compared to the Java code shall have comments if necessary.
+* TODO comments shall always have additional text describing what exactly there is to do.
