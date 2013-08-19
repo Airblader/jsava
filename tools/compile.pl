@@ -117,25 +117,29 @@ sub getRequiredClasses {
     return @requiredClasses;
 }
 
-# TODO detect circular references
 sub addSourceToCompileOrder {
     my @compileOrder = @{ $_[0] };
     my $className = $_[1];
-    my @requiredClasses = getRequiredClasses( getFilenameFromClassName( $className ) );
+    my $startClassName = $_[2];
 
-    if( $className ~~ @compileOrder ) {
-        # TODO if the entry already exists in the compile order, a check is requried to see if
-        # the entry has to be moved
+    if( $className eq $startClassName && $startClassName ne "" ) {
+        print "[E] Circular reference detected.\n";
         return @compileOrder;
     }
 
+    if( $className ~~ @compileOrder ) {
+        return @compileOrder;
+    }
+
+    my @requiredClasses = getRequiredClasses( getFilenameFromClassName( $className ) );
     foreach( @requiredClasses ) {
         # This is currently needed for inner classes which are not in separate files, but
         # are still detected.
         # TODO find a way to get rid of this
         next if !-e getFilenameFromClassName( $_ );
 
-        @compileOrder = addSourceToCompileOrder( \@compileOrder, $_ );
+        $startClassName = $className if $startClassName eq "";
+        @compileOrder = addSourceToCompileOrder( \@compileOrder, $_, $startClassName );
     }
 
     push @compileOrder, $className;
@@ -153,12 +157,7 @@ my @compileOrder;
 
 foreach( @files ) {
     my $clazzName = getClassNameFromPath( $_ );
-    @compileOrder = addSourceToCompileOrder( \@compileOrder, $clazzName );
-}
-
-# TODO just for testing
-foreach( @compileOrder ) {
-#    print "$_\n";
+    @compileOrder = addSourceToCompileOrder( \@compileOrder, $clazzName, "" );
 }
 
 system( "rm -f $outputFilename" );
