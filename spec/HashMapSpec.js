@@ -122,13 +122,52 @@ describe( 'HashMap', function () {
         } );
     } );
 
-    // TODO also try removing non-existent element
-    it( 'remove removes an element correctly', function () {
-        map.put( 1, 1 );
+    describe( 'remove', function () {
+        it( 'can remove an existing element', function () {
+            map.put( 1, 42 );
 
-        map.remove( 1 );
-        expect( map.get( 1 ) ).toBe( null );
-        expect( map.size() ).toBe( 0 );
+            var removedElement = map.remove( 1 );
+            expect( removedElement ).toBe( 42 );
+            expect( map.get( 1 ) ).toBe( null );
+            expect( map.size() ).toBe( 0 );
+        } );
+
+        it( 'can handle trying to remove a non-existent element', function () {
+            expect( map.remove( 1 ) ).toBe( null );
+        } );
+
+        it( 'leaves other elements untouched', function () {
+            map.put( 1, 10 );
+            map.put( 2, 20 );
+            map.put( 3, 30 );
+
+            map.remove( 2 );
+
+            expect( map.size() ).toBe( 2 );
+            expect( map.get( 1 ) ).toBe( 10 );
+            expect( map.get( 2 ) ).toBe( null );
+            expect( map.get( 3 ) ).toBe( 30 );
+        } );
+    } );
+
+    describe( 'containsKey and containsValue', function () {
+        it( 'can verify the presence of a key', function () {
+            map.put( 1, 10 );
+            expect( map.containsKey( 1 ) ).toBe( true );
+        } );
+
+        it( 'can verify the absence of a key', function () {
+            expect( map.containsKey( 1 ) ).toBe( false );
+        } );
+
+        it( 'can verify the presence of a value', function () {
+            map.put( 1, 10 );
+            expect( map.containsValue( 10 ) ).toBe( true );
+        } );
+
+        it( 'can verify the absence of a value', function () {
+            expect( map.containsValue( 10 ) ).toBe( false );
+        } );
     } );
 
     it( 'clear empties the map', function () {
@@ -173,9 +212,6 @@ describe( 'HashMap', function () {
 
     /*
      _resize
-     putAll
-     containsKey
-     containsValue
      clone
      keySet
      values
