@@ -134,6 +134,26 @@ describe( 'HashMap', function () {
                 expect( map.get( j ) ).toBe( j * j );
             }
         } );
+
+        it( 'work with complex types', function () {
+            var key1 = new jsava.lang.Object(),
+                key2 = new jsava.lang.Object(),
+                value1 = new HashMap(),
+                value2 = new HashMap();
+            map.put( key1, value1 );
+            map.put( key2, value2 );
+
+            value1.put( 1, 10 );
+            value2.put( 2, 20 );
+            value2.put( 3, 30 );
+
+            expect( map.size() ).toBe( 2 );
+            expect( map.get( key1 ).size() ).toBe( 1 );
+            expect( map.get( key2 ).size() ).toBe( 2 );
+            expect( map.get( key1 ).get( 1 ) ).toBe( 10 );
+            expect( map.get( key2 ).get( 2 ) ).toBe( 20 );
+            expect( map.get( key2 ).get( 3 ) ).toBe( 30 );
+        } );
     } );
 
     describe( 'putAll()', function () {
@@ -325,8 +345,14 @@ describe( 'HashMap', function () {
             expect( otherMap.get( 2 ) ).toBe( 20 );
         } );
 
-        // TODO verify that copy is shallow
-    } );
+        it( 'creates a shallow copy', function () {
+            var valueMap = new HashMap();
+            map.put( 1, valueMap );
 
-    // TODO test complex types for keys/values
+            var otherMap = map.clone();
+            otherMap.get( 1 ).put( 2, 20 );
+
+            expect( valueMap.get( 2 ) ).toBe( 20 );
+        } );
+    } );
 } );
