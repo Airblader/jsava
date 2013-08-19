@@ -259,10 +259,72 @@ describe( 'HashMap', function () {
     } );
 
     describe( 'keySet, values and entrySet', function () {
-        // TODO
+        var keys = [1, 2, 5],
+            values = [10, 20, 50];
+
+        beforeEach( function () {
+            map.put( keys[0], values[0] );
+            map.put( keys[1], values[1] );
+            map.put( keys[2], values[2] );
+        } );
+
+        it( 'keySet returns the correct set', function () {
+            expect( map.keySet().size() ).toBe( 3 );
+
+            var iterator = map.keySet().iterator(),
+                counter = 0;
+            while( iterator.hasNext() ) {
+                expect( iterator.next() ).toBe( keys[counter++] );
+            }
+
+            expect( counter ).toBe( keys.length );
+        } );
+
+        it( 'values returns the correct set', function () {
+            expect( map.values().size() ).toBe( 3 );
+
+            var iterator = map.values().iterator(),
+                counter = 0;
+            while( iterator.hasNext() ) {
+                expect( iterator.next() ).toBe( values[counter++] );
+            }
+
+            expect( counter ).toBe( values.length );
+        } );
+
+        it( 'entrySet returns the correct set', function () {
+            expect( map.entrySet().size() ).toBe( 3 );
+
+            var iterator = map.entrySet().iterator(),
+                counter = 0;
+            while( iterator.hasNext() ) {
+                var entry = iterator.next();
+                expect( entry.getKey() ).toBe( keys[counter] );
+                expect( entry.getValue() ).toBe( values[counter] );
+
+                counter++;
+            }
+
+            expect( counter ).toBe( map.size() );
+        } );
     } );
 
-    it( 'clone TODO', function () {
-        // TODO
+    describe( 'clone', function () {
+        it( 'can clone an empty map', function () {
+            var otherMap = map.clone();
+            expect( otherMap.isEmpty() ).toBe( true );
+        } );
+
+        it( 'can clone a map with entries', function () {
+            map.put( 1, 10 );
+            map.put( 2, 20 );
+
+            var otherMap = map.clone();
+            expect( otherMap.size() ).toBe( 2 );
+            expect( otherMap.get( 1 ) ).toBe( 10 );
+            expect( otherMap.get( 2 ) ).toBe( 20 );
+        } );
     } );
+
+    // TODO test complex types for keys/values
 } );
