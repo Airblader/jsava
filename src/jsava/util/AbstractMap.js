@@ -374,7 +374,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                 return true;
             }
 
-            if( !other.hasInterface( jsava.util.Map ) ) {
+            if( !qx.Class.hasInterface( other, jsava.util.Map ) ) {
                 return false;
             }
 

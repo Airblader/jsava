@@ -3415,7 +3415,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 return true;
             }
 
-            if( !other.hasInterface( jsava.util.Map ) ) {
+            if( !qx.Class.hasInterface( other, jsava.util.Map ) ) {
                 return false;
             }
 
