@@ -77,6 +77,17 @@ describe( 'HashMap', function () {
             map.put( 0, null );
             expect( map.get( 0 ) ).toBe( null );
         } );
+
+        it( 'work with many values', function () {
+            for( var i = 1; i <= 100; i++ ) {
+                map.put( i, i * i );
+            }
+
+            expect( map.size() ).toBe( 100 );
+            for( var j = 1; j <= map.size(); j++ ) {
+                expect( map.get( j ) ).toBe( j * j );
+            }
+        } );
     } );
 
     describe( 'putAll', function () {
@@ -247,11 +258,11 @@ describe( 'HashMap', function () {
         } );
     } );
 
-    /*
-     _resize
-     clone
-     keySet
-     values
-     entrySet
-     */
+    describe( 'keySet, values and entrySet', function () {
+        // TODO
+    } );
+
+    it( 'clone TODO', function () {
+        // TODO
+    } );
 } );
