@@ -4277,7 +4277,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         var clazz = getShortName( compileOrder[i] );
 
         if( typeof window[clazz] === 'undefined' ) {
-            window[clazz] = getClass( clazz );
+            window[clazz] = getClass( compileOrder[i] );
             Cache.setStatus( clazz, Cache.Status.SHORTENED );
         } else {
             Cache.setStatus( clazz, Cache.Status.CHECKED );
