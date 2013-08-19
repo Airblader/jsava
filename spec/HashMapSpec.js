@@ -79,7 +79,6 @@ describe( 'HashMap', function () {
         } );
 
         it( 'with another map', function () {
-            // TODO check if this is actually correct
             var otherMap = new HashMap();
             for( var i = 1; i <= 32; i++ ) {
                 otherMap.put( i, i );
