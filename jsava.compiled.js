@@ -3099,7 +3099,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 },
 
                 equals: function (other) {
-                    if( !( qx.Interface.classImplements( other, jsava.util.Map.Entry ) ) ) {
+                    if( !( qx.Interface.objectImplements( other, jsava.util.Map.Entry ) ) ) {
                         return false;
                     }
 
@@ -3164,7 +3164,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 },
 
                 equals: function (other) {
-                    if( !( qx.Class.implementsInterface( other, jsava.util.Map.Entry ) ) ) {
+                    if( !( qx.Interface.objectImplements( other, jsava.util.Map.Entry ) ) ) {
                         return false;
                     }
 
@@ -3415,7 +3415,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 return true;
             }
 
-            if( !qx.Class.hasInterface( other, jsava.util.Map ) ) {
+            if( !qx.Interface.objectImplements( other, jsava.util.Map ) ) {
                 return false;
             }
 
