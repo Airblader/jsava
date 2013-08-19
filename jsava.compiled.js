@@ -4236,4 +4236,51 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
             }
         } )
     }
-} );
+} );(function (window) {
+    'use strict';
+
+    if( typeof window === 'undefined' ) {
+        return;
+    }
+
+    // DO NOT EDIT -- will be replaced in compile.pl
+    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap'];
+
+    var Cache = new (function () {
+        var __cache = {};
+
+        this.Status = {
+            CHECKED: 0,
+            SHORTENED: 1
+        };
+
+        this.setStatus = function (clazz, status) {
+            __cache[clazz] = status;
+        };
+    });
+
+    var getShortName = function (clazz) {
+        return clazz.split( /\./ ).pop();
+    };
+
+    var getClass = function (clazz) {
+        var __clazz = window,
+            parts = clazz.split( /\./ );
+        for( var i = 0; i < parts.length; i++ ) {
+            __clazz = __clazz[parts[i]];
+        }
+
+        return __clazz;
+    };
+
+    for( var i = 0; i < compileOrder.length; i++ ) {
+        var clazz = getShortName( compileOrder[i] );
+
+        if( typeof window[clazz] === 'undefined' ) {
+            window[clazz] = getClass( clazz );
+            Cache.setStatus( clazz, Cache.Status.SHORTENED );
+        } else {
+            Cache.setStatus( clazz, Cache.Status.CHECKED );
+        }
+    }
+})( window );

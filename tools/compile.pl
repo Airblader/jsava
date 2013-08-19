@@ -11,6 +11,7 @@ my $sourceFolder = "../src";
 my $libFolder = "../lib";
 
 my $primitiveStubs = "jsavaPrimitivesStubs.js";
+my $shortener = "jsavaShortener.js";
 my $qooxdoo = "qx-oo-3.0.min.js";
 
 ###
@@ -168,4 +169,7 @@ foreach( @compileOrder ) {
     system( "cat $filename >> $outputFilename" );
 }
 
-# TODO run a script to shorten names
+my $shortenerContent = `cat $libFolder/$shortener`;
+my $compileOrderArray = "'" . ( join "','", @compileOrder ) . "'";
+$shortenerContent =~ s/\Qvar compileOrder = [];\E/var compileOrder = [$compileOrderArray];/;
+system( "echo \"$shortenerContent\" >> $outputFilename" );
