@@ -4,6 +4,7 @@ use 5.010;
 use strict;
 use warnings;
 
+# TODO remove this variable mess
 my $outputFilename = '../jsava.compiled.js';
 
 my $sourceFolder = "../src";
@@ -32,6 +33,7 @@ sub getClassNameFromPath {
     return $className;
 }
 
+# Returns the filename with path for a fully qualified class name
 sub getFilenameFromClassName {
     my $className = $_[0];
     my $path = $className;
@@ -122,19 +124,21 @@ sub addSourceToCompileOrder {
     my @requiredClasses = getRequiredClasses( getFilenameFromClassName( $className ) );
 
     if( $className ~~ @compileOrder ) {
-        # TODO entry already in compile order, so maybe move it
+        # TODO if the entry already exists in the compile order, a check is requried to see if
+        # the entry has to be moved
         return @compileOrder;
     }
 
     foreach( @requiredClasses ) {
-        # TODO can this be avoided (currently necessary for inner classes)?
+        # This is currently needed for inner classes which are not in separate files, but
+        # are still detected.
+        # TODO find a way to get rid of this
         next if !-e getFilenameFromClassName( $_ );
 
         @compileOrder = addSourceToCompileOrder( \@compileOrder, $_ );
     }
 
     push @compileOrder, $className;
-
     return @compileOrder;
 }
 
