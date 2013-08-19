@@ -3962,7 +3962,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
 
         _addEntry: function (hash, key, value, bucketIndex) {
             var entry = this._table[bucketIndex];
-            this._table[bucketIndex] = new jsava.util.HashMap.Entry( hash, key, value, entry );
+            this._table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
             if( this._size++ >= this._threshold ) {
                 this._resize( 2 * this._table.length );
             }
@@ -3970,7 +3970,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
 
         _createEntry: function (hash, key, value, bucketIndex) {
             var entry = this._table[bucketIndex];
-            this._table[bucketIndex] = new jsava.util.HashMap.Entry( hash, key, value, entry );
+            this._table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
             this._size++;
         },
 
