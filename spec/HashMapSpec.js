@@ -208,7 +208,44 @@ describe( 'HashMap', function () {
         expect( map.isEmpty() ).toBe( true );
     } );
 
-    // TODO go through all methods programmatically to see what to test
+    it( 'toString returns a correct string representation', function () {
+        expect( map.toString() ).toBe( '{}' );
+
+        map.put( 1, 10 );
+        map.put( 2, 20 );
+        expect( map.toString() ).toBe( '{1=10, 2=20}' );
+    } );
+
+    describe( 'equals', function () {
+        it( 'returns true for the same object', function () {
+            expect( map.equals( map ) ).toBe( true );
+
+            map.put( 1, 10 );
+            expect( map.equals( map ) ).toBe( true );
+        } );
+
+        it( 'returns true for another map with same content', function () {
+            var otherMap = new HashMap();
+
+            expect( map.equals( otherMap ) ).toBe( true );
+            expect( otherMap.equals( map ) ).toBe( true );
+
+            map.put( 1, 10 );
+            otherMap.put( 1, 10 );
+
+            expect( map.equals( otherMap ) ).toBe( true );
+            expect( otherMap.equals( map ) ).toBe( true );
+        } );
+
+        it( 'returns false for different maps', function () {
+            var otherMap = new HashMap();
+            map.put( 1, 10 );
+
+            expect( map.equals( otherMap ) ).toBe( false );
+            expect( map.equals( null ) ).toBe( false );
+            expect( otherMap.equals( map ) ).toBe( false );
+        } );
+    } );
 
     /*
      _resize
@@ -216,10 +253,5 @@ describe( 'HashMap', function () {
      keySet
      values
      entrySet
-     equals
-     hashCode
-     toString
-     notify
-     notifyAll
      */
 } );
