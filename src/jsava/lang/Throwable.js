@@ -5,6 +5,7 @@ qx.Class.define( 'jsava.lang.Throwable', {
     construct: function () {
         var args = Array.prototype.slice.call( arguments );
         this.fillInStackTrace();
+        this.__cause = this;
 
         if( args.length === 1
             && qx.Class.isSubClassOf( args[0].constructor, jsava.lang.Throwable ) ) {
@@ -27,7 +28,7 @@ qx.Class.define( 'jsava.lang.Throwable', {
     members: {
         __detailMessage: null,
         /** @type jsava.lang.Throwable */
-        __cause: this,
+        __cause: null,
         __stackTrace: null,
 
         getMessage: function () {
