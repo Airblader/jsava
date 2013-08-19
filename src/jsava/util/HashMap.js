@@ -314,13 +314,13 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         putAll: function (map) {
-            var numKeyToBeAdded = map.size();
-            if( numKeyToBeAdded === 0 ) {
+            var numKeysToBeAdded = map.size();
+            if( numKeysToBeAdded === 0 ) {
                 return;
             }
 
-            if( numKeyToBeAdded > this._threshold ) {
-                var targetCapacity = (numKeyToBeAdded / this._loadFactor + 1) | 0;
+            if( numKeysToBeAdded > this._threshold ) {
+                var targetCapacity = (numKeysToBeAdded / this._loadFactor + 1) | 0;
                 if( targetCapacity > this.self( arguments ).MAXIMUM_CAPACITY ) {
                     targetCapacity = this.self( arguments ).MAXIMUM_CAPACITY;
                 }
