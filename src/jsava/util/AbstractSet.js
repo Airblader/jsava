@@ -14,6 +14,10 @@ qx.Class.define( 'jsava.util.AbstractSet', {
                 return true;
             }
 
+            if( obj === null ) {
+                return false;
+            }
+
             if( !qx.Class.implementsInterface( obj, jsava.util.Set ) ) {
                 return false;
             }

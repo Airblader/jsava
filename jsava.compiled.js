@@ -2984,6 +2984,10 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 return true;
             }
 
+            if( obj === null ) {
+                return false;
+            }
+
             if( !qx.Class.implementsInterface( obj, jsava.util.Set ) ) {
                 return false;
             }
@@ -3099,7 +3103,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 },
 
                 equals: function (other) {
-                    if( !( qx.Interface.objectImplements( other, jsava.util.Map.Entry ) ) ) {
+                    if( other === null || !( qx.Interface.objectImplements( other, jsava.util.Map.Entry ) ) ) {
                         return false;
                     }
 
@@ -3164,7 +3168,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 },
 
                 equals: function (other) {
-                    if( !( qx.Interface.objectImplements( other, jsava.util.Map.Entry ) ) ) {
+                    if( other === null || !( qx.Interface.objectImplements( other, jsava.util.Map.Entry ) ) ) {
                         return false;
                     }
 
@@ -3415,6 +3419,10 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 return true;
             }
 
+            if( other === null ) {
+                return false;
+            }
+
             if( !qx.Interface.objectImplements( other, jsava.util.Map ) ) {
                 return false;
             }
@@ -3586,7 +3594,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 },
 
                 equals: function (obj) {
-                    if( !qx.Class.implementsInterface( obj, jsava.util.HashMap.Entry ) ) {
+                    if( obj === null || !qx.Class.implementsInterface( obj, jsava.util.HashMap.Entry ) ) {
                         return false;
                     }
 
@@ -3868,7 +3876,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         _removeMapping: function (obj) {
-            if( !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
+            if( obj === null || !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
                 return null;
             }
 
@@ -4208,7 +4216,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 },
 
                 contains: function (obj) {
-                    if( !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
+                    if( obj === null || !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
                         return false;
                     }
 

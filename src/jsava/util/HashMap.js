@@ -94,7 +94,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 },
 
                 equals: function (obj) {
-                    if( !qx.Class.implementsInterface( obj, jsava.util.HashMap.Entry ) ) {
+                    if( obj === null || !qx.Class.implementsInterface( obj, jsava.util.HashMap.Entry ) ) {
                         return false;
                     }
 
@@ -376,7 +376,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         _removeMapping: function (obj) {
-            if( !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
+            if( obj === null || !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
                 return null;
             }
 
@@ -716,7 +716,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 },
 
                 contains: function (obj) {
-                    if( !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
+                    if( obj === null || !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
                         return false;
                     }
 

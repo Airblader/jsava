@@ -58,7 +58,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                 },
 
                 equals: function (other) {
-                    if( !( qx.Interface.objectImplements( other, jsava.util.Map.Entry ) ) ) {
+                    if( other === null || !( qx.Interface.objectImplements( other, jsava.util.Map.Entry ) ) ) {
                         return false;
                     }
 
@@ -123,7 +123,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                 },
 
                 equals: function (other) {
-                    if( !( qx.Interface.objectImplements( other, jsava.util.Map.Entry ) ) ) {
+                    if( other === null || !( qx.Interface.objectImplements( other, jsava.util.Map.Entry ) ) ) {
                         return false;
                     }
 
@@ -372,6 +372,10 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         equals: function (other) {
             if( other === this ) {
                 return true;
+            }
+
+            if( other === null ) {
+                return false;
             }
 
             if( !qx.Interface.objectImplements( other, jsava.util.Map ) ) {
