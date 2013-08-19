@@ -10,6 +10,52 @@ describe( 'HashMap', function () {
         expect( map.getClassName() ).toBe( 'jsava.util.HashMap' );
     } );
 
+    it( 'clear() empties the map', function () {
+        map.put( 1, 1 );
+        map.put( 2, 2 );
+        map.put( 5, 5 );
+
+        map.clear();
+
+        expect( map.size() ).toBe( 0 );
+        expect( map.get( 1 ) ).toBe( null );
+        expect( map.get( 2 ) ).toBe( null );
+        expect( map.get( 5 ) ).toBe( null );
+    } );
+
+    it( 'size() counts the number of entries', function () {
+        expect( map.size() ).toBe( 0 );
+
+        map.put( 1, 1 );
+        expect( map.size() ).toBe( 1 );
+
+        map.put( 2, 2 );
+        map.put( 3, 3 );
+        expect( map.size() ).toBe( 3 );
+
+        map.remove( 3 );
+        map.remove( 2 );
+        expect( map.size() ).toBe( 1 );
+    } );
+
+    it( 'isEmpty() returns whether or not the map is empty', function () {
+        expect( map.isEmpty() ).toBe( true );
+
+        map.put( 0, 0 );
+        expect( map.isEmpty() ).toBe( false );
+
+        map.remove( 0 );
+        expect( map.isEmpty() ).toBe( true );
+    } );
+
+    it( 'toString() returns a correct string representation', function () {
+        expect( map.toString() ).toBe( '{}' );
+
+        map.put( 1, 10 );
+        map.put( 2, 20 );
+        expect( map.toString() ).toBe( '{1=10, 2=20}' );
+    } );
+
     describe( 'constructor', function () {
         it( 'without any parameters', function () {
             expect( map._loadFactor ).toBe( HashMap.DEFAULT_LOAD_FACTOR );
@@ -43,7 +89,7 @@ describe( 'HashMap', function () {
         } );
     } );
 
-    describe( 'put and get', function () {
+    describe( 'put() and get()', function () {
         it( 'work for a simple value', function () {
             var expectedKey = 1,
                 expectedValue = 'Hello World';
@@ -90,7 +136,7 @@ describe( 'HashMap', function () {
         } );
     } );
 
-    describe( 'putAll', function () {
+    describe( 'putAll()', function () {
         var otherMap;
 
         beforeEach( function () {
@@ -133,7 +179,7 @@ describe( 'HashMap', function () {
         } );
     } );
 
-    describe( 'remove', function () {
+    describe( 'remove()', function () {
         it( 'can remove an existing element', function () {
             map.put( 1, 42 );
 
@@ -161,7 +207,7 @@ describe( 'HashMap', function () {
         } );
     } );
 
-    describe( 'containsKey and containsValue', function () {
+    describe( 'containsKey() and containsValue()', function () {
         it( 'can verify the presence of a key', function () {
             map.put( 1, 10 );
             expect( map.containsKey( 1 ) ).toBe( true );
@@ -181,53 +227,7 @@ describe( 'HashMap', function () {
         } );
     } );
 
-    it( 'clear empties the map', function () {
-        map.put( 1, 1 );
-        map.put( 2, 2 );
-        map.put( 5, 5 );
-
-        map.clear();
-
-        expect( map.size() ).toBe( 0 );
-        expect( map.get( 1 ) ).toBe( null );
-        expect( map.get( 2 ) ).toBe( null );
-        expect( map.get( 5 ) ).toBe( null );
-    } );
-
-    it( 'size counts the number of entries', function () {
-        expect( map.size() ).toBe( 0 );
-
-        map.put( 1, 1 );
-        expect( map.size() ).toBe( 1 );
-
-        map.put( 2, 2 );
-        map.put( 3, 3 );
-        expect( map.size() ).toBe( 3 );
-
-        map.remove( 3 );
-        map.remove( 2 );
-        expect( map.size() ).toBe( 1 );
-    } );
-
-    it( 'isEmpty returns whether or not the map is empty', function () {
-        expect( map.isEmpty() ).toBe( true );
-
-        map.put( 0, 0 );
-        expect( map.isEmpty() ).toBe( false );
-
-        map.remove( 0 );
-        expect( map.isEmpty() ).toBe( true );
-    } );
-
-    it( 'toString returns a correct string representation', function () {
-        expect( map.toString() ).toBe( '{}' );
-
-        map.put( 1, 10 );
-        map.put( 2, 20 );
-        expect( map.toString() ).toBe( '{1=10, 2=20}' );
-    } );
-
-    describe( 'equals', function () {
+    describe( 'equals()', function () {
         it( 'returns true for the same object', function () {
             expect( map.equals( map ) ).toBe( true );
 
@@ -258,7 +258,7 @@ describe( 'HashMap', function () {
         } );
     } );
 
-    describe( 'keySet, values and entrySet', function () {
+    describe( 'keySet(), values() and entrySet()', function () {
         var keys = [1, 2, 5],
             values = [10, 20, 50];
 
@@ -268,7 +268,7 @@ describe( 'HashMap', function () {
             map.put( keys[2], values[2] );
         } );
 
-        it( 'keySet returns the correct set', function () {
+        it( 'keySet() returns the correct set', function () {
             expect( map.keySet().size() ).toBe( 3 );
 
             var iterator = map.keySet().iterator(),
@@ -280,7 +280,7 @@ describe( 'HashMap', function () {
             expect( counter ).toBe( keys.length );
         } );
 
-        it( 'values returns the correct set', function () {
+        it( 'values() returns the correct set', function () {
             expect( map.values().size() ).toBe( 3 );
 
             var iterator = map.values().iterator(),
@@ -292,7 +292,7 @@ describe( 'HashMap', function () {
             expect( counter ).toBe( values.length );
         } );
 
-        it( 'entrySet returns the correct set', function () {
+        it( 'entrySet() returns the correct set', function () {
             expect( map.entrySet().size() ).toBe( 3 );
 
             var iterator = map.entrySet().iterator(),
@@ -309,7 +309,7 @@ describe( 'HashMap', function () {
         } );
     } );
 
-    describe( 'clone', function () {
+    describe( 'clone()', function () {
         it( 'can clone an empty map', function () {
             var otherMap = map.clone();
             expect( otherMap.isEmpty() ).toBe( true );
@@ -324,6 +324,8 @@ describe( 'HashMap', function () {
             expect( otherMap.get( 1 ) ).toBe( 10 );
             expect( otherMap.get( 2 ) ).toBe( 20 );
         } );
+
+        // TODO verify that copy is shallow
     } );
 
     // TODO test complex types for keys/values
