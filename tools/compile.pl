@@ -4,8 +4,13 @@ use 5.010;
 use strict;
 use warnings;
 
+my $outputFilename = '../jsava.compiled.js';
 
 my $sourceFolder = "../src";
+my $libFolder = "../lib";
+
+my $primitiveStubs = "jsavaPrimitivesStubs.js";
+my $qooxdoo = "qx-oo-3.0.min.js";
 
 ###
 
@@ -27,6 +32,14 @@ sub getClassNameFromPath {
     return $className;
 }
 
+sub getFilenameFromClassName {
+    my $className = $_[0];
+    my $path = $className;
+
+    $path =~ s/\./\//g;
+    return "$path.js";
+}
+
 # Returns an unique list of all file names used as super classes
 # @param {string} file content
 sub getSuperClasses {
@@ -39,6 +52,7 @@ sub getSuperClasses {
         $clazz =~ s/\s*//g;
 
         next if $clazz eq "";
+        next if $clazz eq "qx.core.Object";
         next if $clazz ~~ @superClasses;
 
         push @superClasses, $clazz;
@@ -60,6 +74,7 @@ sub getInterfaces {
         $clazz =~ s/\s*//g;
 
         next if $clazz eq "";
+        next if $clazz eq "qx.core.Object";
         next if $clazz ~~ @interfaces;
 
         push @interfaces, $clazz;
@@ -74,6 +89,7 @@ sub getInterfaces {
             $clazz =~ s/\s*//g;
 
             next if $clazz eq "";
+            next if $clazz eq "qx.core.Object";
             next if $clazz ~~ @interfaces;
 
             push @interfaces, $clazz;
@@ -99,6 +115,29 @@ sub getRequiredClasses {
     return @requiredClasses;
 }
 
+# TODO detect circular references
+sub addSourceToCompileOrder {
+    my @compileOrder = @{ $_[0] };
+    my $className = $_[1];
+    my @requiredClasses = getRequiredClasses( getFilenameFromClassName( $className ) );
+
+    if( $className ~~ @compileOrder ) {
+        # TODO entry already in compile order, so maybe move it
+        return @compileOrder;
+    }
+
+    foreach( @requiredClasses ) {
+        # TODO can this be avoided (currently necessary for inner classes)?
+        next if !-e getFilenameFromClassName( $_ );
+
+        @compileOrder = addSourceToCompileOrder( \@compileOrder, $_ );
+    }
+
+    push @compileOrder, $className;
+
+    return @compileOrder;
+}
+
 
 ### MAIN
 
@@ -110,12 +149,20 @@ my @compileOrder;
 
 foreach( @files ) {
     my $clazzName = getClassNameFromPath( $_ );
-    my @requiredClasses = getRequiredClasses( $_ );
-
-    # TODO
+    @compileOrder = addSourceToCompileOrder( \@compileOrder, $clazzName );
 }
 
-# TODO compile
-    # 1. qooxdoo file (optional?)
-    # 2. js native types stubs
-    # 3. classes
+# TODO just for testing
+foreach( @compileOrder ) {
+#    print "$_\n";
+}
+
+system( "rm -f $outputFilename" );
+system( "cat $libFolder/$qooxdoo >> $outputFilename" );
+system( "cat $libFolder/$primitiveStubs >> $outputFilename" );
+foreach( @compileOrder ) {
+    my $filename = getFilenameFromClassName( $_ );
+    system( "cat $filename >> $outputFilename" );
+}
+
+# TODO run a script to shorten names
