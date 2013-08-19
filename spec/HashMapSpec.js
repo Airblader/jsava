@@ -1,9 +1,9 @@
-describe( 'jsava.util.HashMap', function () {
-    // TODO when compiled version is used, introduce local shortcut for HashMap here
-    var map;
+describe( 'HashMap', function () {
+    var HashMap = jsava.util.HashMap,
+        map;
 
     beforeEach( function () {
-        map = new jsava.util.HashMap();
+        map = new HashMap();
     } );
 
     it( 'has the correct class name', function () {
@@ -12,33 +12,33 @@ describe( 'jsava.util.HashMap', function () {
 
     describe( 'constructor', function () {
         it( 'without any parameters', function () {
-            expect( map._loadFactor ).toBe( jsava.util.HashMap.DEFAULT_LOAD_FACTOR );
+            expect( map._loadFactor ).toBe( HashMap.DEFAULT_LOAD_FACTOR );
             expect( map._table.length ).toBe( 16 );
         } );
 
         it( 'with custom initial capacity', function () {
-            var mapWithParameters = new jsava.util.HashMap( 2 );
+            var mapWithParameters = new HashMap( 2 );
             expect( mapWithParameters._table.length ).toBe( 2 );
         } );
 
         it( 'with custom initial capacity that is not a power of two', function () {
-            var mapWithParameters = new jsava.util.HashMap( 3 );
+            var mapWithParameters = new HashMap( 3 );
             expect( mapWithParameters._table.length ).toBe( 4 );
         } );
 
         it( 'with custom initial capacity and a custom load factor', function () {
-            var mapWithParameters = new jsava.util.HashMap( 4, 0.5 );
+            var mapWithParameters = new HashMap( 4, 0.5 );
             expect( mapWithParameters._table.length ).toBe( 4 );
             expect( mapWithParameters._threshold ).toBe( 2 );
         } );
 
         it( 'with another map', function () {
             // TODO check if this is actually correct
-            var otherMap = new jsava.util.HashMap();
+            var otherMap = new HashMap();
             for( var i = 1; i <= 32; i++ ) {
                 otherMap.put( i, i );
             }
-            var mapWithParameters = new jsava.util.HashMap( otherMap );
+            var mapWithParameters = new HashMap( otherMap );
             expect( mapWithParameters._table.length ).toBe( 64 );
         } );
     } );
@@ -83,7 +83,7 @@ describe( 'jsava.util.HashMap', function () {
         var otherMap;
 
         beforeEach( function () {
-            otherMap = new jsava.util.HashMap();
+            otherMap = new HashMap();
             otherMap.put( 1, 10 );
             otherMap.put( 2, 20 );
             otherMap.put( 3, 30 );
