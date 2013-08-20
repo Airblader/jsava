@@ -93,7 +93,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
         },
 
         iterator: function () {
-            // TODO return new Itr();
+            return new this.Itr();
         },
 
         listIterator: function () {
