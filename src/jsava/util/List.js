@@ -77,10 +77,10 @@ qx.Interface.define( 'jsava.util.List', {
         },
 
         /**
-         * @param {jsava.lang.Object} obj
+         * @param {jsava.lang.Object} other
          * @return {Boolean}
          */
-        equals: function (obj) {
+        equals: function (other) {
         },
 
         /**
