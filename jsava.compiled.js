@@ -3815,13 +3815,13 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         putAll: function (map) {
-            var numKeyToBeAdded = map.size();
-            if( numKeyToBeAdded === 0 ) {
+            var numKeysToBeAdded = map.size();
+            if( numKeysToBeAdded === 0 ) {
                 return;
             }
 
-            if( numKeyToBeAdded > this._threshold ) {
-                var targetCapacity = (numKeyToBeAdded / this._loadFactor + 1) | 0;
+            if( numKeysToBeAdded > this._threshold ) {
+                var targetCapacity = (numKeysToBeAdded / this._loadFactor + 1) | 0;
                 if( targetCapacity > this.self( arguments ).MAXIMUM_CAPACITY ) {
                     targetCapacity = this.self( arguments ).MAXIMUM_CAPACITY;
                 }
@@ -4237,6 +4237,138 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
             }
         } )
     }
+} );qx.Interface.define( 'jsava.util.List', {
+    extend: jsava.util.Collection,
+
+    members: {
+        /**
+         * @return {Number}
+         */
+        size: function () {
+        },
+
+        /**
+         * @return {Boolean}
+         */
+        isEmpty: function () {
+        },
+
+        /**
+         * @return {Boolean}
+         */
+        contains: function (obj) {
+        },
+
+        /**
+         * @return {jsava.util.Iterator}
+         */
+        iterator: function () {
+        },
+
+        /**
+         * @return {jsava.lang.Object[]}
+         */
+        toArray: function () {
+        },
+
+        /**
+         * @return {Boolean}
+         */
+        add: function () {
+        },
+
+        /**
+         * @param {jsava.lang.Object} obj
+         * @return {Boolean}
+         */
+        remove: function (obj) {
+        },
+
+        /**
+         * @param {jsava.util.Collection} collection
+         * @return {Boolean}
+         */
+        containsAll: function (collection) {
+        },
+
+        /**
+         * @param {jsava.util.Collection} collection
+         * @return {Boolean}
+         */
+        addAll: function (collection) {
+        },
+
+        /**
+         * @param {jsava.util.Collection} collection
+         * @return {Boolean}
+         */
+        removeAll: function (collection) {
+        },
+
+        /**
+         * @param {jsava.util.Collection} collection
+         * @return {Boolean}
+         */
+        retainAll: function (collection) {
+        },
+
+        clear: function () {
+        },
+
+        /**
+         * @param {jsava.lang.Object} obj
+         * @return {Boolean}
+         */
+        equals: function (obj) {
+        },
+
+        /**
+         * @return {Number}
+         */
+        hashCode: function () {
+        },
+
+        /**
+         * @param {Number} index
+         */
+        get: function (index) {
+        },
+
+        /**
+         * @param {Number} index
+         * @param element
+         */
+        set: function (index, element) {
+        },
+
+        /**
+         * @param {jsava.lang.Object} obj
+         * @return {Number}
+         */
+        indexOf: function (obj) {
+        },
+
+        /**
+         * @param {jsava.lang.Object} obj
+         * @return {Number}
+         */
+        lastIndexOf: function (obj) {
+        },
+
+        /**
+         * @return {jsava.util.ListIterator}
+         */
+        listIterator: function () {
+        },
+
+        /**
+         * @param {Number} fromIndex
+         * @param {Number} toIndex
+         * @return {jsava.util.List}
+         */
+        subList: function (fromIndex, toIndex) {
+        }
+    }
 } );(function (window) {
     'use strict';
 
@@ -4245,7 +4377,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
     }
 
     // DO NOT EDIT -- will be replaced in compile.pl
-    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap'];
+    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap','jsava.util.List'];
 
     var Cache = new (function () {
         var __cache = {};
