@@ -17,7 +17,7 @@ qx.Class.define( 'jsava.lang.Object', {
         },
 
         /**
-         * @returns {Integer}
+         * @returns {Number}
          */
         hashCode: function () {
             var hashCode = 0;

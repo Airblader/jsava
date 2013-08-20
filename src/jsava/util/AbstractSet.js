@@ -36,6 +36,8 @@ qx.Class.define( 'jsava.util.AbstractSet', {
                     || qx.Class.isSubClassOf( e.constructor, jsava.lang.NullPointerException ) ) {
                     return false;
                 }
+
+                throw e;
             }
         },
 

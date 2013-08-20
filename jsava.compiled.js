@@ -2255,7 +2255,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         /**
-         * @returns {Integer}
+         * @returns {Number}
          */
         hashCode: function () {
             var hashCode = 0;
@@ -3017,6 +3017,8 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                     || qx.Class.isSubClassOf( e.constructor, jsava.lang.NullPointerException ) ) {
                     return false;
                 }
+
+                throw e;
             }
         },
 
@@ -4436,9 +4438,9 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         /** @protected */
         modCount: 0,
 
-        add: function (element) {
+        add: function () {
             if( arguments.length === 1 ) {
-                this.add( this.size(), element );
+                this.add( this.size(), arguments[0] );
                 return true;
             }
 
@@ -4452,10 +4454,6 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         set: function (index, element) {
-            throw new jsava.lang.UnsupportedOperationException();
-        },
-
-        add: function (index, element) {
             throw new jsava.lang.UnsupportedOperationException();
         },
 

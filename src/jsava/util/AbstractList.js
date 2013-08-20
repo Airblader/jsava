@@ -12,9 +12,9 @@ qx.Class.define( 'jsava.util.AbstractList', {
         /** @protected */
         modCount: 0,
 
-        add: function (element) {
+        add: function () {
             if( arguments.length === 1 ) {
-                this.add( this.size(), element );
+                this.add( this.size(), arguments[0] );
                 return true;
             }
 
@@ -28,10 +28,6 @@ qx.Class.define( 'jsava.util.AbstractList', {
         },
 
         set: function (index, element) {
-            throw new jsava.lang.UnsupportedOperationException();
-        },
-
-        add: function (index, element) {
             throw new jsava.lang.UnsupportedOperationException();
         },
 
