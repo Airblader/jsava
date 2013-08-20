@@ -106,8 +106,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
                 throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index );
             }
 
-            // TODO return new ListItr(index);
-            return null;
+            return new this.ListItr( index );
         },
 
         subList: function (fromIndex, toIndex) {
@@ -239,6 +238,82 @@ qx.Class.define( 'jsava.util.AbstractList', {
                 checkForComodification: function () {
                     if( this.__thisAbstractList._modCount !== this.expectedModCount ) {
                         throw new jsava.lang.ConcurrentModificationException();
+                    }
+                }
+            }
+        } ),
+
+        /** @private */
+        ListItr: qx.Class.define( 'jsava.util.AbstractList.ListItr', {
+            extend: jsava.util.AbstractList.Itr,
+            implement: jsava.util.ListIterator,
+
+            /** @private */
+            construct: function (thisAbstractList, index) {
+                this.base( arguments, thisAbstractList );
+                this.cursor = index;
+            },
+
+            members: {
+                hasPrevious: function () {
+                    return this.cursor !== 0;
+                },
+
+                previous: function () {
+                    this.checkForComodification();
+                    try {
+                        var i = this.cursor - 1,
+                            previous = this.__thisAbstractList.get( i );
+                        this.lastRet = this.cursor = i;
+                        return previous;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            this.checkForComodification();
+                            throw new jsava.lang.NoSuchElementException();
+                        }
+
+                        throw e;
+                    }
+                },
+
+                nextIndex: function () {
+                    return this.cursor;
+                },
+
+                previousIndex: function () {
+                    return this.cursor - 1;
+                },
+
+                set: function (element) {
+                    if( this.lastRet === 1 ) {
+                        throw new jsava.lang.IllegalStateException();
+                    }
+                    this.checkForComodification();
+
+                    try {
+                        this.__thisAbstractList.set( this.lastRet, element );
+                        this.expectedModCount = this.__thisAbstractList._modCount;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            throw new jsava.lang.ConcurrentModificationException();
+                        }
+
+                        throw e;
+                    }
+                },
+
+                add: function (element) {
+                    this.checkForComodification();
+                    try {
+                        this.__thisAbstractList.add( this.cursor++, element );
+                        this.lastRet = -1;
+                        this.expectedModCount = this.__thisAbstractList._modCount;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            throw new jsava.lang.ConcurrentModificationException();
+                        }
+
+                        throw e;
                     }
                 }
             }

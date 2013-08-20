@@ -2416,6 +2416,16 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
     statics: {
         serialVersionUID: 1
     }
+} );qx.Class.define( 'jsava.lang.IndexOutOfBoundsException', {
+    extend: jsava.lang.RuntimeException,
+
+    construct: function () {
+        this.base.apply( this, Array.prototype.concat.call( arguments, Array.prototype.slice.call( arguments ) ) );
+    },
+
+    statics: {
+        serialVersionUID: 1
+    }
 } );qx.Class.define( 'jsava.lang.IllegalArgumentException', {
     extend: jsava.lang.RuntimeException,
 
@@ -3108,7 +3118,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                         return false;
                     }
 
-                    return __eq( this.__key, other.getKey() ) && eq( this.__value, other.getValue() );
+                    return this.__eq( this.__key, other.getKey() ) && this.__eq( this.__value, other.getValue() );
                 },
 
                 hashCode: function () {
@@ -3173,7 +3183,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                         return false;
                     }
 
-                    return __eq( this.__key, other.getKey() ) && eq( this.__value, other.getValue() );
+                    return this.__eq( this.__key, other.getKey() ) && this.__eq( this.__value, other.getValue() );
                 },
 
                 hashCode: function () {
@@ -4369,6 +4379,49 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         subList: function (fromIndex, toIndex) {
         }
     }
+} );qx.Interface.define( 'jsava.util.ListIterator', {
+    extend: jsava.util.Iterator,
+
+    members: {
+        /**
+         * @return {Boolean}
+         */
+        hasNext: function () {
+        },
+
+        next: function () {
+        },
+
+        /**
+         * @return {Boolean}
+         */
+        hasPrevious: function () {
+        },
+
+        previous: function () {
+        },
+
+        /**
+         * @return {Number}
+         */
+        nextIndex: function () {
+        },
+
+        /**
+         * @return {Number}
+         */
+        previousIndex: function () {
+        },
+
+        remove: function () {
+        },
+
+        set: function (element) {
+        },
+
+        add: function (element) {
+        }
+    }
 } );qx.Class.define( 'jsava.util.AbstractList', {
     extend: jsava.util.AbstractCollection,
     implement: jsava.util.List,
@@ -4464,7 +4517,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         iterator: function () {
-            // TODO return new Itr();
+            return new this.Itr();
         },
 
         listIterator: function () {
@@ -4474,16 +4527,14 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
 
             var index = arguments[0];
             if( index < 0 || index > this.size() ) {
-                // TODO use IndexOutOfBoundsException
-                throw new jsava.lang.Exception( 'Index: ' + index );
+                throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index );
             }
 
-            // TODO return new ListItr(index);
-            return null;
+            return new this.ListItr( index );
         },
 
         subList: function (fromIndex, toIndex) {
-            return (qx.Interface.objectImplmenets( this, jsava.util.RandomAccess ) ?
+            return (qx.Interface.objectImplements( this, jsava.util.RandomAccess ) ?
                 new jsava.util.RandomAccessSubList( this, fromIndex, toIndex ) :
                 new jsava.util.SubList( this, fromIndex, toIndex ))
         },
@@ -4539,50 +4590,158 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 iterator.next();
                 iterator.remove();
             }
-        }
-    }
-} );qx.Interface.define( 'jsava.util.ListIterator', {
-    extend: jsava.util.Iterator,
-
-    members: {
-        /**
-         * @return {Boolean}
-         */
-        hasNext: function () {
         },
 
-        next: function () {
-        },
+        /** @private */
+        Itr: qx.Class.define( 'jsava.util.AbstractList.Itr', {
+            implement: jsava.util.Iterator,
 
-        /**
-         * @return {Boolean}
-         */
-        hasPrevious: function () {
-        },
+            /** @private */
+            construct: function (thisAbstractList) {
+                this.__thisAbstractList = thisAbstractList;
+                this.expectedModCount = this.__thisAbstractList._modCount;
+            },
 
-        previous: function () {
-        },
+            members: {
+                __thisAbstractList: null,
 
-        /**
-         * @return {Number}
-         */
-        nextIndex: function () {
-        },
+                /** @protected */
+                cursor: 0,
+                /** @protected */
+                lastRet: -1,
+                /**
+                 * @protected
+                 * @type Number
+                 */
+                expectedModCount: 0,
 
-        /**
-         * @return {Number}
-         */
-        previousIndex: function () {
-        },
+                hasNext: function () {
+                    return this.cursor !== this.__thisAbstractList.size();
+                },
 
-        remove: function () {
-        },
+                next: function () {
+                    this.checkForComodification();
 
-        set: function (element) {
-        },
+                    try {
+                        var next = this.__thisAbstractList.get( this.cursor );
+                        this.lastRet = this.cursor++;
+                        return next;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            this.checkForComodification();
+                            throw new jsava.lang.NoSuchElementException();
+                        }
 
-        add: function (element) {
-        }
+                        throw e;
+                    }
+                },
+
+                remove: function () {
+                    if( this.lastRet === -1 ) {
+                        throw new jsava.lang.IllegalStateException();
+                    }
+                    this.checkForComodification();
+
+                    try {
+                        this.__thisAbstractList.remove( this.lastRet );
+                        if( this.lastRet < this.cursor ) {
+                            this.cursor--;
+                        }
+                        this.lastRet = -1;
+                        this.expectedModCount = this.__thisAbstractList._modCount;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            throw new jsava.lang.ConcurrentModificationException();
+                        }
+
+                        throw e;
+                    }
+                },
+
+                /** @protected */
+                checkForComodification: function () {
+                    if( this.__thisAbstractList._modCount !== this.expectedModCount ) {
+                        throw new jsava.lang.ConcurrentModificationException();
+                    }
+                }
+            }
+        } ),
+
+        /** @private */
+        ListItr: qx.Class.define( 'jsava.util.AbstractList.ListItr', {
+            extend: jsava.util.AbstractList.Itr,
+            implement: jsava.util.ListIterator,
+
+            /** @private */
+            construct: function (thisAbstractList, index) {
+                this.base( arguments, thisAbstractList );
+                this.cursor = index;
+            },
+
+            members: {
+                hasPrevious: function () {
+                    return this.cursor !== 0;
+                },
+
+                previous: function () {
+                    this.checkForComodification();
+                    try {
+                        var i = this.cursor - 1,
+                            previous = this.__thisAbstractList.get( i );
+                        this.lastRet = this.cursor = i;
+                        return previous;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            this.checkForComodification();
+                            throw new jsava.lang.NoSuchElementException();
+                        }
+
+                        throw e;
+                    }
+                },
+
+                nextIndex: function () {
+                    return this.cursor;
+                },
+
+                previousIndex: function () {
+                    return this.cursor - 1;
+                },
+
+                set: function (element) {
+                    if( this.lastRet === 1 ) {
+                        throw new jsava.lang.IllegalStateException();
+                    }
+                    this.checkForComodification();
+
+                    try {
+                        this.__thisAbstractList.set( this.lastRet, element );
+                        this.expectedModCount = this.__thisAbstractList._modCount;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            throw new jsava.lang.ConcurrentModificationException();
+                        }
+
+                        throw e;
+                    }
+                },
+
+                add: function (element) {
+                    this.checkForComodification();
+                    try {
+                        this.__thisAbstractList.add( this.cursor++, element );
+                        this.lastRet = -1;
+                        this.expectedModCount = this.__thisAbstractList._modCount;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            throw new jsava.lang.ConcurrentModificationException();
+                        }
+
+                        throw e;
+                    }
+                }
+            }
+        } )
     }
 } );(function (window) {
     'use strict';
@@ -4592,7 +4751,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
     }
 
     // DO NOT EDIT -- will be replaced in compile.pl
-    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap','jsava.util.List','jsava.util.AbstractList','jsava.util.ListIterator'];
+    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IndexOutOfBoundsException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap','jsava.util.List','jsava.util.ListIterator','jsava.util.AbstractList'];
 
     var Cache = new (function () {
         var __cache = {};
