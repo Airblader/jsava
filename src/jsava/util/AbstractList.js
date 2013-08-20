@@ -103,8 +103,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
 
             var index = arguments[0];
             if( index < 0 || index > this.size() ) {
-                // TODO use IndexOutOfBoundsException
-                throw new jsava.lang.Exception( 'Index: ' + index );
+                throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index );
             }
 
             // TODO return new ListItr(index);
