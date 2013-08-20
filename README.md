@@ -33,3 +33,18 @@ for complex types or the appropriate corresponding default in Java (e.g. int -> 
 shall be usable as an Integer); for this purpose, method stubs may be added to those types.
 * Differences in behavior or implementation compared to the Java code shall have comments if necessary.
 * TODO comments shall always have additional text describing what exactly there is to do.
+* Exceptions shall be caught as closely to the Java version. As Javascript does not support catching exceptions that
+way, the following pattern shall be used:
+
+```
+try {
+    // ...
+} catch( e ) {
+    if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IllegalStateException ) ) {
+        // caught an IllegalStateException
+    }
+
+    // rethrow non-caught exceptions
+    throw e;
+}
+```
