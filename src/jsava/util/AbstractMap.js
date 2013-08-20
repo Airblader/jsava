@@ -62,7 +62,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                         return false;
                     }
 
-                    return __eq( this.__key, other.getKey() ) && eq( this.__value, other.getValue() );
+                    return this.__eq( this.__key, other.getKey() ) && this.__eq( this.__value, other.getValue() );
                 },
 
                 hashCode: function () {
@@ -127,7 +127,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                         return false;
                     }
 
-                    return __eq( this.__key, other.getKey() ) && eq( this.__value, other.getValue() );
+                    return this.__eq( this.__key, other.getKey() ) && this.__eq( this.__value, other.getValue() );
                 },
 
                 hashCode: function () {
