@@ -4745,6 +4745,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
     extend: jsava.util.AbstractList,
 
     /**
+     * @protected
      * @param {jsava.util.AbstractList} list
      * @param {Number} fromIndex
      * @param {Number} toIndex
@@ -4955,6 +4956,25 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         }
     }
 } );qx.Interface.define( 'jsava.util.RandomAccess', {
+} );qx.Class.define( 'jsava.util.RandomAccessSubList', {
+    extend: jsava.util.SubList,
+    implement: jsava.util.RandomAccess,
+
+    /**
+     * @protected
+     * @param {jsava.util.AbstractList} list
+     * @param {Number} fromIndex
+     * @param {Number} toIndex
+     */
+    construct: function (list, fromIndex, toIndex) {
+        this.base( arguments, list, fromIndex, toIndex );
+    },
+
+    members: {
+        subList: function (fromIndex, toIndex) {
+            return new jsava.util.RandomAccessSubList( this, fromIndex, toIndex );
+        }
+    }
 } );(function (window) {
     'use strict';
 
@@ -4963,7 +4983,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
     }
 
     // DO NOT EDIT -- will be replaced in compile.pl
-    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IndexOutOfBoundsException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap','jsava.util.List','jsava.util.ListIterator','jsava.util.AbstractList','jsava.util.SubList','jsava.util.RandomAccessSubList','jsava.util.RandomAccess'];
+    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IndexOutOfBoundsException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap','jsava.util.List','jsava.util.ListIterator','jsava.util.AbstractList','jsava.util.SubList','jsava.util.RandomAccess','jsava.util.RandomAccessSubList'];
 
     var Cache = new (function () {
         var __cache = {};

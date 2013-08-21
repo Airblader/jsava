@@ -2,6 +2,7 @@ qx.Class.define( 'jsava.util.SubList', {
     extend: jsava.util.AbstractList,
 
     /**
+     * @protected
      * @param {jsava.util.AbstractList} list
      * @param {Number} fromIndex
      * @param {Number} toIndex
