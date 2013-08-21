@@ -72,7 +72,7 @@ qx.Class.define( 'jsava.lang.Object', {
             throw new jsava.lang.UnsupportedOperationException();
         },
 
-        _finalize: function () {
+        finalize: function () {
             throw new jsava.lang.UnsupportedOperationException();
         }
     }

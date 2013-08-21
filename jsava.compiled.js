@@ -2310,7 +2310,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
             throw new jsava.lang.UnsupportedOperationException();
         },
 
-        _finalize: function () {
+        finalize: function () {
             throw new jsava.lang.UnsupportedOperationException();
         }
     }
