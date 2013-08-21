@@ -2284,8 +2284,8 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
             return this === other;
         },
 
-        _clone: function () {
-            return this.clone();
+        clone: function () {
+            return this.base( arguments );
         },
 
         /**
@@ -3504,7 +3504,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
             }
         },
 
-        _clone: function () {
+        clone: function () {
             var result = this.base( arguments );
             result._keySet = null;
             result._values = null;
@@ -5061,7 +5061,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                     newCapacity = minCapacity;
                 }
 
-                // TODO use slice?
+                this.elementData = jsava.util.Arrays.copyOf( this.elementData, newCapacity );
             }
         },
 
@@ -5096,19 +5096,24 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         lastIndexOf: function (obj) {
+            // TODO implement
         },
 
         // TODO fix super class / interface name
         clone: function () {
+            // TODO implement
         },
 
         toArray: function () {
+            // TODO implement
         },
 
         get: function (index) {
+            // TODO implement
         },
 
         set: function (index, element) {
+            // TODO implement
         },
 
         add: function () {
@@ -5121,9 +5126,11 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
 
         /** @private */
         fastRemove: function (index) {
+            // TODO implement
         },
 
         clear: function () {
+            // TODO implement
         },
 
         addAll: function () {
@@ -5131,10 +5138,12 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         removeRange: function (fromIndex, toIndex) {
+            // TODO implement
         },
 
         /** @private */
         RangeCheck: function (index) {
+            // TODO implement
         },
 
         /** @private */

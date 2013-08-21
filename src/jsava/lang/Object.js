@@ -46,8 +46,8 @@ qx.Class.define( 'jsava.lang.Object', {
             return this === other;
         },
 
-        _clone: function () {
-            return this.clone();
+        clone: function () {
+            return this.base( arguments );
         },
 
         /**

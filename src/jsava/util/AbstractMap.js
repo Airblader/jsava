@@ -446,7 +446,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             }
         },
 
-        _clone: function () {
+        clone: function () {
             var result = this.base( arguments );
             result._keySet = null;
             result._values = null;
