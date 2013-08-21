@@ -118,6 +118,8 @@ qx.Class.define( 'jsava.util.ArrayList', {
                 /** @type jsava.util.ArrayList */
                 var v = this.base( arguments );
                 v.elementData = jsava.util.Arrays.copyOf( this.elementData, this.__size );
+                // this is needed since the super method will not copy it
+                v.__size = this.__size;
                 v.modCount = 0;
                 return v;
             } catch( e ) {
@@ -175,7 +177,7 @@ qx.Class.define( 'jsava.util.ArrayList', {
 
         remove: function () {
             var args = Array.prototype.slice.call( arguments );
-            if( qx.Class.isSubClassOf( args[0].constructor, jsava.lang.Object ) ) {
+            if( args[0] === null || qx.Class.isSubClassOf( args[0].constructor, jsava.lang.Object ) ) {
                 var obj = args[0];
 
                 if( obj === null ) {
