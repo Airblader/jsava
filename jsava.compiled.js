@@ -5034,7 +5034,6 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
 
             this.elementData = collection.toArray();
             this.__size = this.elementData.length;
-            // TODO Java code has additional logic here to make sure the type is Object[]
         } else {
             var initialCapacity = args[0];
 
@@ -5195,29 +5194,119 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         remove: function () {
-            // TODO implement both signatures
+            var args = Array.prototype.slice.call( arguments );
+            if( qx.Class.isSubClassOf( args[0].constructor, jsava.lang.Object ) ) {
+                var obj = args[0];
+
+                if( obj === null ) {
+                    for( var index = 0; index < this.__size; index++ ) {
+                        if( this.elementData[index] === null ) {
+                            this.fastRemove( index );
+                            return true;
+                        }
+                    }
+                } else {
+                    for( var index = 0; index < this.__size; index++ ) {
+                        if( obj.equals( this.elementData[index] ) ) {
+                            this.fastRemove( index );
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            } else {
+                var index = args[0];
+
+                this.RangeCheck( index );
+                this.modCount++;
+                var oldValue = this.elementData[index];
+
+                var numMoved = this.__size - index - 1;
+                if( numMoved > 0 ) {
+                    jsava.lang.System.arraycopy( this.elementData, index + 1, this.elementData, index, numMoved );
+                }
+                this.elementData[--this.__size] = null;
+
+                return oldValue;
+            }
         },
 
         /** @private */
         fastRemove: function (index) {
-            // TODO implement
+            this.modCount++;
+            var numMoved = this.__size - index - 1;
+            if( numMoved > 0 ) {
+                jsava.lang.System.arraycopy( this.elementData, index + 1, this.elementData, index, numMoved );
+            }
+            this.elementData[--this.__size] = null;
         },
 
         clear: function () {
-            // TODO implement
+            this.modCount++;
+
+            for( var i = 0; i < this.__size; i++ ) {
+                this.elementData[i] = null;
+            }
+
+            this.__size = 0;
         },
 
         addAll: function () {
-            // TODO implement both signatures
+            var args = Array.prototype.slice.call( arguments );
+            switch( args.length ) {
+                case 1:
+                    /** @type jsava.util.Collection */
+                    var collection = args[0];
+
+                    var a = collection.toArray(),
+                        numNew = a.length;
+                    this.ensureCapacity( this.__size + numNew );
+                    jsava.lang.System.arraycopy( a, 0, this.elementData, this.__size, numNew );
+                    this.__size += numNew;
+
+                    return numNew !== 0;
+                case 2:
+                    var index = args[0],
+                        /** @type jsava.util.Collection */
+                            collection = args[1];
+
+                    if( index > this.__size || index < 0 ) {
+                        throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index + ', Size: ' + this.__size );
+                    }
+
+                    var a = collection.toArray(),
+                        numNew = a.length;
+                    this.ensureCapacity( this.__size + numNew );
+
+                    var numMoved = this.__size - index;
+                    if( numMoved > 0 ) {
+                        jsava.lang.System.arraycopy( this.elementData, index, this.elementData, index + numNew,
+                            numMoved );
+                    }
+                    jsava.lang.System.arraycopy( a, 0, this.elementData, index, numNew );
+                    this.__size += numNew;
+
+                    return numNew !== 0;
+            }
         },
 
         removeRange: function (fromIndex, toIndex) {
-            // TODO implement
+            this.modCount++;
+            var numMoved = this.__size - toIndex;
+            jsava.lang.System.arraycopy( this.elementData, toIndex, this.elementData, fromIndex, numMoved );
+
+            var newSize = this.__size - (toIndex - fromIndex);
+            while( this.__size !== newSize ) {
+                this.elementData[--this.__size] = null;
+            }
         },
 
         /** @private */
         RangeCheck: function (index) {
-            // TODO implement
+            if( index >= this.__size ) {
+                throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index + ', Size: ' + this.__size );
+            }
         },
 
         /** @private */
