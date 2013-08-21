@@ -6,16 +6,14 @@ qx.Class.define( 'jsava.util.Arrays', {
     statics: {
         // TODO various signatures may be missing
         /**
-         * @param {jsava.lang.Object[]} source
-         * @param {Number} newSize
+         * @param {jsava.lang.Object[]} original
+         * @param {Number} newLength
          */
-        copyOf: function (source, newSize) {
-            var newArray = Array.prototype.slice.call( source, 0, newSize );
-            for( var i = newArray.length; i < newSize; i++ ) {
-                newArray[i] = null;
-            }
+        copyOf: function (original, newLength) {
+            var copy = jsava.JsavaUtils.arrayOfGivenSize( newLength, null );
+            jsava.lang.System.arraycopy( original, 0, copy, 0, Math.min( original.length, newLength ) );
 
-            return newArray;
+            return copy;
         }
 
         // TODO a lot more methods

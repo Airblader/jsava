@@ -2457,6 +2457,29 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         serialVersionUID: 1
     }
 } );qx.Interface.define( 'jsava.lang.Cloneable', {
+} );qx.Class.define( 'jsava.lang.System', {
+    // TODO much more stuff implement
+
+    extend: jsava.lang.Object,
+
+    type: 'static',
+
+    statics: {
+        /**
+         * @param {jsava.lang.Object} src
+         * @param {Number} srcPos
+         * @param {jsava.lang.Object} dest
+         * @param {Number} destPos
+         * @param {Number} length
+         */
+        arraycopy: function (src, srcPos, dest, destPos, length) {
+            var temp = Array.prototype.slice.call( src );
+
+            for( var i = 0; i < length; i++ ) {
+                dest[destPos + i] = temp[srcPos + i];
+            }
+        }
+    }
 } );qx.Class.define( 'jsava.lang.ClassCastException', {
     extend: jsava.lang.RuntimeException,
 
@@ -4749,16 +4772,14 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
     statics: {
         // TODO various signatures may be missing
         /**
-         * @param {jsava.lang.Object[]} source
-         * @param {Number} newSize
+         * @param {jsava.lang.Object[]} original
+         * @param {Number} newLength
          */
-        copyOf: function (source, newSize) {
-            var newArray = Array.prototype.slice.call( source, 0, newSize );
-            for( var i = newArray.length; i < newSize; i++ ) {
-                newArray[i] = null;
-            }
+        copyOf: function (original, newLength) {
+            var copy = jsava.JsavaUtils.arrayOfGivenSize( newLength, null );
+            jsava.lang.System.arraycopy( original, 0, copy, 0, Math.min( original.length, newLength ) );
 
-            return newArray;
+            return copy;
         }
 
         // TODO a lot more methods
@@ -5096,28 +5117,81 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         lastIndexOf: function (obj) {
-            // TODO implement
+            if( obj === null ) {
+                for( var i = this.__size - 1; i >= 0; i-- ) {
+                    if( this.elementData[i] === null ) {
+                        return i;
+                    }
+                }
+            } else {
+                for( var i = this.__size - 1; i >= 0; i-- ) {
+                    if( obj.equals( this.elementData[i] ) ) {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
         },
 
-        // TODO fix super class / interface name
         clone: function () {
-            // TODO implement
+            try {
+                /** @type jsava.util.ArrayList */
+                var v = this.base( arguments );
+                v.elementData = jsava.util.Arrays.copyOf( this.elementData, this.__size );
+                v.modCount = 0;
+                return v;
+            } catch( e ) {
+                if( qx.Class.isSubClassOf( e.constructor, jsava.lang.CloneNotSupportedException ) ) {
+                    // TODO throw InternalError.InternalError
+                    throw new jsava.lang.Exception();
+                }
+
+                throw e;
+            }
         },
 
         toArray: function () {
-            // TODO implement
+            return jsava.util.Arrays.copyOf( this.elementData, this.__size );
         },
 
         get: function (index) {
-            // TODO implement
+            this.RangeCheck( index );
+            return this.elementData[index];
         },
 
         set: function (index, element) {
-            // TODO implement
+            this.RangeCheck( index );
+
+            var oldValue = this.elementData[index];
+            this.elementData[index] = element;
+            return oldValue;
         },
 
         add: function () {
-            // TODO implement both signatures
+            var args = Array.prototype.slice.call( arguments );
+            switch( args.length ) {
+                case 1:
+                    var element = args[0];
+
+                    this.ensureCapacity( this.__size + 1 );
+                    this.elementData[this.__size++] = element;
+                    return true;
+                case 2:
+                    var index = args[0],
+                        element = args[1];
+
+                    if( index > this.__size || index < 0 ) {
+                        throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index + ', Size: ' + this.__size );
+                    }
+
+                    this.ensureCapacity( this.__size + 1 );
+                    jsava.lang.System.arraycopy( this.elementData, index, this.elementData, index + 1,
+                        this.__size - index );
+                    this.elementData[index] = element;
+                    this.__size++;
+                    break;
+            }
         },
 
         remove: function () {
@@ -5164,7 +5238,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
     }
 
     // DO NOT EDIT -- will be replaced in compile.pl
-    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IndexOutOfBoundsException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap','jsava.util.List','jsava.util.ListIterator','jsava.util.AbstractList','jsava.util.Arrays','jsava.util.SubList','jsava.util.RandomAccess','jsava.util.RandomAccessSubList','jsava.util.ArrayList'];
+    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IndexOutOfBoundsException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.System','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap','jsava.util.List','jsava.util.ListIterator','jsava.util.AbstractList','jsava.util.Arrays','jsava.util.SubList','jsava.util.RandomAccess','jsava.util.RandomAccessSubList','jsava.util.ArrayList'];
 
     var Cache = new (function () {
         var __cache = {};
