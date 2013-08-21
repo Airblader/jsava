@@ -40,7 +40,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         this._loadFactor = loadFactor;
         this._threshold = (capacity * loadFactor) | 0;
-        this._table = jsava.JsavaUtils.emptyArrayOfGivenSize( capacity, null );
+        this._table = jsava.JsavaUtils.arrayOfGivenSize( capacity, null );
         this._init();
     },
 
@@ -289,7 +289,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 return;
             }
 
-            var newTable = jsava.JsavaUtils.emptyArrayOfGivenSize( newCapacity, null );
+            var newTable = jsava.JsavaUtils.arrayOfGivenSize( newCapacity, null );
             this._transfer( newTable );
             this._table = newTable;
             this._threshold = (newCapacity * this._loadFactor) | 0;
@@ -458,7 +458,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 }
             }
 
-            result._table = jsava.JsavaUtils.emptyArrayOfGivenSize( this._table.length, null );
+            result._table = jsava.JsavaUtils.arrayOfGivenSize( this._table.length, null );
             result.__entrySet = null;
             result._modCount = 0;
             result._size = 0;

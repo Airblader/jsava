@@ -18,12 +18,12 @@ qx.Class.define( 'jsava.JsavaUtils', {
         },
 
         /**
-         * Creates and returns an empty array of given size.
+         * Creates and returns an array of given size.
          * @param size
          * @param defaultValue
          * @returns {Array}
          */
-        emptyArrayOfGivenSize: function (size, defaultValue) {
+        arrayOfGivenSize: function (size, defaultValue) {
             var result = [];
             for( var i = 0; i < size; i++ ) {
                 result[i] = defaultValue;

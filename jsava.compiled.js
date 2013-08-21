@@ -2537,12 +2537,12 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         /**
-         * Creates and returns an empty array of given size.
+         * Creates and returns an array of given size.
          * @param size
          * @param defaultValue
          * @returns {Array}
          */
-        emptyArrayOfGivenSize: function (size, defaultValue) {
+        arrayOfGivenSize: function (size, defaultValue) {
             var result = [];
             for( var i = 0; i < size; i++ ) {
                 result[i] = defaultValue;
@@ -3553,7 +3553,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
 
         this._loadFactor = loadFactor;
         this._threshold = (capacity * loadFactor) | 0;
-        this._table = jsava.JsavaUtils.emptyArrayOfGivenSize( capacity, null );
+        this._table = jsava.JsavaUtils.arrayOfGivenSize( capacity, null );
         this._init();
     },
 
@@ -3802,7 +3802,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 return;
             }
 
-            var newTable = jsava.JsavaUtils.emptyArrayOfGivenSize( newCapacity, null );
+            var newTable = jsava.JsavaUtils.arrayOfGivenSize( newCapacity, null );
             this._transfer( newTable );
             this._table = newTable;
             this._threshold = (newCapacity * this._loadFactor) | 0;
@@ -3971,7 +3971,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 }
             }
 
-            result._table = jsava.JsavaUtils.emptyArrayOfGivenSize( this._table.length, null );
+            result._table = jsava.JsavaUtils.arrayOfGivenSize( this._table.length, null );
             result.__entrySet = null;
             result._modCount = 0;
             result._size = 0;
@@ -4975,6 +4975,157 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
             return new jsava.util.RandomAccessSubList( this, fromIndex, toIndex );
         }
     }
+} );qx.Class.define( 'jsava.util.ArrayList', {
+    extend: jsava.util.AbstractList,
+    implement: [jsava.util.List, jsava.util.RandomAccess, jsava.lang.Cloneable, jsava.io.Serializable],
+
+    construct: function () {
+        var args = Array.prototype.slice.call( arguments );
+        if( args.length === 0 ) {
+            args = [10];
+        }
+
+        if( qx.Class.implementsInterface( args[0], jsava.util.Collection ) ) {
+            /** @type jsava.util.Collection */
+            var collection = args[0];
+
+            this.elementData = collection.toArray();
+            this.__size = this.elementData.length;
+            // TODO Java code has additional logic here to make sure the type is Object[]
+        } else {
+            var initialCapacity = args[0];
+
+            this.base( arguments );
+            if( initialCapacity < 10 ) {
+                throw new jsava.lang.IllegalArgumentException( 'Illegal Capacity: ' + initialCapacity );
+            }
+
+            this.elementData = jsava.JsavaUtils.arrayOfGivenSize( initialCapacity, null );
+        }
+    },
+
+    statics: {
+        serialVersionUID: 1
+    },
+
+    members: {
+        /**
+         * @private
+         * @type {jsava.lang.Object[]}
+         */
+        elementData: null,
+
+        /** @private */
+        __size: 0,
+
+        trimtoSize: function () {
+            this.modCount++;
+            var oldCapacity = this.elementData.length;
+            if( this.__size < oldCapacity ) {
+                // TODO java code uses Array.copyOf here
+                // TODO use slice?
+            }
+        },
+
+        /**
+         * @param {Number} minCapacity
+         */
+        ensureCapacity: function (minCapacity) {
+            this.modCount++;
+            var oldCapacity = this.elementData.length;
+            if( minCapacity > oldCapacity ) {
+                var oldData = this.elementData,
+                    newCapacity = (oldCapacity * 3) / 2 + 1;
+                if( newCapacity < minCapacity ) {
+                    newCapacity = minCapacity;
+                }
+
+                // TODO use slice?
+            }
+        },
+
+        size: function () {
+            return this.__size;
+        },
+
+        isEmpty: function () {
+            return this.__size === 0;
+        },
+
+        contains: function (obj) {
+            return this.indexOf( obj ) >= 0;
+        },
+
+        indexOf: function (obj) {
+            if( obj === null ) {
+                for( var i = 0; i < this.__size; i++ ) {
+                    if( this.elementData[i] === null ) {
+                        return i;
+                    }
+                }
+            } else {
+                for( var i = 0; i < this.__size; i++ ) {
+                    if( obj.equals( this.elementData[i] ) ) {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
+        },
+
+        lastIndexOf: function (obj) {
+        },
+
+        // TODO fix super class / interface name
+        clone: function () {
+        },
+
+        toArray: function () {
+        },
+
+        get: function (index) {
+        },
+
+        set: function (index, element) {
+        },
+
+        add: function () {
+            // TODO implement both signatures
+        },
+
+        remove: function () {
+            // TODO implement both signatures
+        },
+
+        /** @private */
+        fastRemove: function (index) {
+        },
+
+        clear: function () {
+        },
+
+        addAll: function () {
+            // TODO implement both signatures
+        },
+
+        removeRange: function (fromIndex, toIndex) {
+        },
+
+        /** @private */
+        RangeCheck: function (index) {
+        },
+
+        /** @private */
+        writeObject: function () {
+            throw new jsava.lang.UnsupportedOperationException();
+        },
+
+        /** @private */
+        readObject: function () {
+            throw new jsava.lang.UnsupportedOperationException();
+        }
+    }
 } );(function (window) {
     'use strict';
 
@@ -4983,7 +5134,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
     }
 
     // DO NOT EDIT -- will be replaced in compile.pl
-    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IndexOutOfBoundsException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap','jsava.util.List','jsava.util.ListIterator','jsava.util.AbstractList','jsava.util.SubList','jsava.util.RandomAccess','jsava.util.RandomAccessSubList'];
+    var compileOrder = ['jsava.io.Serializable','jsava.lang.Object','jsava.lang.Throwable','jsava.lang.Exception','jsava.lang.RuntimeException','jsava.lang.IndexOutOfBoundsException','jsava.lang.IllegalArgumentException','jsava.lang.CloneNotSupportedException','jsava.lang.NullPointerException','jsava.lang.Cloneable','jsava.lang.ClassCastException','jsava.lang.IllegalStateException','jsava.lang.Iterable','jsava.lang.UnsupportedOperationException','jsava.lang.NoSuchElementException','jsava.lang.ConcurrentModificationException','jsava.JsavaUtils','jsava.util.Collection','jsava.util.Set','jsava.util.Map','jsava.util.Iterator','jsava.util.AbstractCollection','jsava.util.AbstractSet','jsava.util.AbstractMap','jsava.util.HashMap','jsava.util.List','jsava.util.ListIterator','jsava.util.AbstractList','jsava.util.SubList','jsava.util.RandomAccess','jsava.util.RandomAccessSubList','jsava.util.ArrayList'];
 
     var Cache = new (function () {
         var __cache = {};
