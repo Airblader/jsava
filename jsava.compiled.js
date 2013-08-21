@@ -4538,7 +4538,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         },
 
         iterator: function () {
-            return new this.Itr();
+            return new this.Itr( this );
         },
 
         listIterator: function () {
@@ -4551,7 +4551,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
                 throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index );
             }
 
-            return new this.ListItr( index );
+            return new this.ListItr( this, index );
         },
 
         subList: function (fromIndex, toIndex) {

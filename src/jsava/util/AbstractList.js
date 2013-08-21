@@ -89,7 +89,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
         },
 
         iterator: function () {
-            return new this.Itr();
+            return new this.Itr( this );
         },
 
         listIterator: function () {
@@ -102,7 +102,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
                 throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index );
             }
 
-            return new this.ListItr( index );
+            return new this.ListItr( this, index );
         },
 
         subList: function (fromIndex, toIndex) {
