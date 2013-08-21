@@ -2562,10 +2562,14 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
         /**
          * Creates and returns an array of given size.
          * @param size
-         * @param defaultValue
+         * @param defaultValue will default to null
          * @returns {Array}
          */
         arrayOfGivenSize: function (size, defaultValue) {
+            if( typeof defaultValue === 'undefined' ) {
+                defaultValue = null;
+            }
+
             var result = [];
             for( var i = 0; i < size; i++ ) {
                 result[i] = defaultValue;
