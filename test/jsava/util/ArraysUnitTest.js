@@ -1,7 +1,7 @@
 describe( 'Arrays', function () {
     var Arrays = jsava.util.Arrays;
 
-    describe( 'copyOf', function () {
+    describe( 'copyOf()', function () {
         var sourceArray = [0, 1, 2];
 
         it( 'returns same array of newSize equals old size', function () {

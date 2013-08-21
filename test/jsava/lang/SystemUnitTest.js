@@ -1,7 +1,7 @@
 describe( 'System', function () {
     var System = jsava.lang.System;
 
-    describe( 'arraycopy', function () {
+    describe( 'arraycopy()', function () {
         it( 'can copy an array into another one', function () {
             var source = [0, 1, 2],
                 destination = [3, 4, 5];
