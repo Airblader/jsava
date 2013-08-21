@@ -4615,6 +4615,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
 
         /** @private */
         Itr: qx.Class.define( 'jsava.util.AbstractList.Itr', {
+            extend: jsava.lang.Object,
             implement: jsava.util.Iterator,
 
             /** @private */
@@ -4624,6 +4625,7 @@ if (typeof exports != "undefined") {for (var key in qx) {exports[key] = qx[key];
             },
 
             members: {
+                /** @type jsava.util.AbstractList */
                 __thisAbstractList: null,
 
                 /** @protected */

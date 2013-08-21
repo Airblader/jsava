@@ -166,6 +166,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
 
         /** @private */
         Itr: qx.Class.define( 'jsava.util.AbstractList.Itr', {
+            extend: jsava.lang.Object,
             implement: jsava.util.Iterator,
 
             /** @private */
@@ -175,6 +176,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
             },
 
             members: {
+                /** @type jsava.util.AbstractList */
                 __thisAbstractList: null,
 
                 /** @protected */
