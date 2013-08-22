@@ -1,5 +1,7 @@
 qx.Interface.define( 'jsava.io.Serializable', {
-} );qx.Class.define( 'jsava.lang.Object', {
+} );
+
+qx.Class.define( 'jsava.lang.Object', {
     extend: qx.core.Object,
 
     members: {
@@ -77,7 +79,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             throw new jsava.lang.UnsupportedOperationException();
         }
     }
-} );qx.Class.define( 'jsava.lang.Throwable', {
+} );
+
+qx.Class.define( 'jsava.lang.Throwable', {
     extend: jsava.lang.Object,
     implement: [jsava.io.Serializable],
 
@@ -160,7 +164,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             this.__stackTrace = stackTrace;
         }
     }
-} );qx.Class.define( 'jsava.lang.Exception', {
+} );
+
+qx.Class.define( 'jsava.lang.Exception', {
     extend: jsava.lang.Throwable,
 
     construct: function () {
@@ -171,7 +177,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Class.define( 'jsava.lang.RuntimeException', {
+} );
+
+qx.Class.define( 'jsava.lang.RuntimeException', {
     extend: jsava.lang.Exception,
 
     construct: function () {
@@ -182,7 +190,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Class.define( 'jsava.lang.IndexOutOfBoundsException', {
+} );
+
+qx.Class.define( 'jsava.lang.IndexOutOfBoundsException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {
@@ -193,7 +203,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Class.define( 'jsava.lang.IllegalArgumentException', {
+} );
+
+qx.Class.define( 'jsava.lang.IllegalArgumentException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {
@@ -204,7 +216,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Class.define( 'jsava.lang.CloneNotSupportedException', {
+} );
+
+qx.Class.define( 'jsava.lang.CloneNotSupportedException', {
     extend: jsava.lang.Exception,
 
     construct: function () {
@@ -215,7 +229,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Class.define( 'jsava.lang.NullPointerException', {
+} );
+
+qx.Class.define( 'jsava.lang.NullPointerException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {
@@ -226,8 +242,12 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Interface.define( 'jsava.lang.Cloneable', {
-} );qx.Class.define( 'jsava.lang.System', {
+} );
+
+qx.Interface.define( 'jsava.lang.Cloneable', {
+} );
+
+qx.Class.define( 'jsava.lang.System', {
     // TODO much more stuff implement
 
     extend: jsava.lang.Object,
@@ -250,7 +270,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
         }
     }
-} );qx.Class.define( 'jsava.lang.ClassCastException', {
+} );
+
+qx.Class.define( 'jsava.lang.ClassCastException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {
@@ -261,7 +283,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Class.define( 'jsava.lang.IllegalStateException', {
+} );
+
+qx.Class.define( 'jsava.lang.IllegalStateException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {
@@ -272,7 +296,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Interface.define( 'jsava.lang.Iterable', {
+} );
+
+qx.Interface.define( 'jsava.lang.Iterable', {
     members: {
         /**
          * Returns an iterator
@@ -282,7 +308,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         iterator: function () {
         }
     }
-} );qx.Class.define( 'jsava.lang.UnsupportedOperationException', {
+} );
+
+qx.Class.define( 'jsava.lang.UnsupportedOperationException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {
@@ -293,7 +321,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Class.define( 'jsava.lang.NoSuchElementException', {
+} );
+
+qx.Class.define( 'jsava.lang.NoSuchElementException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {
@@ -304,7 +334,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Class.define( 'jsava.lang.ConcurrentModificationException', {
+} );
+
+qx.Class.define( 'jsava.lang.ConcurrentModificationException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {
@@ -315,7 +347,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @private */
         serialVersionUID: 1
     }
-} );qx.Class.define( 'jsava.JsavaUtils', {
+} );
+
+qx.Class.define( 'jsava.JsavaUtils', {
     extend: qx.core.Object,
 
     type: 'static',
@@ -353,7 +387,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             return result;
         }
     }
-} );qx.Interface.define( 'jsava.util.Collection', {
+} );
+
+qx.Interface.define( 'jsava.util.Collection', {
     extend: jsava.lang.Iterable,
 
     members: {
@@ -454,7 +490,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         hashCode: function () {
         }
     }
-} );qx.Interface.define( 'jsava.util.Set', {
+} );
+
+qx.Interface.define( 'jsava.util.Set', {
     extend: jsava.util.Collection,
 
     members: {
@@ -508,7 +546,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         hashCode: function () {
         }
     }
-} );qx.Interface.define( "jsava.util.Map", {
+} );
+
+qx.Interface.define( "jsava.util.Map", {
     statics : {
         Entry: qx.Interface.define( 'jsava.util.Map.Entry', {
             members: {
@@ -605,7 +645,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         hashCode: function () {
         }
     }
-} );qx.Interface.define( 'jsava.util.Iterator', {
+} );
+
+qx.Interface.define( 'jsava.util.Iterator', {
     members: {
         /**
          * @return {Boolean}
@@ -622,7 +664,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         remove: function () {
         }
     }
-} );qx.Class.define( 'jsava.util.AbstractCollection', {
+} );
+
+qx.Class.define( 'jsava.util.AbstractCollection', {
     extend: jsava.lang.Object,
     implement: [jsava.util.Collection],
 
@@ -781,7 +825,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
         }
     }
-} );qx.Class.define( 'jsava.util.AbstractSet', {
+} );
+
+qx.Class.define( 'jsava.util.AbstractSet', {
     extend: jsava.util.AbstractCollection,
     implement: [jsava.util.Set],
 
@@ -858,7 +904,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             return modified;
         }
     }
-} );qx.Class.define( 'jsava.util.AbstractMap', {
+} );
+
+qx.Class.define( 'jsava.util.AbstractMap', {
     extend: jsava.lang.Object,
     implement: jsava.util.Map,
 
@@ -1315,7 +1363,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             return result;
         }
     }
-} );qx.Class.define( 'jsava.util.HashMap', {
+} );
+
+qx.Class.define( 'jsava.util.HashMap', {
     extend: jsava.util.AbstractMap,
     implement: [jsava.util.Map, jsava.io.Serializable, jsava.lang.Cloneable],
 
@@ -2073,7 +2123,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
         } )
     }
-} );qx.Interface.define( 'jsava.util.List', {
+} );
+
+qx.Interface.define( 'jsava.util.List', {
     extend: jsava.util.Collection,
 
     members: {
@@ -2205,7 +2257,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         subList: function (fromIndex, toIndex) {
         }
     }
-} );qx.Interface.define( 'jsava.util.ListIterator', {
+} );
+
+qx.Interface.define( 'jsava.util.ListIterator', {
     extend: jsava.util.Iterator,
 
     members: {
@@ -2248,7 +2302,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         add: function (element) {
         }
     }
-} );qx.Class.define( 'jsava.util.AbstractList', {
+} );
+
+qx.Class.define( 'jsava.util.AbstractList', {
     extend: jsava.util.AbstractCollection,
     implement: jsava.util.List,
 
@@ -2567,7 +2623,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
         } )
     }
-} );qx.Class.define( 'jsava.util.Arrays', {
+} );
+
+qx.Class.define( 'jsava.util.Arrays', {
     extend: jsava.lang.Object,
 
     type: 'static',
@@ -2587,7 +2645,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         // TODO a lot more methods
     }
-} );qx.Class.define( 'jsava.util.SubList', {
+} );
+
+qx.Class.define( 'jsava.util.SubList', {
     extend: jsava.util.AbstractList,
 
     /**
@@ -2801,8 +2861,12 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
         }
     }
-} );qx.Interface.define( 'jsava.util.RandomAccess', {
-} );qx.Class.define( 'jsava.util.RandomAccessSubList', {
+} );
+
+qx.Interface.define( 'jsava.util.RandomAccess', {
+} );
+
+qx.Class.define( 'jsava.util.RandomAccessSubList', {
     extend: jsava.util.SubList,
     implement: jsava.util.RandomAccess,
 
@@ -2821,7 +2885,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             return new jsava.util.RandomAccessSubList( this, fromIndex, toIndex );
         }
     }
-} );qx.Class.define( 'jsava.util.ArrayList', {
+} );
+
+qx.Class.define( 'jsava.util.ArrayList', {
     extend: jsava.util.AbstractList,
     implement: [jsava.util.List, jsava.util.RandomAccess, jsava.lang.Cloneable, jsava.io.Serializable],
 
@@ -3125,7 +3191,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
             throw new jsava.lang.UnsupportedOperationException();
         }
     }
-} );(function (window) {
+} );
+
+(function (window) {
     'use strict';
 
     if( typeof window === 'undefined' ) {

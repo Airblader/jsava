@@ -157,6 +157,7 @@ system( "rm -f ../jsava.js" );
 foreach( @compileOrder ) {
     my $filename = getFilenameFromClassName( $_ );
     system( "cat $filename >> ../jsava.js" );
+    system( "echo \"\n\" >> ../jsava.js" );
 }
 
 my $jsavaShortenerContent = `cat ../lib/jsavaShortener.js`;
