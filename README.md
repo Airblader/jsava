@@ -25,6 +25,8 @@ For consistent development, a set of rules shall be established on how to port J
 under construction:
 
 * Public and protected fields / methods shall be implemented as close to the Java code as possible.
+* This includes the naming (don't follow the qooxdoo scheme, but the original naming – whenever possible; the only
+exception are jsava specific fields that do not exist in the original code)
 * Private fields / methods are optional and don't necessarily have to be implemented.
 * Methods that (currently or permanently) cannot be implemented shall throw an UnsupportedOperationException.
 * Fields shall never be initialized as undefined; the default value (if it is undeclared in Java) shall either be null
