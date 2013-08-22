@@ -243,7 +243,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
 
             this.modCount++;
-            this._addEntry( hash, key, value, i );
+            this.addEntry( hash, key, value, i );
             return null;
         },
 
@@ -259,7 +259,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
 
             this.modCount++;
-            this._addEntry( 0, null, value, 0 );
+            this.addEntry( 0, null, value, 0 );
             return null;
         },
 
@@ -277,7 +277,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 }
             }
 
-            this._createEntry( hash, key, value, i );
+            this.createEntry( hash, key, value, i );
         },
 
         /** @private */
@@ -481,7 +481,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             return result;
         },
 
-        _addEntry: function (hash, key, value, bucketIndex) {
+        /** @protected */
+        addEntry: function (hash, key, value, bucketIndex) {
             var entry = this.table[bucketIndex];
             this.table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
             if( this._size++ >= this._threshold ) {
@@ -489,7 +490,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
         },
 
-        _createEntry: function (hash, key, value, bucketIndex) {
+        /** @protected */
+        createEntry: function (hash, key, value, bucketIndex) {
             var entry = this.table[bucketIndex];
             this.table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
             this._size++;
