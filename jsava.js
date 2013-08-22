@@ -1811,10 +1811,11 @@ qx.Interface.define( 'jsava.io.Serializable', {
         },
 
         entrySet: function () {
-            return this.__entrySet0();
+            return this.entrySet0();
         },
 
-        __entrySet0: function () {
+        /** @private */
+        entrySet0: function () {
             var entrySet = this.__entrySet;
             return entrySet !== null ? entrySet : ( this.__entrySet = new this.EntrySet( this ) );
         },
