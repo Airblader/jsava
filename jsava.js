@@ -1734,7 +1734,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         containsValue: function (value) {
             if( value === null ) {
-                return this.__containsNullValue();
+                return this.containsNullValue();
             }
 
             var table = this.table;
@@ -1749,7 +1749,8 @@ qx.Interface.define( 'jsava.io.Serializable', {
             return false;
         },
 
-        __containsNullValue: function () {
+        /** @protected */
+        containsNullValue: function () {
             var table = this.table;
             for( var i = 0; i < table.length; i++ ) {
                 for( var entry = table[i]; entry !== null; entry = entry._next ) {
