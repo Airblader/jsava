@@ -6,6 +6,7 @@ qx.Class.define( 'jsava.lang.IllegalArgumentException', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );

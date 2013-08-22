@@ -6,6 +6,7 @@ qx.Class.define( 'jsava.lang.RuntimeException', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );

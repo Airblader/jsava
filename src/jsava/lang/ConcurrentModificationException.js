@@ -6,6 +6,7 @@ qx.Class.define( 'jsava.lang.ConcurrentModificationException', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );

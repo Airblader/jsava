@@ -6,6 +6,7 @@ qx.Class.define( 'jsava.lang.NullPointerException', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );

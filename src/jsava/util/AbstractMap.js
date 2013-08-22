@@ -32,6 +32,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             },
 
             statics: {
+                /** @private */
                 serialVersionUID: 1
             },
 
@@ -99,6 +100,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             },
 
             statics: {
+                /** @private */
                 serialVersionUID: 1
             },
 

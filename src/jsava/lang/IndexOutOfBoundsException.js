@@ -6,6 +6,7 @@ qx.Class.define( 'jsava.lang.IndexOutOfBoundsException', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );

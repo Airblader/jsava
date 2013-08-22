@@ -6,6 +6,7 @@ qx.Class.define( 'jsava.lang.ClassCastException', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );

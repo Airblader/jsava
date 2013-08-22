@@ -101,6 +101,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     },
 
@@ -167,6 +168,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Class.define( 'jsava.lang.RuntimeException', {
@@ -177,6 +179,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Class.define( 'jsava.lang.IndexOutOfBoundsException', {
@@ -187,6 +190,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Class.define( 'jsava.lang.IllegalArgumentException', {
@@ -197,6 +201,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Class.define( 'jsava.lang.CloneNotSupportedException', {
@@ -207,6 +212,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Class.define( 'jsava.lang.NullPointerException', {
@@ -217,6 +223,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Interface.define( 'jsava.lang.Cloneable', {
@@ -251,6 +258,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Class.define( 'jsava.lang.IllegalStateException', {
@@ -261,6 +269,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Interface.define( 'jsava.lang.Iterable', {
@@ -281,6 +290,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Class.define( 'jsava.lang.NoSuchElementException', {
@@ -291,6 +301,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Class.define( 'jsava.lang.ConcurrentModificationException', {
@@ -301,6 +312,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );qx.Class.define( 'jsava.JsavaUtils', {
@@ -880,6 +892,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             },
 
             statics: {
+                /** @private */
                 serialVersionUID: 1
             },
 
@@ -947,6 +960,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             },
 
             statics: {
+                /** @private */
                 serialVersionUID: 1
             },
 
@@ -1348,6 +1362,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1,
 
         DEFAULT_INITIAL_CAPACITY: 16,
@@ -2835,6 +2850,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     },
 

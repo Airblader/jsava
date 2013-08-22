@@ -6,6 +6,7 @@ qx.Class.define( 'jsava.lang.CloneNotSupportedException', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     }
 } );

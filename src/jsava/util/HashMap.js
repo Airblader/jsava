@@ -45,6 +45,7 @@ qx.Class.define( 'jsava.util.HashMap', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1,
 
         DEFAULT_INITIAL_CAPACITY: 16,

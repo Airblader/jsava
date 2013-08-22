@@ -22,6 +22,7 @@ qx.Class.define( 'jsava.lang.Throwable', {
     },
 
     statics: {
+        /** @private */
         serialVersionUID: 1
     },
 
