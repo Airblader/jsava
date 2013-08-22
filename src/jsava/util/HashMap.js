@@ -226,7 +226,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         put: function (key, value) {
             if( key === null ) {
-                return this.__putForNullKey( value );
+                return this.putForNullKey( value );
             }
 
             var hash = this.self( arguments ).hash( key.hashCode() ),
@@ -247,7 +247,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             return null;
         },
 
-        __putForNullKey: function (value) {
+        /** @private */
+        putForNullKey: function (value) {
             for( var entry = this.table[0]; entry !== null; entry = entry._next ) {
                 if( entry._key === null ) {
                     var oldValue = entry._value;
@@ -262,7 +263,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             return null;
         },
 
-        __putForCreate: function (key, value) {
+        /** @private */
+        putForCreate: function (key, value) {
             var hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() ),
                 i = this.self( arguments ).indexFor( hash, this.table.length );
             for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
@@ -282,7 +284,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             var iterator = map.entrySet().iterator();
             while( iterator.hasNext() ) {
                 var entry = iterator.next();
-                this.__putForCreate( entry.getKey(), entry.getValue() );
+                this.putForCreate( entry.getKey(), entry.getValue() );
             }
         },
 
