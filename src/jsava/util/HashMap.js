@@ -386,7 +386,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             return entry;
         },
 
-        _removeMapping: function (obj) {
+        /** @protected */
+        removeMapping: function (obj) {
             if( obj === null || !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
                 return null;
             }
@@ -738,7 +739,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 },
 
                 remove: function (obj) {
-                    return this.__thisHashMap._removeMapping( obj ) !== null;
+                    return this.__thisHashMap.removeMapping( obj ) !== null;
                 },
 
                 clear: function () {
