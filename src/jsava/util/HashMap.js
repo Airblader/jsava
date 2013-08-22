@@ -590,15 +590,18 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
         } ),
 
-        _newKeyIterator: function () {
+        /** @protected */
+        newKeyIterator: function () {
             return new this.KeyIterator( this );
         },
 
-        _newValueIterator: function () {
+        /** @protected */
+        newValueIterator: function () {
             return new this.ValueIterator( this );
         },
 
-        _newEntryIterator: function () {
+        /** @protected */
+        newEntryIterator: function () {
             return new this.EntryIterator( this );
         },
 
@@ -660,7 +663,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 __thisHashMap: null,
 
                 iterator: function () {
-                    return this.__thisHashMap._newKeyIterator();
+                    return this.__thisHashMap.newKeyIterator();
                 },
 
                 size: function () {
@@ -694,7 +697,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 __thisHashMap: null,
 
                 iterator: function () {
-                    return this.__thisHashMap._newValueIterator();
+                    return this.__thisHashMap.newValueIterator();
                 },
 
                 size: function () {
@@ -724,7 +727,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 __thisHashMap: null,
 
                 iterator: function () {
-                    return this.__thisHashMap._newEntryIterator();
+                    return this.__thisHashMap.newEntryIterator();
                 },
 
                 size: function () {
