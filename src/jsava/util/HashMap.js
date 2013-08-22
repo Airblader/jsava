@@ -280,7 +280,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             this._createEntry( hash, key, value, i );
         },
 
-        __putAllForCreate: function (map) {
+        /** @private */
+        putAllForCreate: function (map) {
             var iterator = map.entrySet().iterator();
             while( iterator.hasNext() ) {
                 var entry = iterator.next();
@@ -470,7 +471,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             result.modCount = 0;
             result._size = 0;
             result.init();
-            result.__putAllForCreate( this );
+            result.putAllForCreate( this );
 
             return result;
         },
