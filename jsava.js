@@ -1344,7 +1344,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
         this._loadFactor = loadFactor;
         this._threshold = (capacity * loadFactor) | 0;
         this.table = jsava.JsavaUtils.arrayOfGivenSize( capacity, null );
-        this._init();
+        this.init();
     },
 
     statics: {
@@ -1463,8 +1463,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
          * after HashMap has been initialized but before any entries have
          * been inserted.  (In the absence of this method, readObject would
          * require explicit knowledge of subclasses.)
+         * @protected
          */
-        _init: function () {
+        init: function () {
         },
 
         size: function () {
@@ -1765,7 +1766,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             result.__entrySet = null;
             result.modCount = 0;
             result._size = 0;
-            result._init();
+            result.init();
             result.__putAllForCreate( this );
 
             return result;
