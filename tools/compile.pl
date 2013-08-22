@@ -152,8 +152,7 @@ foreach( @files ) {
 }
 
 system( "rm -f ../jsava.js" );
-# TODO this cannot be compiled with closure compiler because it modifies Object.prototype -> fix
-#system( "cat ../lib/jsavaPrimitivesStubs.js >> ../jsava.js" );
+system( "cat ../lib/jsavaPrimitivesStubs.js >> ../jsava.js" );
 foreach( @compileOrder ) {
     my $filename = getFilenameFromClassName( $_ );
     system( "cat $filename >> ../jsava.js" );
