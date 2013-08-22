@@ -4,16 +4,6 @@ use 5.010;
 use strict;
 use warnings;
 
-# TODO remove this variable mess
-my $outputFilename = '../jsava.compiled.js';
-
-my $sourceFolder = "../src";
-my $libFolder = "../lib";
-
-my $primitiveStubs = "jsavaPrimitivesStubs.js";
-my $shortener = "jsavaShortener.js";
-my $qooxdoo = "qx-oo-3.0.min.js";
-
 ###
 
 # Returns the qualified class name for a file based on its path, e.g.
@@ -150,7 +140,7 @@ sub addSourceToCompileOrder {
 
 ### MAIN
 
-chdir( $sourceFolder ) or die $!;
+chdir( "../src" ) or die $!;
 my @files = split /\n/, `find . -type f -name *.js -print`;
 
 # holds a linear list of file names in the order they need to be compiled
@@ -161,15 +151,17 @@ foreach( @files ) {
     @compileOrder = addSourceToCompileOrder( \@compileOrder, $clazzName, "" );
 }
 
-system( "rm -f $outputFilename" );
-system( "cat $libFolder/$qooxdoo >> $outputFilename" );
-system( "cat $libFolder/$primitiveStubs >> $outputFilename" );
+system( "rm -f ../jsava.js" );
+# TODO this cannot be compiled with closure compiler because it modifies Object.prototype -> fix
+#system( "cat ../lib/jsavaPrimitivesStubs.js >> ../jsava.js" );
 foreach( @compileOrder ) {
     my $filename = getFilenameFromClassName( $_ );
-    system( "cat $filename >> $outputFilename" );
+    system( "cat $filename >> ../jsava.js" );
 }
 
-my $shortenerContent = `cat $libFolder/$shortener`;
+my $jsavaShortenerContent = `cat ../lib/jsavaShortener.js`;
 my $compileOrderArray = "'" . ( join "','", @compileOrder ) . "'";
-$shortenerContent =~ s/\Qvar compileOrder = [];\E/var compileOrder = [$compileOrderArray];/;
-system( "echo \"$shortenerContent\" >> $outputFilename" );
+$jsavaShortenerContent =~ s/\Qvar compileOrder = [];\E/var compileOrder = [$compileOrderArray];/;
+system( "echo \"$jsavaShortenerContent\" >> ../jsava.js" );
+
+system( "cd ../lib/closure-compiler && java -jar compiler.jar --js closure-library/closure/goog/base.js --js ../../jsava.js --js_output_file ../../jsava.min.js --process_closure_primitives true --manage_closure_dependencies false" );
