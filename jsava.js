@@ -1814,7 +1814,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             /** @protected */
             construct: function (thisHashMap) {
                 this.__thisHashMap = thisHashMap;
-                this._expectedModCount = this.__thisHashMap.modCount;
+                this.expectedModCount = this.__thisHashMap.modCount;
                 if( this.__thisHashMap._size > 0 ) {
                     var table = this.__thisHashMap._table;
                     while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
@@ -1829,7 +1829,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 /** @type jsava.util.HashMap.Entry */
                 _next: null,
                 /** @type Number */
-                _expectedModCount: 0,
+                expectedModCount: 0,
                 /** @type Number */
                 _index: 0,
                 /** @type jsava.util.HashMap.Entry */
@@ -1840,7 +1840,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 },
 
                 _nextEntry: function () {
-                    if( this.__thisHashMap.modCount !== this._expectedModCount ) {
+                    if( this.__thisHashMap.modCount !== this.expectedModCount ) {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
 
@@ -1865,14 +1865,14 @@ qx.Interface.define( 'jsava.io.Serializable', {
                         throw new jsava.lang.IllegalStateException();
                     }
 
-                    if( this.__thisHashMap.modCount !== this._expectedModCount ) {
+                    if( this.__thisHashMap.modCount !== this.expectedModCount ) {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
 
                     var key = this._current._key;
                     this._current = null;
                     this.__thisHashMap._removeEntryForKey( key );
-                    this._expectedModCount = this.__thisHashMap.modCount;
+                    this.expectedModCount = this.__thisHashMap.modCount;
                 }
             }
         } ),
