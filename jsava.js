@@ -8,8 +8,8 @@
     'use strict';
 
     var hashCodeFunctions = {
-        'object': function (_this) {
-            _this = Object( _this );
+        'object': function () {
+            var _this = Object( this );
 
             var hashCode = 0;
             for( var property in _this ) {
@@ -27,14 +27,14 @@
             return hashCode;
         },
 
-        'number': function (_this) {
-            _this = Number( _this );
+        'number': function () {
+            var _this = Number( this );
 
             return _this | 0;
         },
 
-        'string': function (_this) {
-            _this = String( _this );
+        'string': function () {
+            var _this = String( this );
 
             var hashCode = 0;
             for( var i = 0; i < _this.length; i++ ) {
@@ -45,21 +45,39 @@
         }
     };
 
-    Number.prototype.hashCode = Number.prototype.hashCode || function () {
-        return hashCodeFunctions['number']( this );
-    };
+    if( Object.defineProperty ) {
 
-    String.prototype.hashCode = String.prototype.hashCode || function () {
-        return hashCodeFunctions['string']( this );
-    };
+        Object.defineProperty( Number.prototype, 'hashCode', {
+            value: hashCodeFunctions['number']
+        } );
 
-    Object.prototype.hashCode = Object.prototype.hashCode || function () {
-        return hashCodeFunctions['object']( this );
-    };
+        Object.defineProperty( String.prototype, 'hashCode', {
+            value: hashCodeFunctions['string']
+        } );
+
+        Object.defineProperty( Object.prototype, 'hashCode', {
+            value: hashCodeFunctions['object']
+        } );
+
+    } else {
+
+        Number.prototype.hashCode = Number.prototype.hashCode || function () {
+            return hashCodeFunctions['number'].apply( this, arguments );
+        };
+
+        String.prototype.hashCode = String.prototype.hashCode || function () {
+            return hashCodeFunctions['string'].apply( this, arguments );
+        };
+
+        Object.prototype.hashCode = Object.prototype.hashCode || function () {
+            return hashCodeFunctions['object'].apply( this, arguments );
+        };
+
+    }
 
     var equalsFunctions = {
-        'object': function (_this, other) {
-            _this = Object( _this );
+        'object': function (other) {
+            var _this = Object( this );
 
             if( typeof other !== typeof _this ) {
                 return false;
@@ -75,14 +93,14 @@
             return true;
         },
 
-        'number': function (_this, other) {
-            _this = Number( _this );
+        'number': function (other) {
+            var _this = Number( this );
 
             return typeof _this === typeof other && _this === other;
         },
 
-        'string': function (_this, other) {
-            _this = String( _this );
+        'string': function (other) {
+            var _this = String( this );
 
             if( typeof other !== typeof _this ) {
                 return false;
@@ -102,17 +120,38 @@
         }
     };
 
-    Number.prototype.equals = Number.prototype.equals || function (other) {
-        return equalsFunctions['number']( this, other );
-    };
+    if( Object.defineProperty ) {
 
-    String.prototype.equals = String.prototype.equals || function (other) {
-        return equalsFunctions['string']( this, other );
-    };
+        Object.defineProperty( Number.prototype, 'equals', {
+            value: equalsFunctions['number'],
+            writable: true
+        } );
 
-    Object.prototype.equals = Object.prototype.equals || function (other) {
-        return equalsFunctions['object']( this, other );
-    };
+        Object.defineProperty( String.prototype, 'equals', {
+            value: equalsFunctions['string'],
+            writable: true
+        } );
+
+        Object.defineProperty( Object.prototype, 'equals', {
+            value: equalsFunctions['object'],
+            writable: true
+        } );
+
+    } else {
+
+        Number.prototype.equals = Number.prototype.equals || function (other) {
+            return equalsFunctions['number'].apply( this, arguments );
+        };
+
+        String.prototype.equals = String.prototype.equals || function (other) {
+            return equalsFunctions['string'].apply( this, arguments );
+        };
+
+        Object.prototype.equals = Object.prototype.equals || function (other) {
+            return equalsFunctions['object'].apply( this, arguments );
+        };
+
+    }
 })();qx.Interface.define( 'jsava.io.Serializable', {
 } );
 
