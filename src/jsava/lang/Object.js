@@ -47,7 +47,20 @@ qx.Class.define( 'jsava.lang.Object', {
         },
 
         clone: function () {
-            return this.base( arguments );
+            var result;
+            try {
+                result = this.base( arguments );
+            } finally {
+                for( var property in this ) {
+                    if( !this.hasOwnProperty( property ) || result.hasOwnProperty( property ) ) {
+                        continue;
+                    }
+
+                    result[property] = this[property];
+                }
+            }
+
+            return result;
         },
 
         /**

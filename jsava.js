@@ -141,7 +141,20 @@ qx.Class.define( 'jsava.lang.Object', {
         },
 
         clone: function () {
-            return this.base( arguments );
+            var result;
+            try {
+                result = this.base( arguments );
+            } finally {
+                for( var property in this ) {
+                    if( !this.hasOwnProperty( property ) || result.hasOwnProperty( property ) ) {
+                        continue;
+                    }
+
+                    result[property] = this[property];
+                }
+            }
+
+            return result;
         },
 
         /**
@@ -3099,8 +3112,6 @@ qx.Class.define( 'jsava.util.ArrayList', {
                 /** @type jsava.util.ArrayList */
                 var v = this.base( arguments );
                 v.elementData = jsava.util.Arrays.copyOf( this.elementData, this.__size );
-                // this is needed since the super method will not copy it
-                v.__size = this.__size;
                 v.modCount = 0;
                 return v;
             } catch( e ) {
