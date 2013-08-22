@@ -1429,15 +1429,17 @@ qx.Interface.define( 'jsava.io.Serializable', {
                  * This method is invoked whenever the value in an entry is
                  * overwritten by an invocation of put(k,v) for a key k that's already
                  * in the HashMap.
+                 * @protected
                  */
-                _recordAccess: function (map) {
+                recordAccess: function (map) {
                 },
 
                 /**
                  * This method is invoked whenever the entry is
                  * removed from the table.
+                 * @protected
                  */
-                _recordRemoval: function (map) {
+                recordRemoval: function (map) {
                 }
             }
         } )
@@ -1536,7 +1538,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 if( entry._hash === hash && ( (k = entry._key) === key || key.equals( k ) ) ) {
                     var oldValue = entry._value;
                     entry._value = value;
-                    entry._recordAccess( this );
+                    entry.recordAccess( this );
                     return oldValue;
                 }
             }
@@ -1551,7 +1553,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 if( entry._key === null ) {
                     var oldValue = entry._value;
                     entry._value = value;
-                    entry._recordAccess( this );
+                    entry.recordAccess( this );
                     return oldValue;
                 }
             }
@@ -1669,7 +1671,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                     } else {
                         prev._next = next;
                     }
-                    entry._recordRemoval( this );
+                    entry.recordRemoval( this );
                     return entry;
                 }
                 prev = entry;
@@ -1702,7 +1704,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                     } else {
                         prev._next = next;
                     }
-                    e._recordRemoval( this );
+                    e.recordRemoval( this );
                     return e;
                 }
                 prev = e;

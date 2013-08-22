@@ -126,15 +126,17 @@ qx.Class.define( 'jsava.util.HashMap', {
                  * This method is invoked whenever the value in an entry is
                  * overwritten by an invocation of put(k,v) for a key k that's already
                  * in the HashMap.
+                 * @protected
                  */
-                _recordAccess: function (map) {
+                recordAccess: function (map) {
                 },
 
                 /**
                  * This method is invoked whenever the entry is
                  * removed from the table.
+                 * @protected
                  */
-                _recordRemoval: function (map) {
+                recordRemoval: function (map) {
                 }
             }
         } )
@@ -233,7 +235,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 if( entry._hash === hash && ( (k = entry._key) === key || key.equals( k ) ) ) {
                     var oldValue = entry._value;
                     entry._value = value;
-                    entry._recordAccess( this );
+                    entry.recordAccess( this );
                     return oldValue;
                 }
             }
@@ -248,7 +250,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 if( entry._key === null ) {
                     var oldValue = entry._value;
                     entry._value = value;
-                    entry._recordAccess( this );
+                    entry.recordAccess( this );
                     return oldValue;
                 }
             }
@@ -366,7 +368,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                     } else {
                         prev._next = next;
                     }
-                    entry._recordRemoval( this );
+                    entry.recordRemoval( this );
                     return entry;
                 }
                 prev = entry;
@@ -399,7 +401,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                     } else {
                         prev._next = next;
                     }
-                    e._recordRemoval( this );
+                    e.recordRemoval( this );
                     return e;
                 }
                 prev = e;
