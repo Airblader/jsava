@@ -352,11 +352,12 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         remove: function (key) {
-            var entry = this._removeEntryForKey( key );
+            var entry = this.removeEntryForKey( key );
             return entry === null ? null : entry._value;
         },
 
-        _removeEntryForKey: function (key) {
+        /** @protected */
+        removeEntryForKey: function (key) {
             var hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() ),
                 i = this.self( arguments ).indexFor( hash, this.table.length ),
                 prev = this.table[i],
@@ -578,7 +579,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
                     var key = this.current._key;
                     this.current = null;
-                    this.__thisHashMap._removeEntryForKey( key );
+                    this.__thisHashMap.removeEntryForKey( key );
                     this.expectedModCount = this.__thisHashMap.modCount;
                 }
             }
@@ -666,7 +667,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 },
 
                 remove: function (obj) {
-                    return this.__thisHashMap._removeEntryForKey( obj ) !== null;
+                    return this.__thisHashMap.removeEntryForKey( obj ) !== null;
                 },
 
                 clear: function () {
