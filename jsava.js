@@ -5,12 +5,12 @@
  */
 
 (function () {
-    // this empty line is required to avoid a YUI compressor bug (https://github.com/yui/yuicompressor/issues/71)
-    '';
     'use strict';
 
     var hashCodeFunctions = {
-        'default': function (_this) {
+        'object': function (_this) {
+            _this = Object( _this );
+
             var hashCode = 0;
             for( var property in _this ) {
                 if( !_this.hasOwnProperty( property )
@@ -28,10 +28,14 @@
         },
 
         'number': function (_this) {
+            _this = Number( _this );
+
             return _this | 0;
         },
 
         'string': function (_this) {
+            _this = String( _this );
+
             var hashCode = 0;
             for( var i = 0; i < _this.length; i++ ) {
                 hashCode = (31 * hashCode + _this.charCodeAt( i )) << 0;
@@ -41,13 +45,22 @@
         }
     };
 
+    Number.prototype.hashCode = Number.prototype.hashCode || function () {
+        return hashCodeFunctions['number']( this );
+    };
+
+    String.prototype.hashCode = String.prototype.hashCode || function () {
+        return hashCodeFunctions['string']( this );
+    };
+
     Object.prototype.hashCode = Object.prototype.hashCode || function () {
-        var type = hashCodeFunctions.hasOwnProperty( typeof this ) ? typeof this : 'default';
-        return hashCodeFunctions[type]( this );
+        return hashCodeFunctions['object']( this );
     };
 
     var equalsFunctions = {
-        'default': function (_this, other) {
+        'object': function (_this, other) {
+            _this = Object( _this );
+
             if( typeof other !== typeof _this ) {
                 return false;
             }
@@ -63,10 +76,14 @@
         },
 
         'number': function (_this, other) {
+            _this = Number( _this );
+
             return typeof _this === typeof other && _this === other;
         },
 
         'string': function (_this, other) {
+            _this = String( _this );
+
             if( typeof other !== typeof _this ) {
                 return false;
             }
@@ -85,9 +102,16 @@
         }
     };
 
+    Number.prototype.equals = Number.prototype.equals || function (other) {
+        return equalsFunctions['number']( this, other );
+    };
+
+    String.prototype.equals = String.prototype.equals || function (other) {
+        return equalsFunctions['string']( this, other );
+    };
+
     Object.prototype.equals = Object.prototype.equals || function (other) {
-        var type = equalsFunctions.hasOwnProperty( typeof this ) ? typeof this : 'default';
-        return equalsFunctions[type]( this, other );
+        return equalsFunctions['object']( this, other );
     };
 })();qx.Interface.define( 'jsava.io.Serializable', {
 } );
