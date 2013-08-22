@@ -1360,7 +1360,8 @@ qx.Interface.define( 'jsava.io.Serializable', {
             return hash ^ (hash >>> 7) ^ (hash >>> 4);
         },
 
-        _indexFor: function (hashCode, length) {
+        /** @protected */
+        indexFor: function (hashCode, length) {
             return hashCode & (length - 1);
         },
 
@@ -1485,7 +1486,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
 
             var hash = this.self( arguments ).hash( key.hashCode() );
-            for( var entry = this.table[this.self( arguments )._indexFor( hash, this.table.length )];
+            for( var entry = this.table[this.self( arguments ).indexFor( hash, this.table.length )];
                  entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -1513,7 +1514,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         _getEntry: function (key) {
             var hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() );
-            for( var entry = this.table[this.self( arguments )._indexFor( hash, this.table.length )];
+            for( var entry = this.table[this.self( arguments ).indexFor( hash, this.table.length )];
                  entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -1532,7 +1533,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
 
             var hash = this.self( arguments ).hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this.table.length );
+                i = this.self( arguments ).indexFor( hash, this.table.length );
             for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -1566,7 +1567,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         __putForCreate: function (key, value) {
             var hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this.table.length );
+                i = this.self( arguments ).indexFor( hash, this.table.length );
             for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -1611,7 +1612,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                     src[j] = null;
                     do {
                         var next = entry._next,
-                            i = this.self( arguments )._indexFor( entry._hash, newCapacity );
+                            i = this.self( arguments ).indexFor( entry._hash, newCapacity );
                         entry._next = newTable[i];
                         newTable[i] = entry;
                         entry = next;
@@ -1655,7 +1656,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         _removeEntryForKey: function (key) {
             var hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this.table.length ),
+                i = this.self( arguments ).indexFor( hash, this.table.length ),
                 prev = this.table[i],
                 entry = prev;
 
@@ -1691,7 +1692,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             var entry = obj,
                 key = entry.getKey(),
                 hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this.table.length ),
+                i = this.self( arguments ).indexFor( hash, this.table.length ),
                 prev = this.table[i],
                 e = prev;
 

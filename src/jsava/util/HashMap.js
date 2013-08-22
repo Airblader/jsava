@@ -57,7 +57,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             return hash ^ (hash >>> 7) ^ (hash >>> 4);
         },
 
-        _indexFor: function (hashCode, length) {
+        /** @protected */
+        indexFor: function (hashCode, length) {
             return hashCode & (length - 1);
         },
 
@@ -182,7 +183,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
 
             var hash = this.self( arguments ).hash( key.hashCode() );
-            for( var entry = this.table[this.self( arguments )._indexFor( hash, this.table.length )];
+            for( var entry = this.table[this.self( arguments ).indexFor( hash, this.table.length )];
                  entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -210,7 +211,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         _getEntry: function (key) {
             var hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() );
-            for( var entry = this.table[this.self( arguments )._indexFor( hash, this.table.length )];
+            for( var entry = this.table[this.self( arguments ).indexFor( hash, this.table.length )];
                  entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -229,7 +230,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
 
             var hash = this.self( arguments ).hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this.table.length );
+                i = this.self( arguments ).indexFor( hash, this.table.length );
             for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -263,7 +264,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         __putForCreate: function (key, value) {
             var hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this.table.length );
+                i = this.self( arguments ).indexFor( hash, this.table.length );
             for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -308,7 +309,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                     src[j] = null;
                     do {
                         var next = entry._next,
-                            i = this.self( arguments )._indexFor( entry._hash, newCapacity );
+                            i = this.self( arguments ).indexFor( entry._hash, newCapacity );
                         entry._next = newTable[i];
                         newTable[i] = entry;
                         entry = next;
@@ -352,7 +353,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         _removeEntryForKey: function (key) {
             var hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this.table.length ),
+                i = this.self( arguments ).indexFor( hash, this.table.length ),
                 prev = this.table[i],
                 entry = prev;
 
@@ -388,7 +389,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             var entry = obj,
                 key = entry.getKey(),
                 hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this.table.length ),
+                i = this.self( arguments ).indexFor( hash, this.table.length ),
                 prev = this.table[i],
                 e = prev;
 
