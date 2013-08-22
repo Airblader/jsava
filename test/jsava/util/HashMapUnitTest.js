@@ -59,22 +59,22 @@ describe( 'HashMap', function () {
     describe( 'constructor', function () {
         it( 'without any parameters', function () {
             expect( map._loadFactor ).toBe( HashMap.DEFAULT_LOAD_FACTOR );
-            expect( map._table.length ).toBe( 16 );
+            expect( map.table.length ).toBe( 16 );
         } );
 
         it( 'with custom initial capacity', function () {
             var mapWithParameters = new HashMap( 2 );
-            expect( mapWithParameters._table.length ).toBe( 2 );
+            expect( mapWithParameters.table.length ).toBe( 2 );
         } );
 
         it( 'with custom initial capacity that is not a power of two', function () {
             var mapWithParameters = new HashMap( 3 );
-            expect( mapWithParameters._table.length ).toBe( 4 );
+            expect( mapWithParameters.table.length ).toBe( 4 );
         } );
 
         it( 'with custom initial capacity and a custom load factor', function () {
             var mapWithParameters = new HashMap( 4, 0.5 );
-            expect( mapWithParameters._table.length ).toBe( 4 );
+            expect( mapWithParameters.table.length ).toBe( 4 );
             expect( mapWithParameters._threshold ).toBe( 2 );
         } );
 
@@ -84,7 +84,7 @@ describe( 'HashMap', function () {
                 otherMap.put( i, i );
             }
             var mapWithParameters = new HashMap( otherMap );
-            expect( mapWithParameters._table.length ).toBe( 64 );
+            expect( mapWithParameters.table.length ).toBe( 64 );
         } );
     } );
 

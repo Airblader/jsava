@@ -1343,7 +1343,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         this._loadFactor = loadFactor;
         this._threshold = (capacity * loadFactor) | 0;
-        this._table = jsava.JsavaUtils.arrayOfGivenSize( capacity, null );
+        this.table = jsava.JsavaUtils.arrayOfGivenSize( capacity, null );
         this._init();
     },
 
@@ -1445,7 +1445,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
     members: {
         /** @type jsava.util.HashMap.Entry[] */
-        _table: null,
+        table: null,
         /** @type Number */
         _size: 0,
         /** @type Number */
@@ -1481,7 +1481,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
 
             var hash = this.self( arguments )._hash( key.hashCode() );
-            for( var entry = this._table[this.self( arguments )._indexFor( hash, this._table.length )];
+            for( var entry = this.table[this.self( arguments )._indexFor( hash, this.table.length )];
                  entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -1494,7 +1494,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
         },
 
         __getForNullKey: function () {
-            for( var entry = this._table[0]; entry !== null; entry = entry._next ) {
+            for( var entry = this.table[0]; entry !== null; entry = entry._next ) {
                 if( entry._key === null ) {
                     return entry._value;
                 }
@@ -1509,7 +1509,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         _getEntry: function (key) {
             var hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() );
-            for( var entry = this._table[this.self( arguments )._indexFor( hash, this._table.length )];
+            for( var entry = this.table[this.self( arguments )._indexFor( hash, this.table.length )];
                  entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -1528,8 +1528,8 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
 
             var hash = this.self( arguments )._hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this._table.length );
-            for( var entry = this._table[i]; entry !== null; entry = entry._next ) {
+                i = this.self( arguments )._indexFor( hash, this.table.length );
+            for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
                 if( entry._hash === hash && ( (k = entry._key) === key || key.equals( k ) ) ) {
@@ -1546,7 +1546,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
         },
 
         __putForNullKey: function (value) {
-            for( var entry = this._table[0]; entry !== null; entry = entry._next ) {
+            for( var entry = this.table[0]; entry !== null; entry = entry._next ) {
                 if( entry._key === null ) {
                     var oldValue = entry._value;
                     entry._value = value;
@@ -1562,8 +1562,8 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         __putForCreate: function (key, value) {
             var hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this._table.length );
-            for( var entry = this._table[i]; entry !== null; entry = entry._next ) {
+                i = this.self( arguments )._indexFor( hash, this.table.length );
+            for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
                 if( entry._hash === hash
@@ -1585,7 +1585,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
         },
 
         _resize: function (newCapacity) {
-            var oldTable = this._table,
+            var oldTable = this.table,
                 oldCapacity = oldTable.length;
             if( oldCapacity === this.self( arguments ).MAXIMUM_CAPACITY ) {
                 this._threshold = Number.MAX_VALUE;
@@ -1594,12 +1594,12 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
             var newTable = jsava.JsavaUtils.arrayOfGivenSize( newCapacity, null );
             this._transfer( newTable );
-            this._table = newTable;
+            this.table = newTable;
             this._threshold = (newCapacity * this._loadFactor) | 0;
         },
 
         _transfer: function (newTable) {
-            var src = this._table,
+            var src = this.table,
                 newCapacity = newTable.length;
             for( var j = 0; j < src.length; j++ ) {
                 var entry = src[j];
@@ -1628,11 +1628,11 @@ qx.Interface.define( 'jsava.io.Serializable', {
                     targetCapacity = this.self( arguments ).MAXIMUM_CAPACITY;
                 }
 
-                var newCapacity = this._table.length;
+                var newCapacity = this.table.length;
                 while( newCapacity < targetCapacity ) {
                     newCapacity <<= 1;
                 }
-                if( newCapacity > this._table.length ) {
+                if( newCapacity > this.table.length ) {
                     this._resize( newCapacity );
                 }
             }
@@ -1651,8 +1651,8 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         _removeEntryForKey: function (key) {
             var hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this._table.length ),
-                prev = this._table[i],
+                i = this.self( arguments )._indexFor( hash, this.table.length ),
+                prev = this.table[i],
                 entry = prev;
 
             while( entry !== null ) {
@@ -1664,7 +1664,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                     this.modCount++;
                     this._size--;
                     if( prev === entry ) {
-                        this._table[i] = next;
+                        this.table[i] = next;
                     } else {
                         prev._next = next;
                     }
@@ -1687,8 +1687,8 @@ qx.Interface.define( 'jsava.io.Serializable', {
             var entry = obj,
                 key = entry.getKey(),
                 hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this._table.length ),
-                prev = this._table[i],
+                i = this.self( arguments )._indexFor( hash, this.table.length ),
+                prev = this.table[i],
                 e = prev;
 
             while( e !== null ) {
@@ -1697,7 +1697,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                     this.modCount++;
                     this._size--;
                     if( prev === e ) {
-                        this._table[i] = next;
+                        this.table[i] = next;
                     } else {
                         prev._next = next;
                     }
@@ -1713,7 +1713,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         clear: function () {
             this.modCount++;
-            var table = this._table;
+            var table = this.table;
             for( var i = 0; i < table.length; i++ ) {
                 table[i] = null;
             }
@@ -1725,7 +1725,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 return this.__containsNullValue();
             }
 
-            var table = this._table;
+            var table = this.table;
             for( var i = 0; i < table.length; i++ ) {
                 for( var entry = table[i]; entry !== null; entry = entry._next ) {
                     if( value.equals( entry._value ) ) {
@@ -1738,7 +1738,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
         },
 
         __containsNullValue: function () {
-            var table = this._table;
+            var table = this.table;
             for( var i = 0; i < table.length; i++ ) {
                 for( var entry = table[i]; entry !== null; entry = entry._next ) {
                     if( entry._value === null ) {
@@ -1761,7 +1761,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 }
             }
 
-            result._table = jsava.JsavaUtils.arrayOfGivenSize( this._table.length, null );
+            result.table = jsava.JsavaUtils.arrayOfGivenSize( this.table.length, null );
             result.__entrySet = null;
             result.modCount = 0;
             result._size = 0;
@@ -1772,16 +1772,16 @@ qx.Interface.define( 'jsava.io.Serializable', {
         },
 
         _addEntry: function (hash, key, value, bucketIndex) {
-            var entry = this._table[bucketIndex];
-            this._table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
+            var entry = this.table[bucketIndex];
+            this.table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
             if( this._size++ >= this._threshold ) {
-                this._resize( 2 * this._table.length );
+                this._resize( 2 * this.table.length );
             }
         },
 
         _createEntry: function (hash, key, value, bucketIndex) {
-            var entry = this._table[bucketIndex];
-            this._table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
+            var entry = this.table[bucketIndex];
+            this.table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
             this._size++;
         },
 
@@ -1816,7 +1816,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 this.__thisHashMap = thisHashMap;
                 this.expectedModCount = this.__thisHashMap.modCount;
                 if( this.__thisHashMap._size > 0 ) {
-                    var table = this.__thisHashMap._table;
+                    var table = this.__thisHashMap.table;
                     while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
                         // do nothing
                     }
@@ -1850,7 +1850,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                     }
 
                     if( (this._next = entry._next) === null ) {
-                        var table = this.__thisHashMap._table;
+                        var table = this.__thisHashMap.table;
                         while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
                             // do nothing
                         }

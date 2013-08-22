@@ -40,7 +40,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         this._loadFactor = loadFactor;
         this._threshold = (capacity * loadFactor) | 0;
-        this._table = jsava.JsavaUtils.arrayOfGivenSize( capacity, null );
+        this.table = jsava.JsavaUtils.arrayOfGivenSize( capacity, null );
         this._init();
     },
 
@@ -142,7 +142,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
     members: {
         /** @type jsava.util.HashMap.Entry[] */
-        _table: null,
+        table: null,
         /** @type Number */
         _size: 0,
         /** @type Number */
@@ -178,7 +178,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
 
             var hash = this.self( arguments )._hash( key.hashCode() );
-            for( var entry = this._table[this.self( arguments )._indexFor( hash, this._table.length )];
+            for( var entry = this.table[this.self( arguments )._indexFor( hash, this.table.length )];
                  entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -191,7 +191,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         __getForNullKey: function () {
-            for( var entry = this._table[0]; entry !== null; entry = entry._next ) {
+            for( var entry = this.table[0]; entry !== null; entry = entry._next ) {
                 if( entry._key === null ) {
                     return entry._value;
                 }
@@ -206,7 +206,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         _getEntry: function (key) {
             var hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() );
-            for( var entry = this._table[this.self( arguments )._indexFor( hash, this._table.length )];
+            for( var entry = this.table[this.self( arguments )._indexFor( hash, this.table.length )];
                  entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
@@ -225,8 +225,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
 
             var hash = this.self( arguments )._hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this._table.length );
-            for( var entry = this._table[i]; entry !== null; entry = entry._next ) {
+                i = this.self( arguments )._indexFor( hash, this.table.length );
+            for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
                 if( entry._hash === hash && ( (k = entry._key) === key || key.equals( k ) ) ) {
@@ -243,7 +243,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         __putForNullKey: function (value) {
-            for( var entry = this._table[0]; entry !== null; entry = entry._next ) {
+            for( var entry = this.table[0]; entry !== null; entry = entry._next ) {
                 if( entry._key === null ) {
                     var oldValue = entry._value;
                     entry._value = value;
@@ -259,8 +259,8 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         __putForCreate: function (key, value) {
             var hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this._table.length );
-            for( var entry = this._table[i]; entry !== null; entry = entry._next ) {
+                i = this.self( arguments )._indexFor( hash, this.table.length );
+            for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
                 if( entry._hash === hash
@@ -282,7 +282,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         _resize: function (newCapacity) {
-            var oldTable = this._table,
+            var oldTable = this.table,
                 oldCapacity = oldTable.length;
             if( oldCapacity === this.self( arguments ).MAXIMUM_CAPACITY ) {
                 this._threshold = Number.MAX_VALUE;
@@ -291,12 +291,12 @@ qx.Class.define( 'jsava.util.HashMap', {
 
             var newTable = jsava.JsavaUtils.arrayOfGivenSize( newCapacity, null );
             this._transfer( newTable );
-            this._table = newTable;
+            this.table = newTable;
             this._threshold = (newCapacity * this._loadFactor) | 0;
         },
 
         _transfer: function (newTable) {
-            var src = this._table,
+            var src = this.table,
                 newCapacity = newTable.length;
             for( var j = 0; j < src.length; j++ ) {
                 var entry = src[j];
@@ -325,11 +325,11 @@ qx.Class.define( 'jsava.util.HashMap', {
                     targetCapacity = this.self( arguments ).MAXIMUM_CAPACITY;
                 }
 
-                var newCapacity = this._table.length;
+                var newCapacity = this.table.length;
                 while( newCapacity < targetCapacity ) {
                     newCapacity <<= 1;
                 }
-                if( newCapacity > this._table.length ) {
+                if( newCapacity > this.table.length ) {
                     this._resize( newCapacity );
                 }
             }
@@ -348,8 +348,8 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         _removeEntryForKey: function (key) {
             var hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this._table.length ),
-                prev = this._table[i],
+                i = this.self( arguments )._indexFor( hash, this.table.length ),
+                prev = this.table[i],
                 entry = prev;
 
             while( entry !== null ) {
@@ -361,7 +361,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                     this.modCount++;
                     this._size--;
                     if( prev === entry ) {
-                        this._table[i] = next;
+                        this.table[i] = next;
                     } else {
                         prev._next = next;
                     }
@@ -384,8 +384,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             var entry = obj,
                 key = entry.getKey(),
                 hash = (key === null) ? 0 : this.self( arguments )._hash( key.hashCode() ),
-                i = this.self( arguments )._indexFor( hash, this._table.length ),
-                prev = this._table[i],
+                i = this.self( arguments )._indexFor( hash, this.table.length ),
+                prev = this.table[i],
                 e = prev;
 
             while( e !== null ) {
@@ -394,7 +394,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                     this.modCount++;
                     this._size--;
                     if( prev === e ) {
-                        this._table[i] = next;
+                        this.table[i] = next;
                     } else {
                         prev._next = next;
                     }
@@ -410,7 +410,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         clear: function () {
             this.modCount++;
-            var table = this._table;
+            var table = this.table;
             for( var i = 0; i < table.length; i++ ) {
                 table[i] = null;
             }
@@ -422,7 +422,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 return this.__containsNullValue();
             }
 
-            var table = this._table;
+            var table = this.table;
             for( var i = 0; i < table.length; i++ ) {
                 for( var entry = table[i]; entry !== null; entry = entry._next ) {
                     if( value.equals( entry._value ) ) {
@@ -435,7 +435,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         __containsNullValue: function () {
-            var table = this._table;
+            var table = this.table;
             for( var i = 0; i < table.length; i++ ) {
                 for( var entry = table[i]; entry !== null; entry = entry._next ) {
                     if( entry._value === null ) {
@@ -458,7 +458,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 }
             }
 
-            result._table = jsava.JsavaUtils.arrayOfGivenSize( this._table.length, null );
+            result.table = jsava.JsavaUtils.arrayOfGivenSize( this.table.length, null );
             result.__entrySet = null;
             result.modCount = 0;
             result._size = 0;
@@ -469,16 +469,16 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         _addEntry: function (hash, key, value, bucketIndex) {
-            var entry = this._table[bucketIndex];
-            this._table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
+            var entry = this.table[bucketIndex];
+            this.table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
             if( this._size++ >= this._threshold ) {
-                this._resize( 2 * this._table.length );
+                this._resize( 2 * this.table.length );
             }
         },
 
         _createEntry: function (hash, key, value, bucketIndex) {
-            var entry = this._table[bucketIndex];
-            this._table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
+            var entry = this.table[bucketIndex];
+            this.table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
             this._size++;
         },
 
@@ -513,7 +513,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 this.__thisHashMap = thisHashMap;
                 this.expectedModCount = this.__thisHashMap.modCount;
                 if( this.__thisHashMap._size > 0 ) {
-                    var table = this.__thisHashMap._table;
+                    var table = this.__thisHashMap.table;
                     while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
                         // do nothing
                     }
@@ -547,7 +547,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                     }
 
                     if( (this._next = entry._next) === null ) {
-                        var table = this.__thisHashMap._table;
+                        var table = this.__thisHashMap.table;
                         while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
                             // do nothing
                         }
