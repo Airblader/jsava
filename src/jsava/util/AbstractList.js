@@ -172,7 +172,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
             /** @private */
             construct: function (thisAbstractList) {
                 this.__thisAbstractList = thisAbstractList;
-                this.expectedModCount = this.__thisAbstractList._modCount;
+                this.expectedModCount = this.__thisAbstractList.modCount;
             },
 
             members: {
@@ -222,7 +222,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
                             this.cursor--;
                         }
                         this.lastRet = -1;
-                        this.expectedModCount = this.__thisAbstractList._modCount;
+                        this.expectedModCount = this.__thisAbstractList.modCount;
                     } catch( e ) {
                         if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
                             throw new jsava.lang.ConcurrentModificationException();
@@ -234,7 +234,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
 
                 /** @protected */
                 checkForComodification: function () {
-                    if( this.__thisAbstractList._modCount !== this.expectedModCount ) {
+                    if( this.__thisAbstractList.modCount !== this.expectedModCount ) {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
                 }
@@ -290,7 +290,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
 
                     try {
                         this.__thisAbstractList.set( this.lastRet, element );
-                        this.expectedModCount = this.__thisAbstractList._modCount;
+                        this.expectedModCount = this.__thisAbstractList.modCount;
                     } catch( e ) {
                         if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
                             throw new jsava.lang.ConcurrentModificationException();
@@ -305,7 +305,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
                     try {
                         this.__thisAbstractList.add( this.cursor++, element );
                         this.lastRet = -1;
-                        this.expectedModCount = this.__thisAbstractList._modCount;
+                        this.expectedModCount = this.__thisAbstractList.modCount;
                     } catch( e ) {
                         if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
                             throw new jsava.lang.ConcurrentModificationException();

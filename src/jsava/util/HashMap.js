@@ -150,7 +150,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         /** @type Number */
         _loadFactor: 0,
         /** @type Number */
-        _modCount: 0,
+        modCount: 0,
         /** @implements jsava.util.Set */
         __entrySet: null,
 
@@ -237,7 +237,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 }
             }
 
-            this._modCount++;
+            this.modCount++;
             this._addEntry( hash, key, value, i );
             return null;
         },
@@ -252,7 +252,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 }
             }
 
-            this._modCount++;
+            this.modCount++;
             this._addEntry( 0, null, value, 0 );
             return null;
         },
@@ -358,7 +358,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                         k;
                 if( entry._hash === hash
                     && ( (k = entry._key) === key || ( key !== null && key.equals( k ) ) ) ) {
-                    this._modCount++;
+                    this.modCount++;
                     this._size--;
                     if( prev === entry ) {
                         this._table[i] = next;
@@ -391,7 +391,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             while( e !== null ) {
                 var next = e._next;
                 if( e._hash === hash && e.equals( entry ) ) {
-                    this._modCount++;
+                    this.modCount++;
                     this._size--;
                     if( prev === e ) {
                         this._table[i] = next;
@@ -409,7 +409,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         clear: function () {
-            this._modCount++;
+            this.modCount++;
             var table = this._table;
             for( var i = 0; i < table.length; i++ ) {
                 table[i] = null;
@@ -460,7 +460,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
             result._table = jsava.JsavaUtils.arrayOfGivenSize( this._table.length, null );
             result.__entrySet = null;
-            result._modCount = 0;
+            result.modCount = 0;
             result._size = 0;
             result._init();
             result.__putAllForCreate( this );
@@ -511,7 +511,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             /** @protected */
             construct: function (thisHashMap) {
                 this.__thisHashMap = thisHashMap;
-                this._expectedModCount = this.__thisHashMap._modCount;
+                this._expectedModCount = this.__thisHashMap.modCount;
                 if( this.__thisHashMap._size > 0 ) {
                     var table = this.__thisHashMap._table;
                     while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
@@ -537,7 +537,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 },
 
                 _nextEntry: function () {
-                    if( this.__thisHashMap._modCount !== this._expectedModCount ) {
+                    if( this.__thisHashMap.modCount !== this._expectedModCount ) {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
 
@@ -562,14 +562,14 @@ qx.Class.define( 'jsava.util.HashMap', {
                         throw new jsava.lang.IllegalStateException();
                     }
 
-                    if( this.__thisHashMap._modCount !== this._expectedModCount ) {
+                    if( this.__thisHashMap.modCount !== this._expectedModCount ) {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
 
                     var key = this._current._key;
                     this._current = null;
                     this.__thisHashMap._removeEntryForKey( key );
-                    this._expectedModCount = this.__thisHashMap._modCount;
+                    this._expectedModCount = this.__thisHashMap.modCount;
                 }
             }
         } ),

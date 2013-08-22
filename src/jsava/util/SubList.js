@@ -21,7 +21,7 @@ qx.Class.define( 'jsava.util.SubList', {
         this.l = list;
         this.offset = fromIndex;
         this.__size = toIndex - fromIndex;
-        this.expectedModCount = this.l._modCount;
+        this.expectedModCount = this.l.modCount;
     },
 
     members: {
@@ -61,18 +61,18 @@ qx.Class.define( 'jsava.util.SubList', {
 
             this.checkForComodification();
             this.l.add( index + this.offset, element );
-            this.expectedModCount = this.l._modCount;
+            this.expectedModCount = this.l.modCount;
             this.__size++;
-            this._modCount++;
+            this.modCount++;
         },
 
         remove: function (index) {
             this.rangeCheck( index );
             this.checkForComodification();
             var result = this.l.remove( index + this.offset );
-            this.expectedModCount = this.l._modCount;
+            this.expectedModCount = this.l.modCount;
             this.__size--;
-            this._modCount++;
+            this.modCount++;
 
             return result;
         },
@@ -80,9 +80,9 @@ qx.Class.define( 'jsava.util.SubList', {
         removeRange: function (fromIndex, toIndex) {
             this.checkForComodification();
             this.l.removeRange( fromIndex + this.offset, toIndex + this.offset );
-            this.expectedModCount = this.l._modCount;
+            this.expectedModCount = this.l.modCount;
             this.__size -= (toIndex - fromIndex);
-            this._modCount++;
+            this.modCount++;
         },
 
         addAll: function () {
@@ -104,9 +104,9 @@ qx.Class.define( 'jsava.util.SubList', {
 
                 this.checkForComodification();
                 this.l.addAll( this.offset + index, collection );
-                this.expectedModCount = this.l._modCount;
+                this.expectedModCount = this.l.modCount;
                 this.__size += cSize;
-                this._modCount++;
+                this.modCount++;
 
                 return true;
             }
@@ -177,7 +177,7 @@ qx.Class.define( 'jsava.util.SubList', {
 
                     remove: function () {
                         this.iterator.remove();
-                        this.__thisSubList.expectedModCount = this.__thisSubList.l._modCount;
+                        this.__thisSubList.expectedModCount = this.__thisSubList.l.modCount;
                     },
 
                     set: function (element) {
@@ -186,9 +186,9 @@ qx.Class.define( 'jsava.util.SubList', {
 
                     add: function (element) {
                         this.iterator.add( element );
-                        this.__thisSubList.expectedModCount = this.__thisSubList.l._modCount;
+                        this.__thisSubList.expectedModCount = this.__thisSubList.l.modCount;
                         this.__thisSubList.__size++;
-                        this.__thisSubList._modCount++;
+                        this.__thisSubList.modCount++;
                     }
                 }
             } ))( this );
@@ -207,7 +207,7 @@ qx.Class.define( 'jsava.util.SubList', {
 
         /** @private */
         checkForComodification: function () {
-            if( this.l._modCount !== this.expectedModCount ) {
+            if( this.l.modCount !== this.expectedModCount ) {
                 throw new jsava.lang.ConcurrentModificationException();
             }
         }

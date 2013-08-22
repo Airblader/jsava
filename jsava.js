@@ -1453,7 +1453,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
         /** @type Number */
         _loadFactor: 0,
         /** @type Number */
-        _modCount: 0,
+        modCount: 0,
         /** @implements jsava.util.Set */
         __entrySet: null,
 
@@ -1540,7 +1540,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 }
             }
 
-            this._modCount++;
+            this.modCount++;
             this._addEntry( hash, key, value, i );
             return null;
         },
@@ -1555,7 +1555,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 }
             }
 
-            this._modCount++;
+            this.modCount++;
             this._addEntry( 0, null, value, 0 );
             return null;
         },
@@ -1661,7 +1661,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                         k;
                 if( entry._hash === hash
                     && ( (k = entry._key) === key || ( key !== null && key.equals( k ) ) ) ) {
-                    this._modCount++;
+                    this.modCount++;
                     this._size--;
                     if( prev === entry ) {
                         this._table[i] = next;
@@ -1694,7 +1694,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             while( e !== null ) {
                 var next = e._next;
                 if( e._hash === hash && e.equals( entry ) ) {
-                    this._modCount++;
+                    this.modCount++;
                     this._size--;
                     if( prev === e ) {
                         this._table[i] = next;
@@ -1712,7 +1712,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
         },
 
         clear: function () {
-            this._modCount++;
+            this.modCount++;
             var table = this._table;
             for( var i = 0; i < table.length; i++ ) {
                 table[i] = null;
@@ -1763,7 +1763,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
             result._table = jsava.JsavaUtils.arrayOfGivenSize( this._table.length, null );
             result.__entrySet = null;
-            result._modCount = 0;
+            result.modCount = 0;
             result._size = 0;
             result._init();
             result.__putAllForCreate( this );
@@ -1814,7 +1814,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             /** @protected */
             construct: function (thisHashMap) {
                 this.__thisHashMap = thisHashMap;
-                this._expectedModCount = this.__thisHashMap._modCount;
+                this._expectedModCount = this.__thisHashMap.modCount;
                 if( this.__thisHashMap._size > 0 ) {
                     var table = this.__thisHashMap._table;
                     while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
@@ -1840,7 +1840,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 },
 
                 _nextEntry: function () {
-                    if( this.__thisHashMap._modCount !== this._expectedModCount ) {
+                    if( this.__thisHashMap.modCount !== this._expectedModCount ) {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
 
@@ -1865,14 +1865,14 @@ qx.Interface.define( 'jsava.io.Serializable', {
                         throw new jsava.lang.IllegalStateException();
                     }
 
-                    if( this.__thisHashMap._modCount !== this._expectedModCount ) {
+                    if( this.__thisHashMap.modCount !== this._expectedModCount ) {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
 
                     var key = this._current._key;
                     this._current = null;
                     this.__thisHashMap._removeEntryForKey( key );
-                    this._expectedModCount = this.__thisHashMap._modCount;
+                    this._expectedModCount = this.__thisHashMap.modCount;
                 }
             }
         } ),
@@ -2388,7 +2388,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             /** @private */
             construct: function (thisAbstractList) {
                 this.__thisAbstractList = thisAbstractList;
-                this.expectedModCount = this.__thisAbstractList._modCount;
+                this.expectedModCount = this.__thisAbstractList.modCount;
             },
 
             members: {
@@ -2438,7 +2438,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                             this.cursor--;
                         }
                         this.lastRet = -1;
-                        this.expectedModCount = this.__thisAbstractList._modCount;
+                        this.expectedModCount = this.__thisAbstractList.modCount;
                     } catch( e ) {
                         if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
                             throw new jsava.lang.ConcurrentModificationException();
@@ -2450,7 +2450,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
                 /** @protected */
                 checkForComodification: function () {
-                    if( this.__thisAbstractList._modCount !== this.expectedModCount ) {
+                    if( this.__thisAbstractList.modCount !== this.expectedModCount ) {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
                 }
@@ -2506,7 +2506,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
                     try {
                         this.__thisAbstractList.set( this.lastRet, element );
-                        this.expectedModCount = this.__thisAbstractList._modCount;
+                        this.expectedModCount = this.__thisAbstractList.modCount;
                     } catch( e ) {
                         if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
                             throw new jsava.lang.ConcurrentModificationException();
@@ -2521,7 +2521,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                     try {
                         this.__thisAbstractList.add( this.cursor++, element );
                         this.lastRet = -1;
-                        this.expectedModCount = this.__thisAbstractList._modCount;
+                        this.expectedModCount = this.__thisAbstractList.modCount;
                     } catch( e ) {
                         if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
                             throw new jsava.lang.ConcurrentModificationException();
@@ -2576,7 +2576,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
         this.l = list;
         this.offset = fromIndex;
         this.__size = toIndex - fromIndex;
-        this.expectedModCount = this.l._modCount;
+        this.expectedModCount = this.l.modCount;
     },
 
     members: {
@@ -2616,18 +2616,18 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
             this.checkForComodification();
             this.l.add( index + this.offset, element );
-            this.expectedModCount = this.l._modCount;
+            this.expectedModCount = this.l.modCount;
             this.__size++;
-            this._modCount++;
+            this.modCount++;
         },
 
         remove: function (index) {
             this.rangeCheck( index );
             this.checkForComodification();
             var result = this.l.remove( index + this.offset );
-            this.expectedModCount = this.l._modCount;
+            this.expectedModCount = this.l.modCount;
             this.__size--;
-            this._modCount++;
+            this.modCount++;
 
             return result;
         },
@@ -2635,9 +2635,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
         removeRange: function (fromIndex, toIndex) {
             this.checkForComodification();
             this.l.removeRange( fromIndex + this.offset, toIndex + this.offset );
-            this.expectedModCount = this.l._modCount;
+            this.expectedModCount = this.l.modCount;
             this.__size -= (toIndex - fromIndex);
-            this._modCount++;
+            this.modCount++;
         },
 
         addAll: function () {
@@ -2659,9 +2659,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
                 this.checkForComodification();
                 this.l.addAll( this.offset + index, collection );
-                this.expectedModCount = this.l._modCount;
+                this.expectedModCount = this.l.modCount;
                 this.__size += cSize;
-                this._modCount++;
+                this.modCount++;
 
                 return true;
             }
@@ -2732,7 +2732,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
                     remove: function () {
                         this.iterator.remove();
-                        this.__thisSubList.expectedModCount = this.__thisSubList.l._modCount;
+                        this.__thisSubList.expectedModCount = this.__thisSubList.l.modCount;
                     },
 
                     set: function (element) {
@@ -2741,9 +2741,9 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
                     add: function (element) {
                         this.iterator.add( element );
-                        this.__thisSubList.expectedModCount = this.__thisSubList.l._modCount;
+                        this.__thisSubList.expectedModCount = this.__thisSubList.l.modCount;
                         this.__thisSubList.__size++;
-                        this.__thisSubList._modCount++;
+                        this.__thisSubList.modCount++;
                     }
                 }
             } ))( this );
@@ -2762,7 +2762,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
 
         /** @private */
         checkForComodification: function () {
-            if( this.l._modCount !== this.expectedModCount ) {
+            if( this.l.modCount !== this.expectedModCount ) {
                 throw new jsava.lang.ConcurrentModificationException();
             }
         }
