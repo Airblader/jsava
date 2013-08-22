@@ -1592,7 +1592,8 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
         },
 
-        _resize: function (newCapacity) {
+        /** @protected */
+        resize: function (newCapacity) {
             var oldTable = this.table,
                 oldCapacity = oldTable.length;
             if( oldCapacity === this.self( arguments ).MAXIMUM_CAPACITY ) {
@@ -1601,12 +1602,13 @@ qx.Interface.define( 'jsava.io.Serializable', {
             }
 
             var newTable = jsava.JsavaUtils.arrayOfGivenSize( newCapacity, null );
-            this._transfer( newTable );
+            this.transfer( newTable );
             this.table = newTable;
             this._threshold = (newCapacity * this._loadFactor) | 0;
         },
 
-        _transfer: function (newTable) {
+        /** @protected */
+        transfer: function (newTable) {
             var src = this.table,
                 newCapacity = newTable.length;
             for( var j = 0; j < src.length; j++ ) {
@@ -1641,7 +1643,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                     newCapacity <<= 1;
                 }
                 if( newCapacity > this.table.length ) {
-                    this._resize( newCapacity );
+                    this.resize( newCapacity );
                 }
             }
 
@@ -1783,7 +1785,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
             var entry = this.table[bucketIndex];
             this.table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
             if( this._size++ >= this._threshold ) {
-                this._resize( 2 * this.table.length );
+                this.resize( 2 * this.table.length );
             }
         },
 
