@@ -530,7 +530,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 /** @type Number */
                 _index: 0,
                 /** @type jsava.util.HashMap.Entry */
-                _current: null,
+                current: null,
 
                 hasNext: function () {
                     return this._next !== null;
@@ -553,12 +553,12 @@ qx.Class.define( 'jsava.util.HashMap', {
                         }
                     }
 
-                    this._current = entry;
+                    this.current = entry;
                     return entry;
                 },
 
                 remove: function () {
-                    if( this._current === null ) {
+                    if( this.current === null ) {
                         throw new jsava.lang.IllegalStateException();
                     }
 
@@ -566,8 +566,8 @@ qx.Class.define( 'jsava.util.HashMap', {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
 
-                    var key = this._current._key;
-                    this._current = null;
+                    var key = this.current._key;
+                    this.current = null;
                     this.__thisHashMap._removeEntryForKey( key );
                     this.expectedModCount = this.__thisHashMap.modCount;
                 }

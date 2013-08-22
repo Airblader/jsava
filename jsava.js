@@ -1833,7 +1833,7 @@ qx.Interface.define( 'jsava.io.Serializable', {
                 /** @type Number */
                 _index: 0,
                 /** @type jsava.util.HashMap.Entry */
-                _current: null,
+                current: null,
 
                 hasNext: function () {
                     return this._next !== null;
@@ -1856,12 +1856,12 @@ qx.Interface.define( 'jsava.io.Serializable', {
                         }
                     }
 
-                    this._current = entry;
+                    this.current = entry;
                     return entry;
                 },
 
                 remove: function () {
-                    if( this._current === null ) {
+                    if( this.current === null ) {
                         throw new jsava.lang.IllegalStateException();
                     }
 
@@ -1869,8 +1869,8 @@ qx.Interface.define( 'jsava.io.Serializable', {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
 
-                    var key = this._current._key;
-                    this._current = null;
+                    var key = this.current._key;
+                    this.current = null;
                     this.__thisHashMap._removeEntryForKey( key );
                     this.expectedModCount = this.__thisHashMap.modCount;
                 }
