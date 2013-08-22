@@ -165,4 +165,4 @@ my $compileOrderArray = "'" . ( join "','", @compileOrder ) . "'";
 $jsavaShortenerContent =~ s/\Qvar compileOrder = [];\E/var compileOrder = [$compileOrderArray];/;
 system( "echo \"$jsavaShortenerContent\" >> ../jsava.js" );
 
-system( "cd ../lib/closure-compiler && java -jar compiler.jar --js closure-library/closure/goog/base.js --js ../../jsava.js --js_output_file ../../jsava.min.js --process_closure_primitives true --manage_closure_dependencies false" );
+system( "cd ../lib && java -jar yuicompressor-2.4.8.jar ../jsava.js -o ../jsava.min.js" );
