@@ -77,9 +77,22 @@
             }
 
             for( var property in _this ) {
-                if( _this.hasOwnProperty( property )
-                    && (!other.hasOwnProperty( property ) || _this[property] !== other[property]) ) {
+                if( !_this.hasOwnProperty( property ) ) {
+                    continue;
+                }
+
+                if( !other.hasOwnProperty( property ) ) {
                     return false;
+                }
+
+                if( _this[property].equals ) {
+                    if( !_this[property].equals( other[property] ) ) {
+                        return false;
+                    }
+                } else {
+                    if( _this[property] !== other[property] ) {
+                        return false;
+                    }
                 }
             }
 
