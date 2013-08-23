@@ -20,6 +20,13 @@ describe( 'jsavaPrimitivesStubs', function () {
             } );
         } );
 
+        describe( 'for Booleans', function () {
+            it( 'returns the expected value', function () {
+                expect( Boolean( true ).hashCode() ).toBe( 1231 );
+                expect( Boolean( false ).hashCode() ).toBe( 1237 );
+            } );
+        } );
+
         describe( 'for Objects', function () {
             it( 'returns 0 for an empty object', function () {
                 var obj = {};
@@ -58,6 +65,16 @@ describe( 'jsavaPrimitivesStubs', function () {
 
             it( 'returns false for different strings', function () {
                 expect( ('Hello').equals( 'World!' ) ).toBe( false );
+            } );
+        } );
+
+        describe( 'for Booleans', function () {
+            it( 'returns true if and only if other is true', function () {
+                expect( (true).equals( true ) ).toBe( true );
+                expect( (false).equals( false ) ).toBe( true );
+
+                expect( (true).equals( false ) ).toBe( false );
+                expect( (false).equals( true ) ).toBe( false );
             } );
         } );
 
