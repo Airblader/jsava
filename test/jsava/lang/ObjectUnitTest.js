@@ -10,4 +10,15 @@ describe( 'Object', function () {
             expect( obj.hashCode() ).toBe( 31 * bareHashCode + obj.number.hashCode() );
         } );
     } );
+
+    describe( 'toString()', function () {
+        it( 'returns the correct resuöt', function () {
+            var obj = new _Object();
+            obj.hashCode = function () {
+                return -42;
+            };
+
+            expect( obj.toString() ).toBe( 'jsava.lang.Object@-2a' );
+        } );
+    } );
 } );

@@ -7,7 +7,7 @@ qx.Class.define( 'jsava.lang.Object', {
          */
         getClass: function () {
             // TODO return Class object
-            return this.name;
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         /** @returns {String} */
@@ -63,7 +63,7 @@ qx.Class.define( 'jsava.lang.Object', {
          * @returns {String}
          */
         toString: function () {
-            return this.getClass().name + '@' + this.hashCode().toString( 16 );
+            return this.getClassName() + '@' + this.hashCode().toString( 16 );
         },
 
         notify: function () {
