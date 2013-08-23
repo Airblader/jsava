@@ -1,0 +1,53 @@
+server: http://localhost:4224
+
+load:
+  - lib/jasmine-1.3.1/jasmine.js
+  - lib/jasmine-1.3.1/jasmine-html.js
+  - lib/JasmineAdapter.js
+  - lib/qx-oo-3.0.js
+  - lib/jsavaPrimitivesStubs.js
+  - src/jsava/io/Serializable.js
+  - src/jsava/JsavaUtils.js
+  - src/jsava/lang/Object.js
+  - src/jsava/lang/Throwable.js
+  - src/jsava/lang/Exception.js
+  - src/jsava/lang/RuntimeException.js
+  - src/jsava/lang/ClassCastException.js
+  - src/jsava/lang/Cloneable.js
+  - src/jsava/lang/CloneNotSupportedException.js
+  - src/jsava/lang/ConcurrentModificationException.js
+  - src/jsava/lang/IllegalArgumentException.js
+  - src/jsava/lang/IllegalStateException.js
+  - src/jsava/lang/IndexOutOfBoundsException.js
+  - src/jsava/lang/Iterable.js
+  - src/jsava/lang/NoSuchElementException.js
+  - src/jsava/lang/NullPointerException.js
+  - src/jsava/lang/System.js
+  - src/jsava/lang/UnsupportedOperationException.js
+  - src/jsava/util/Collection.js
+  - src/jsava/util/AbstractCollection.js
+  - src/jsava/util/List.js
+  - src/jsava/util/Iterator.js
+  - src/jsava/util/ListIterator.js
+  - src/jsava/util/AbstractList.js
+  - src/jsava/util/Map.js
+  - src/jsava/util/Set.js
+  - src/jsava/util/AbstractSet.js
+  - src/jsava/util/AbstractMap.js
+  - src/jsava/util/RandomAccess.js
+  - src/jsava/util/ArrayList.js
+  - src/jsava/util/Arrays.js
+  - src/jsava/util/HashMap.js
+  - src/jsava/util/LinkedList.js
+  - src/jsava/util/SubList.js
+  - src/jsava/util/RandomAccessSubList.js
+
+test:
+  - test/jsava/JsavaUtilsUnitTest.js
+  - test/jsavaPrimitivesStubsUnitTest.js
+  - test/jsava/util/ArrayListUnitTest.js
+  - test/jsava/util/ArraysUnitTest.js
+  - test/jsava/util/HashMapUnitTest.js
+  - test/jsava/util/LinkedListUnitTest.js
+
+timeout: 90

@@ -156,6 +156,7 @@ system( "cat ../lib/jsavaPrimitivesStubs.js >> ../jsava.js" );
 foreach( @compileOrder ) {
     my $filename = getFilenameFromClassName( $_ );
     system( "cat $filename >> ../jsava.js" );
+    print( "  - src/$filename\n");
     system( "echo \"\n\" >> ../jsava.js" );
 }
 
