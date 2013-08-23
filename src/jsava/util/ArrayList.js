@@ -56,8 +56,7 @@ qx.Class.define( 'jsava.util.ArrayList', {
             this.modCount++;
             var oldCapacity = this.elementData.length;
             if( minCapacity > oldCapacity ) {
-                var oldData = this.elementData,
-                    newCapacity = (oldCapacity * 3) / 2 + 1;
+                var newCapacity = (oldCapacity * 3) / 2 + 1;
                 if( newCapacity < minCapacity ) {
                     newCapacity = minCapacity;
                 }
@@ -79,14 +78,16 @@ qx.Class.define( 'jsava.util.ArrayList', {
         },
 
         indexOf: function (obj) {
+            var i;
+
             if( obj === null ) {
-                for( var i = 0; i < this.__size; i++ ) {
+                for( i = 0; i < this.__size; i++ ) {
                     if( this.elementData[i] === null ) {
                         return i;
                     }
                 }
             } else {
-                for( var i = 0; i < this.__size; i++ ) {
+                for( i = 0; i < this.__size; i++ ) {
                     if( obj.equals( this.elementData[i] ) ) {
                         return i;
                     }
@@ -97,14 +98,16 @@ qx.Class.define( 'jsava.util.ArrayList', {
         },
 
         lastIndexOf: function (obj) {
+            var i;
+
             if( obj === null ) {
-                for( var i = this.__size - 1; i >= 0; i-- ) {
+                for( i = this.__size - 1; i >= 0; i-- ) {
                     if( this.elementData[i] === null ) {
                         return i;
                     }
                 }
             } else {
-                for( var i = this.__size - 1; i >= 0; i-- ) {
+                for( i = this.__size - 1; i >= 0; i-- ) {
                     if( obj.equals( this.elementData[i] ) ) {
                         return i;
                     }
@@ -148,18 +151,20 @@ qx.Class.define( 'jsava.util.ArrayList', {
             return oldValue;
         },
 
+        /** @returns {*} */
         add: function () {
-            var args = Array.prototype.slice.call( arguments );
+            var args = Array.prototype.slice.call( arguments ),
+                element;
             switch( args.length ) {
                 case 1:
-                    var element = args[0];
+                    element = args[0];
 
                     this.ensureCapacity( this.__size + 1 );
                     this.elementData[this.__size++] = element;
                     return true;
                 case 2:
-                    var index = args[0],
-                        element = args[1];
+                    var index = args[0];
+                    element = args[1];
 
                     if( index > this.__size || index < 0 ) {
                         throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index + ', Size: ' + this.__size );
@@ -175,19 +180,21 @@ qx.Class.define( 'jsava.util.ArrayList', {
         },
 
         remove: function () {
-            var args = Array.prototype.slice.call( arguments );
+            var args = Array.prototype.slice.call( arguments ),
+                index;
+
             if( args[0] === null || qx.Class.isSubClassOf( args[0].constructor, jsava.lang.Object ) ) {
                 var obj = args[0];
 
                 if( obj === null ) {
-                    for( var index = 0; index < this.__size; index++ ) {
+                    for( index = 0; index < this.__size; index++ ) {
                         if( this.elementData[index] === null ) {
                             this.fastRemove( index );
                             return true;
                         }
                     }
                 } else {
-                    for( var index = 0; index < this.__size; index++ ) {
+                    for( index = 0; index < this.__size; index++ ) {
                         if( obj.equals( this.elementData[index] ) ) {
                             this.fastRemove( index );
                             return true;
@@ -197,7 +204,7 @@ qx.Class.define( 'jsava.util.ArrayList', {
 
                 return false;
             } else {
-                var index = args[0];
+                index = args[0];
 
                 this.RangeCheck( index );
                 this.modCount++;
@@ -234,30 +241,33 @@ qx.Class.define( 'jsava.util.ArrayList', {
         },
 
         addAll: function () {
-            var args = Array.prototype.slice.call( arguments );
+            var args = Array.prototype.slice.call( arguments ),
+                numNew, a;
+            /** @type jsava.util.Collection */
+            var collection;
+
             switch( args.length ) {
                 case 1:
                     /** @type jsava.util.Collection */
-                    var collection = args[0];
+                    collection = args[0];
 
-                    var a = collection.toArray(),
-                        numNew = a.length;
+                    a = collection.toArray();
+                    numNew = a.length;
                     this.ensureCapacity( this.__size + numNew );
                     jsava.lang.System.arraycopy( a, 0, this.elementData, this.__size, numNew );
                     this.__size += numNew;
 
                     return numNew !== 0;
                 case 2:
-                    var index = args[0],
-                        /** @type jsava.util.Collection */
-                            collection = args[1];
+                    var index = args[0];
+                    collection = args[1];
 
                     if( index > this.__size || index < 0 ) {
                         throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index + ', Size: ' + this.__size );
                     }
 
-                    var a = collection.toArray(),
-                        numNew = a.length;
+                    a = collection.toArray();
+                    numNew = a.length;
                     this.ensureCapacity( this.__size + numNew );
 
                     var numMoved = this.__size - index;

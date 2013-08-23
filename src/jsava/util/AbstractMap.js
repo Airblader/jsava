@@ -163,17 +163,18 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         containsValue: function (value) {
-            var iterator = this.entrySet().iterator();
+            var iterator = this.entrySet().iterator(),
+                entry;
             if( value === null ) {
                 while( iterator.hasNext() ) {
-                    var entry = iterator.next();
+                    entry = iterator.next();
                     if( entry.getValue() === null ) {
                         return true;
                     }
                 }
             } else {
                 while( iterator.hasNext() ) {
-                    var entry = iterator.next();
+                    entry = iterator.next();
                     if( value.equals( entry.getValue() ) ) {
                         return true;
                     }
@@ -184,17 +185,18 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         containsKey: function (key) {
-            var iterator = this.entrySet().iterator();
+            var iterator = this.entrySet().iterator(),
+                entry;
             if( key === null ) {
                 while( iterator.hasNext() ) {
-                    var entry = iterator.next();
+                    entry = iterator.next();
                     if( entry.getKey() === null ) {
                         return true;
                     }
                 }
             } else {
                 while( iterator.hasNext() ) {
-                    var entry = iterator.next();
+                    entry = iterator.next();
                     if( key.equals( entry.getKey() ) ) {
                         return true;
                     }
@@ -205,17 +207,18 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         get: function (key) {
-            var iterator = this.entrySet().iterator();
+            var iterator = this.entrySet().iterator(),
+                entry;
             if( key === null ) {
                 while( iterator.hasNext() ) {
-                    var entry = iterator.next();
+                    entry = iterator.next();
                     if( entry.getKey() === null ) {
                         return entry.getValue();
                     }
                 }
             } else {
                 while( iterator.hasNext() ) {
-                    var entry = iterator.next();
+                    entry = iterator.next();
                     if( key.equals( entry.getKey() ) ) {
                         return entry.getValue();
                     }
@@ -231,17 +234,18 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
         remove: function (key) {
             var iterator = this.entrySet().iterator(),
-                correctEntry = null;
+                correctEntry = null,
+                entry;
             if( key === null ) {
                 while( correctEntry === null && iterator.hasNext() ) {
-                    var entry = iterator.next();
+                    entry = iterator.next();
                     if( entry.getKey() === null ) {
                         correctEntry = entry;
                     }
                 }
             } else {
                 while( correctEntry === null && iterator.hasNext() ) {
-                    var entry = iterator.next();
+                    entry = iterator.next();
                     if( key.equals( entry.getKey() ) ) {
                         correctEntry = entry;
                     }
