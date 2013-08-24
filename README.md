@@ -23,7 +23,7 @@ Installation
   * Perl (>= 5.010)
   * Java (>= 1.6)
   * (Only needed for coverage analysis) [nodejs](http://nodejs.org/) and the [node-coverage](https://github.com/piuccio/node-coverage) module
-3. `cd` into the `tools/` directory and execute `./compile.pl` to build everything.
+3. Execute `tools/compile.pl` to build the project.
 4. Open the `SpecRunner.html` in a browser of your choice to run the tests.
 
 
