@@ -43,11 +43,15 @@ load:
   - src/jsava/util/RandomAccessSubList.js
 
 test:
+  - test/jsava/util/HashMapUnitTest.js
+  - test/jsava/util/ArraysUnitTest.js
+  - test/jsava/util/ArrayListUnitTest.js
+  - test/jsava/util/LinkedListUnitTest.js
+  - test/jsava/lang/ObjectUnitTest.js
+  - test/jsava/lang/ThrowableUnitTest.js
+  - test/jsava/lang/RuntimeExceptionUnitTest.js
+  - test/jsava/lang/SystemUnitTest.js
   - test/jsava/JsavaUtilsUnitTest.js
   - test/jsavaPrimitivesStubsUnitTest.js
-  - test/jsava/util/ArrayListUnitTest.js
-  - test/jsava/util/ArraysUnitTest.js
-  - test/jsava/util/HashMapUnitTest.js
-  - test/jsava/util/LinkedListUnitTest.js
 
 timeout: 90
