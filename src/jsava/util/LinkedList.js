@@ -1,6 +1,6 @@
 qx.Class.define('jsava.util.LinkedList', {
     extend: jsava.lang.Object,
-    implements: [],
+    implement: jsava.util.List,
 
     construct: function () {
         this.header = new jsava.util.LinkedList.Entry(null, null, null);
