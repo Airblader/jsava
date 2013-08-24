@@ -49,7 +49,7 @@ qx.Class.define( 'jsava.util.LinkedList', {
             } else {
                 var e = arguments[1];
                 var index = arguments[0];
-                this.addBefore( e, (index == this._size ? this.header : this.entry( index ) ) );
+                this.addBefore( e, (index === this._size ? this.header : this.entry( index ) ) );
             }
         },
         addBefore: function (e, entry) {
@@ -72,12 +72,13 @@ qx.Class.define( 'jsava.util.LinkedList', {
         remove: function (arg) {
             if( typeof arg === 'undefined' ) {
                 this.removeFirst();
-            } else if( typeof arg == 'number' ) {
+            } else if( typeof arg === 'number' ) {
                 this.remove( this.entry( arg ) );
-            } else if( arg.getClassName() == 'jsava.util.LinkedList.Entry' ) {
+            } else if( arg.getClassName() === 'jsava.util.LinkedList.Entry' ) {
                 var e = arg;
-                if( e == this.header )
+                if( e === this.header ) {
                     throw new jsava.lang.NoSuchElementException();
+                }
                 var result = e.element;
                 e.previous.next = e.next;
                 e.next.previous = e.previous;
@@ -103,15 +104,18 @@ qx.Class.define( 'jsava.util.LinkedList', {
             this.remove( this.header.previous );
         },
         entry: function (index) {
-            if( index < 0 || index >= this._size )
+            if( index < 0 || index >= this._size ) {
                 throw new jsava.lang.IndexOutOfBoundsException( "Index: " + index + ", Size: " + this._size );
+            }
             var e = this.header;
             if( index < (this._size >> 1) ) {
-                for( var i = 0; i <= index; i++ )
+                for( var i = 0; i <= index; i++ ) {
                     e = e.next;
+                }
             } else {
-                for( var i = this._size; i > index; i-- )
+                for( var i = this._size; i > index; i-- ) {
                     e = e.previous;
+                }
             }
             return e;
         },
@@ -121,12 +125,13 @@ qx.Class.define( 'jsava.util.LinkedList', {
         toArray: function () {
             var result = new Array();
             var i = 0;
-            for( var e = this.header.next; e != this.header; e = e.next )
+            for( var e = this.header.next; e != this.header; e = e.next ) {
                 result[i++] = e.element;
+            }
             return result;
         },
         addAll: function () {
-            if( arguments.length == 2 ) {
+            if( arguments.length === 2 ) {
                 this.base( arguments, arguments[0], arguments[1] );
             } else {
                 this.base( arguments, this.size(), arguments[0] );
