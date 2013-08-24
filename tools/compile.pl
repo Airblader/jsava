@@ -156,7 +156,6 @@ system( "cat ../lib/jsavaPrimitivesStubs.js >> ../jsava.js" );
 foreach( @compileOrder ) {
     my $filename = getFilenameFromClassName( $_ );
     system( "cat $filename >> ../jsava.js" );
-    print( "  - src/$filename\n");
     system( "echo \"\n\" >> ../jsava.js" );
 }
 
@@ -166,3 +165,26 @@ $jsavaShortenerContent =~ s/\Qvar compileOrder = [];\E/var compileOrder = [$comp
 system( "echo \"$jsavaShortenerContent\" >> ../jsava.js" );
 
 system( "cd ../lib && java -jar yuicompressor-2.4.8.jar ../jsava.js -o ../jsava.min.js" );
+
+
+# Generate tests.jstd
+chdir( "../test" ) or die $!;
+system( "rm -f ../tests.jstd" );
+my $testsContent = `cat ../tools/tests.jstd.template`;
+
+my $testsSourceFilesList = "";
+foreach( @compileOrder ) {
+    my $filename = getFilenameFromClassName( $_ );
+    $testsSourceFilesList .= "  - src/$filename\n";
+}
+
+my @testFiles = split/\n/, `find . -type f -name "*UnitTest.js" -print`;
+my $testsTestFilesList = "";
+foreach( @testFiles ) {
+    $testsTestFilesList .= "  - test/$_\n";
+}
+
+$testsContent =~ s/\Q__SOURCEFILES__\E/$testsSourceFilesList/;
+$testsContent =~ s/\Q__TESTFILES__\E/$testsTestFilesList/;
+
+system( "echo \"$testsContent\" >> ../tests.jstd" );
