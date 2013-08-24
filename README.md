@@ -15,16 +15,15 @@ and minification.
 * Code Style: configuration file is found in lib/style.xml
 
 
-Development Usage
------------------
+Installation
+------------
 
 1. Fork or clone the repository.
 2. Make sure your system meets the following requirements:
   * Perl (>= 5.010)
   * Java (>= 1.6)
   * (Only needed for coverage analysis) [nodejs](http://nodejs.org/) and the [node-coverage](https://github.com/piuccio/node-coverage) module
-3. `cd` into the `tools/` directory and execute `./compile.pl` to build the uncompressed file (`jsava.js`) and the
-minified file (`jsava.min.js`).
+3. `cd` into the `tools/` directory and execute `./compile.pl` to build everything.
 4. Open the `SpecRunner.html` in a browser of your choice to run the tests.
 
 
