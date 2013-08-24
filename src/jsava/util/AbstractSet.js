@@ -55,15 +55,16 @@ qx.Class.define( 'jsava.util.AbstractSet', {
         },
 
         removeAll: function (collection) {
-            var modified = false;
+            var modified = false,
+                iterator;
 
             if( this.size > collection.size() ) {
-                var iterator = collection.iterator();
+                iterator = collection.iterator();
                 while( iterator.hasNext() ) {
                     modified = this.remove( iterator.next() ) || modified;
                 }
             } else {
-                var iterator = this.iterator();
+                iterator = this.iterator();
                 while( iterator.hasNext() ) {
                     if( collection.contains( iterator.next() ) ) {
                         iterator.remove();

@@ -14,6 +14,19 @@ qx.Class.define( 'jsava.util.Arrays', {
             jsava.lang.System.arraycopy( original, 0, copy, 0, Math.min( original.length, newLength ) );
 
             return copy;
+        },
+
+        hashCode: function (source) {
+            if( source === null ) {
+                return 0;
+            }
+
+            var hashCode = 1;
+            for( var i = 0; i < source.length; i++ ) {
+                hashCode = 31 * hashCode + ( source[i] === null ? 0 : source[i].hashCode() );
+            }
+
+            return hashCode;
         }
 
         // TODO a lot more methods

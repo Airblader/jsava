@@ -7,7 +7,7 @@ qx.Class.define( 'jsava.lang.Object', {
          */
         getClass: function () {
             // TODO return Class object
-            return this.name;
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         /** @returns {String} */
@@ -22,17 +22,13 @@ qx.Class.define( 'jsava.lang.Object', {
         hashCode: function () {
             var hashCode = 0;
 
-            // TODO if hashCode() is available on property, use it
             for( var property in this ) {
                 if( !this.hasOwnProperty( property )
-                    || typeof this[property] === 'undefined' || !this[property].toString ) {
+                    || typeof this[property] === 'undefined' || this[property] === null ) {
                     continue;
                 }
 
-                var temp = this[property].toString();
-                for( var i = 0; i < temp.length; i++ ) {
-                    hashCode = (31 * hashCode + temp.charCodeAt( i )) << 0;
-                }
+                hashCode = 31 * hashCode + this[property].hashCode();
             }
 
             return hashCode;
@@ -67,7 +63,7 @@ qx.Class.define( 'jsava.lang.Object', {
          * @returns {String}
          */
         toString: function () {
-            return this.getClass().name + '@' + this.hashCode().toString( 16 );
+            return this.getClassName() + '@' + this.hashCode().toString( 16 );
         },
 
         notify: function () {
