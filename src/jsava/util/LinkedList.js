@@ -2,10 +2,14 @@ qx.Class.define( 'jsava.util.LinkedList', {
     extend: jsava.util.AbstractList,
     implement: jsava.util.List,
 
-    construct: function () {
+    construct: function (arg) {
         this.header = new jsava.util.LinkedList.Entry( null, null, null );
         this.header.next = this.header;
         this.header.previous = this.header;
+        if( arg !== undefined &&
+            qx.Class.implementsInterface( arg, jsava.util.Collection ) ) {
+            this.addAll( arg )
+        }
     },
 
     statics: {
@@ -38,8 +42,14 @@ qx.Class.define( 'jsava.util.LinkedList', {
         header: null,
         _size: 0,
 
-        add: function (e) {
-            this.addBefore( e, this.header );
+        add: function () {
+            if( arguments.length == 1 ) {
+                this.addBefore( arguments[0], this.header );
+            } else {
+                var e = arguments[1];
+                var index = arguments[0];
+                this.addBefore( e, (index == this._size ? this.header : this.entry( index ) ) );
+            }
         },
         addBefore: function (e, entry) {
             var newEntry = new jsava.util.LinkedList.Entry( e, entry, entry.previous );
@@ -93,7 +103,7 @@ qx.Class.define( 'jsava.util.LinkedList', {
         },
         entry: function (index) {
             if( index < 0 || index >= this._size )
-                throw new IndexOutOfBoundsException( "Index: " + index + ", Size: " + this._size );
+                throw new jsava.lang.IndexOutOfBoundsException( "Index: " + index + ", Size: " + this._size );
             var e = this.header;
             if( index < (this._size >> 1) ) {
                 for( var i = 0; i <= index; i++ )
@@ -114,13 +124,12 @@ qx.Class.define( 'jsava.util.LinkedList', {
                 result[i++] = e.element;
             return result;
         },
-
-
-        addAll: function (list) {
-            var self = this;
-            list.forEach( function (x) {
-                self.add( x );
-            } );
+        addAll: function () {
+            if( arguments.length == 2 ) {
+                this.base( arguments, arguments[0], arguments[1] );
+            } else {
+                this.base( arguments, this.size(), arguments[0] );
+            }
         }
     }
 } );
