@@ -1,9 +1,9 @@
-qx.Class.define('jsava.util.LinkedList', {
+qx.Class.define( 'jsava.util.LinkedList', {
     extend: jsava.util.AbstractList,
     implement: jsava.util.List,
 
     construct: function () {
-        this.header = new jsava.util.LinkedList.Entry(null, null, null);
+        this.header = new jsava.util.LinkedList.Entry( null, null, null );
         this.header.next = this.header;
         this.header.previous = this.header;
     },
@@ -12,7 +12,7 @@ qx.Class.define('jsava.util.LinkedList', {
         /** @private */
         serialVersionUID: 1,
 
-        Entry: qx.Class.define('jsava.util.LinkedList.Entry', {
+        Entry: qx.Class.define( 'jsava.util.LinkedList.Entry', {
             extend: jsava.lang.Object,
             construct: function (element, next, previous) {
                 this.element = element;
@@ -27,7 +27,7 @@ qx.Class.define('jsava.util.LinkedList', {
                     return this.element;
                 }
             }
-        })
+        } )
     },
 
     members: {
@@ -39,10 +39,10 @@ qx.Class.define('jsava.util.LinkedList', {
         _size: 0,
 
         add: function (e) {
-            this.addBefore(e, this.header);
+            this.addBefore( e, this.header );
         },
         addBefore: function (e, entry) {
-            var newEntry = new jsava.util.LinkedList.Entry(e, entry, entry.previous);
+            var newEntry = new jsava.util.LinkedList.Entry( e, entry, entry.previous );
             newEntry.previous.next = newEntry;
             newEntry.next.previous = newEntry;
             this._size++;
@@ -59,13 +59,13 @@ qx.Class.define('jsava.util.LinkedList', {
             return this.header.previous.element;
         },
         remove: function (arg) {
-            if (typeof arg === 'undefined') {
+            if( typeof arg === 'undefined' ) {
                 this.removeFirst();
-            } else if (typeof arg == 'number') {
-                this.remove(this.entry(arg));
-            } else if (arg.getClassName() == 'jsava.util.LinkedList.Entry') {
+            } else if( typeof arg == 'number' ) {
+                this.remove( this.entry( arg ) );
+            } else if( arg.getClassName() == 'jsava.util.LinkedList.Entry' ) {
                 var e = arg;
-                if (e == this.header)
+                if( e == this.header )
                     throw new jsava.lang.NoSuchElementException();
                 var result = e.element;
                 e.previous.next = e.next;
@@ -80,37 +80,37 @@ qx.Class.define('jsava.util.LinkedList', {
             }
         },
         removeFirst: function () {
-            this.remove(this.header.next);
+            this.remove( this.header.next );
         },
         push: function (e) {
-            this.addFirst(e);
+            this.addFirst( e );
         },
         pop: function () {
             return this.removeFirst();
         },
         removeLast: function () {
-            this.remove(this.header.previous);
+            this.remove( this.header.previous );
         },
         entry: function (index) {
-            if (index < 0 || index >= this._size)
-                throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this._size);
+            if( index < 0 || index >= this._size )
+                throw new IndexOutOfBoundsException( "Index: " + index + ", Size: " + this._size );
             var e = this.header;
-            if (index < (this._size >> 1)) {
-                for (var i = 0; i <= index; i++)
+            if( index < (this._size >> 1) ) {
+                for( var i = 0; i <= index; i++ )
                     e = e.next;
             } else {
-                for (var i = this._size; i > index; i--)
+                for( var i = this._size; i > index; i-- )
                     e = e.previous;
             }
             return e;
         },
         get: function (index) {
-            return this.entry(index).element;
+            return this.entry( index ).element;
         },
         toArray: function () {
             var result = new Array();
             var i = 0;
-            for (var e = this.header.next; e != this.header; e = e.next)
+            for( var e = this.header.next; e != this.header; e = e.next )
                 result[i++] = e.element;
             return result;
         },
@@ -118,9 +118,9 @@ qx.Class.define('jsava.util.LinkedList', {
 
         addAll: function (list) {
             var self = this;
-            list.forEach(function (x) {
-                self.add(x);
-            });
+            list.forEach( function (x) {
+                self.add( x );
+            } );
         }
     }
-});
+} );
