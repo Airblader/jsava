@@ -3,6 +3,10 @@
 use 5.010;
 use strict;
 use warnings;
+use FindBin;
+
+my $scriptDir = $FindBin::Bin;
+chdir( $scriptDir );
 
 ###
 
