@@ -35,7 +35,7 @@ describe( 'jsavaPrimitivesStubs', function () {
 
             it( 'returns the expected value for a non-empty object', function () {
                 var obj = {a: 0};
-                expect( obj.hashCode() ).toBe( 48 );
+                expect( obj.hashCode() ).toBe( 95063 );
             } );
         } );
     } );
