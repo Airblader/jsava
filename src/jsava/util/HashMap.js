@@ -119,10 +119,6 @@ qx.Class.define( 'jsava.util.HashMap', {
         this.EntrySet = jsava.JsavaUtils.createAnonymousClass( {
             extend: jsava.util.AbstractSet,
 
-            construct: function () {
-                this.base( arguments );
-            },
-
             members: {
                 __thisHashMap: thisHashMap,
 
@@ -158,10 +154,6 @@ qx.Class.define( 'jsava.util.HashMap', {
         this.ValueIterator = jsava.JsavaUtils.createAnonymousClass( {
             extend: thisHashMap.HashIterator,
 
-            construct: function () {
-                this.base( arguments );
-            },
-
             members: {
                 next: function () {
                     return this._nextEntry()._value;
@@ -171,10 +163,6 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         this.KeyIterator = jsava.JsavaUtils.createAnonymousClass( {
             extend: thisHashMap.HashIterator,
-
-            construct: function () {
-                this.base( arguments );
-            },
 
             members: {
                 next: function () {
@@ -186,10 +174,6 @@ qx.Class.define( 'jsava.util.HashMap', {
         this.EntryIterator = jsava.JsavaUtils.createAnonymousClass( {
             extend: thisHashMap.HashIterator,
 
-            construct: function () {
-                this.base( arguments );
-            },
-
             members: {
                 next: function () {
                     return this._nextEntry();
@@ -199,10 +183,6 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         this.KeySet = jsava.JsavaUtils.createAnonymousClass( {
             extend: jsava.util.AbstractSet,
-
-            construct: function () {
-                this.base( arguments );
-            },
 
             members: {
                 __thisHashMap: thisHashMap,
@@ -231,10 +211,6 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         this.Values = jsava.JsavaUtils.createAnonymousClass( {
             extend: jsava.util.AbstractCollection,
-
-            construct: function () {
-                this.base( arguments );
-            },
 
             members: {
                 __thisHashMap: thisHashMap,
