@@ -27,6 +27,25 @@ describe( 'jsavaPrimitivesStubs', function () {
             } );
         } );
 
+        describe( 'for Arrays', function () {
+            it( 'returns the same hash code for the same object', function () {
+                var arr = [0, 1, 2];
+                expect( arr.hashCode() ).toBe( arr.hashCode() );
+            } );
+
+            it( 'returns a different hash code for another instance', function () {
+                var arr = [0, 1, 2],
+                    sameArr = [0, 1, 2];
+                expect( arr.hashCode() ).not.toBe( sameArr.hashCode() );
+            } );
+
+            it( 'returns a different hash code for a different array', function () {
+                var arr = [0, 1, 2],
+                    otherArr = [0];
+                expect( arr.hashCode() ).not.toBe( otherArr.hashCode() );
+            } );
+        } );
+
         describe( 'for Objects', function () {
             it( 'returns 0 for an empty object', function () {
                 var obj = {};
@@ -75,6 +94,27 @@ describe( 'jsavaPrimitivesStubs', function () {
 
                 expect( (true).equals( false ) ).toBe( false );
                 expect( (false).equals( true ) ).toBe( false );
+            } );
+        } );
+
+        describe( 'for Arrays', function () {
+            it( 'returns true for the same instance', function () {
+                var arr = [0, 1, 2];
+                expect( arr.equals( arr ) ).toBe( true );
+            } );
+
+            it( 'returns false for identical arrays', function () {
+                var arr = [0, 1, 2],
+                    sameArr = [0, 1, 2];
+                expect( arr.equals( sameArr ) ).toBe( false );
+                expect( sameArr.equals( arr ) ).toBe( false );
+            } );
+
+            it( 'returns false for different objects', function () {
+                var arr = [0, 1, 2],
+                    otherArr = [0];
+                expect( arr.equals( otherArr ) ).toBe( false );
+                expect( otherArr.equals( arr ) ).toBe( false );
             } );
         } );
 
