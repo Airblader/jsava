@@ -12,7 +12,7 @@ Technology Stack
   * Although it comes with a toolchain, jsava currently utilizes its own compiler script for dependency management
 and minification.
 * Testing: [Jasmine](http://pivotal.github.io/jasmine/)
-* Code Style: defined in an `*.xml` file that can be obtained upon request
+* Code Style: configuration file is found in lib/style.xml
 
 
 Development Usage
