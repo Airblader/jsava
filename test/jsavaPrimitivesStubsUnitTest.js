@@ -1,6 +1,10 @@
 describe( 'jsavaPrimitivesStubs', function () {
     describe( 'hashCode()', function () {
         describe( 'for Numbers', function () {
+            it( 'uses the correct function', function () {
+                expect( (42).hashCode ).toBe( Number.prototype.hashCode );
+            } );
+
             it( 'returns the number itself for integers', function () {
                 var number = 42;
                 expect( number.hashCode() ).toBe( 42 );
@@ -13,6 +17,10 @@ describe( 'jsavaPrimitivesStubs', function () {
         } );
 
         describe( 'for Strings', function () {
+            it( 'uses the correct function', function () {
+                expect( ('Hello World!').hashCode ).toBe( String.prototype.hashCode );
+            } );
+
             it( 'returns the expected value', function () {
                 var string = 'Hello World!';
                 // TODO check actual Java value
@@ -21,6 +29,10 @@ describe( 'jsavaPrimitivesStubs', function () {
         } );
 
         describe( 'for Booleans', function () {
+            it( 'uses the correct function', function () {
+                expect( (true).hashCode ).toBe( Boolean.prototype.hashCode );
+            } );
+
             it( 'returns the expected value', function () {
                 expect( Boolean( true ).hashCode() ).toBe( 1231 );
                 expect( Boolean( false ).hashCode() ).toBe( 1237 );
@@ -28,6 +40,10 @@ describe( 'jsavaPrimitivesStubs', function () {
         } );
 
         describe( 'for Arrays', function () {
+            it( 'uses the correct function', function () {
+                expect( ([]).hashCode ).toBe( Array.prototype.hashCode );
+            } );
+
             it( 'returns the same hash code for the same object', function () {
                 var arr = [0, 1, 2];
                 expect( arr.hashCode() ).toBe( arr.hashCode() );
@@ -47,6 +63,10 @@ describe( 'jsavaPrimitivesStubs', function () {
         } );
 
         describe( 'for Objects', function () {
+            it( 'uses the correct function', function () {
+                expect( ({}).hashCode ).toBe( Object.prototype.hashCode );
+            } );
+
             it( 'returns 0 for an empty object', function () {
                 var obj = {};
                 expect( obj.hashCode() ).toBe( 0 );
@@ -61,6 +81,10 @@ describe( 'jsavaPrimitivesStubs', function () {
 
     describe( 'equals()', function () {
         describe( 'for Numbers', function () {
+            it( 'uses the correct function', function () {
+                expect( (42).equals ).toBe( Number.prototype.equals );
+            } );
+
             it( 'returns true for the same numbers', function () {
                 expect( (42).equals( 42 ) ).toBe( true );
                 expect( Number( 42 ).equals( 42 ) );
@@ -78,6 +102,10 @@ describe( 'jsavaPrimitivesStubs', function () {
         } );
 
         describe( 'for Strings', function () {
+            it( 'uses the correct function', function () {
+                expect( ('Hello World!').equals ).toBe( String.prototype.equals );
+            } );
+
             it( 'returns true for the same string', function () {
                 expect( ('Hello World!').equals( 'Hello World!' ) ).toBe( true );
             } );
@@ -88,6 +116,10 @@ describe( 'jsavaPrimitivesStubs', function () {
         } );
 
         describe( 'for Booleans', function () {
+            it( 'uses the correct function', function () {
+                expect( (true).equals ).toBe( Boolean.prototype.equals );
+            } );
+
             it( 'returns true if and only if other is true', function () {
                 expect( (true).equals( true ) ).toBe( true );
                 expect( (false).equals( false ) ).toBe( true );
@@ -98,6 +130,10 @@ describe( 'jsavaPrimitivesStubs', function () {
         } );
 
         describe( 'for Arrays', function () {
+            it( 'uses the correct function', function () {
+                expect( ([]).equals ).toBe( Array.prototype.equals );
+            } );
+
             it( 'returns true for the same instance', function () {
                 var arr = [0, 1, 2];
                 expect( arr.equals( arr ) ).toBe( true );
@@ -120,6 +156,10 @@ describe( 'jsavaPrimitivesStubs', function () {
 
         describe( 'for Objects', function () {
             var obj = {a: 42, b: 5, c: { d: -7 }};
+
+            it( 'uses the correct function', function () {
+                expect( ({}).equals ).toBe( Object.prototype.equals );
+            } );
 
             it( 'returns true for the same object', function () {
                 expect( obj.equals( obj ) ).toBe( true );
