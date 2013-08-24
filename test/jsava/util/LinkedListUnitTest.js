@@ -23,7 +23,7 @@ describe('LinkedList', function () {
         list.add(5);
         expect(list.getFirst()).toBe(3);
         expect(list.getLast()).toBe(5);
-        expect(list.asArray()).toEqual([3, 4, 5])
+        expect(list.toArray()).toEqual([3, 4, 5])
     });
 
     it('has entries', function () {
@@ -38,9 +38,13 @@ describe('LinkedList', function () {
         list.remove(1);
         expect(list.size()).toBe(l.length - 1);
         list.remove(4);
-        expect(list.asArray()).toEqual([0, 1, 2, 3, 5, 6]);
+        expect(list.toArray()).toEqual([0, 1, 2, 3, 5, 6]);
         expect(list.size()).toBe(l.length - 2);
         list.remove();
-        expect(list.asArray()).toEqual([1, 2, 3, 5, 6]);
+        expect(list.toArray()).toEqual([1, 2, 3, 5, 6]);
+    });
+    it('supports indices', function(){
+        list.addAll([1,2,3,4,5,6,7]);
+        expect(list.indexOf(4)).toBe(3);
     });
 });
