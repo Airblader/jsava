@@ -33,7 +33,7 @@ describe( 'LinkedList', function () {
     } );
 
     it( 'has entries', function () {
-        addAll([ 0, 1, 2, 3, 4, 5, 6, 7] );
+        addAll( [ 0, 1, 2, 3, 4, 5, 6, 7] );
         expect( list.size() ).toBe( 8 );
         expect( list.entry( 2 ).element ).toBe( 2 );
         expect( list.entry( 6 ).element ).toBe( 6 );
@@ -56,23 +56,24 @@ describe( 'LinkedList', function () {
 
     describe( 'iteration', function () {
         it( 'works', function () {
-            list.add(10);
-            list.add(20);
-            list.add(30);
+            list.add( 10 );
+            list.add( 20 );
+            list.add( 30 );
             var iter = list.iterator();
-            expect(iter.next() ).toBe(10);
-            expect(iter.next() ).toBe(20);
-            expect(iter.next() ).toBe(30);
+            expect( iter.next() ).toBe( 10 );
+            expect( iter.next() ).toBe( 20 );
+            expect( iter.next() ).toBe( 30 );
+            expect( iter.hasNext() ).toBe( false );
         } );
     } )
 
-    it('addAll works',function(){
+    it( 'addAll works', function () {
         var otherList = new jsava.util.ArrayList();
         otherList.add( 10 );
         otherList.add( 20 );
-        list.addAll( 0, otherList);
+        list.addAll( 0, otherList );
         expect( list.toArray() ).toEqual( [10, 20] );
-    });
+    } );
 
     /*describe( 'constructor', function () {
         it( 'from another collection', function () {
