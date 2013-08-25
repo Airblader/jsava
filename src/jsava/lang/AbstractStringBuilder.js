@@ -226,7 +226,22 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          */
         // TODO 'delete' not allowed because it's a reserved keyword
         delete_: function (start, end) {
-            // TODO implement
+            if( start < 0 ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( start );
+            }
+            if( end > this.count ) {
+                end = this.count;
+            }
+            if( start > end ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException();
+            }
+            var len = end - start;
+            if( len > 0 ) {
+                jsava.lang.System.arraycopy( this.value, start + len, this.value, start, this.count - end );
+                this.count -= len;
+            }
+
+            return this;
         },
 
         /**
@@ -244,7 +259,14 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @return {jsava.lang.AbstractStringBuilder}
          */
         deleteCharAt: function (index) {
-            // TODO implement
+            if( index < 0 || index >= this.count ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( index );
+            }
+
+            jsava.lang.System.arraycopy( this.value, index + 1, this.value, index, this.count - index - 1 );
+            this.count--;
+
+            return this;
         },
 
         /**
