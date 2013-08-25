@@ -70,7 +70,15 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @param {Number} minimumCapacity
          */
         expandCapacity: function (minimumCapacity) {
-            // TODO implement
+            var newCapacity = (this.value.length + 1) * 2;
+            if( newCapacity < 0 ) {
+                // TODO use Integer.MAX_VALUE
+                newCapacity = 0x7fffffff;
+            } else if( minimumCapacity < newCapacity ) {
+                newCapacity = minimumCapacity;
+            }
+
+            this.value = jsava.util.Arrays.copyOf( this.value, newCapacity );
         },
 
         /** @public */
