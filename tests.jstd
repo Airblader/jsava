@@ -20,6 +20,7 @@ load:
   - src/jsava/lang/Cloneable.js
   - src/jsava/lang/CharSequence.js
   - src/jsava/lang/System.js
+  - src/jsava/lang/String.js
   - src/jsava/lang/AbstractStringBuilder.js
   - src/jsava/lang/ClassCastException.js
   - src/jsava/lang/IllegalStateException.js
