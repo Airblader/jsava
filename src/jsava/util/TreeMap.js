@@ -19,26 +19,70 @@ qx.Class.define( 'jsava.util.TreeMap', {
             },
 
             members: {
-                key: undefined,
-                value: undefined,
-                left: undefined,
-                right: undefined,
-                parent: undefined,
+                key: null,
+                value: null,
+                left: null,
+                right: null,
+                parent: null,
                 color: 'black'
             }
         } )
     },
 
     members: {
-        root: undefined,
+        root: null,
         _size: 0,
         modCount: 0,
         comparator: undefined,
 
-        add: undefined,
-        iterator: undefined,
+        put: function (key, value) {
+            var t = this.root;
+            if( t === null ) {
+                this.root = new jsava.util.TreeMap.Entry( key, value, null );
+                this._size = 1;
+                this.modCount++;
+                return null;
+            }
+            var cmp;
+            var parent;
+            var cpr = this.comparator;
+            if( cpr != null ) {
+                do {
+                    parent = t;
+                    cmp = cpr.compare( key, t.key );
+                    if( cmp < 0 )
+                        t = t.left;
+                    else if( cmp > 0 )
+                        t = t.right;
+                    else
+                        return t.setValue( value );
+                } while( t != null );
+            } else {
+                if( key == null )
+                    throw new NullPointerException();
+                var k = key;
+                do {
+                    parent = t;
+                    cmp = k.compareTo( t.key );
+                    if( cmp < 0 )
+                        t = t.left;
+                    else if( cmp > 0 )
+                        t = t.right;
+                    else
+                        return t.setValue( value );
+                } while( t != null );
+            }
+            var e = new jsava.util.TreeMap.Entry( key, value, parent );
+            if( cmp < 0 )
+                parent.left = e;
+            else
+                parent.right = e;
+            this.fixAfterInsertion( e );
+            this._size++;
+            this.modCount++;
+            return null;
+        },
         size: undefined,
         isEmpty: undefined
     }
-} )
-;
+} );

@@ -1,12 +1,17 @@
 describe( 'TreeMap', function () {
     var TreeMap = jsava.util.TreeMap,
-        set;
+        map;
 
     beforeEach( function () {
-        set = new TreeMap();
+        map = new TreeMap();
     } );
 
     it( 'has the correct class name', function () {
-        expect( set.getClassName() ).toBe( 'jsava.util.TreeMap' );
+        expect( map.getClassName() ).toBe( 'jsava.util.TreeMap' );
     } );
+
+    it( 'can have entries', function () {
+        map.put( 1, 3 );
+        expect( map._size ).toBe( 1 );
+    } )
 } );
