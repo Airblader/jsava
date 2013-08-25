@@ -110,7 +110,11 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
         },
 
         charAt: function (index) {
-            // TODO implement
+            if( index < 0 || index >= this.count ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( index );
+            }
+
+            return this.value[index];
         },
 
         /**
