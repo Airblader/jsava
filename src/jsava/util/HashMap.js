@@ -521,7 +521,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             var oldTable = this.table,
                 oldCapacity = oldTable.length;
             if( oldCapacity === this.self( arguments ).MAXIMUM_CAPACITY ) {
-                this._threshold = Number.MAX_VALUE;
+                // TODO use Integer.MAX_VALUE
+                this._threshold = 0x7fffffff;
                 return;
             }
 
