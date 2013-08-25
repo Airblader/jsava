@@ -77,6 +77,7 @@ visibility retains the name conflict, the entity shall be handled as private.
 
 1. Every method in an interface that takes a parameter or returns something shall have annotations.
 2. Every method in a class that has not been defined in a superclass or interface shall be annotated.
+3. If a class has a constructor, it *must* call the parent constructor.
 
 ### Members
 
