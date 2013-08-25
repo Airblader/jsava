@@ -6,7 +6,7 @@ qx.Class.define( 'jsava.JsavaUtils', {
     statics: {
         /**
          * Creates an anonymous class and returns it.
-         * @returns {*}
+         * @return {*}
          */
         createAnonymousClass: function (config) {
             var clazzName = 'Anonymous';
@@ -21,7 +21,7 @@ qx.Class.define( 'jsava.JsavaUtils', {
          * Creates and returns an array of given size.
          * @param size
          * @param defaultValue will default to null
-         * @returns {Array}
+         * @return {Array}
          */
         arrayOfGivenSize: function (size, defaultValue) {
             if( typeof defaultValue === 'undefined' ) {

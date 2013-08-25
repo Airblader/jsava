@@ -151,7 +151,7 @@ qx.Class.define( 'jsava.util.ArrayList', {
             return oldValue;
         },
 
-        /** @returns {*} */
+        /** @return {*} */
         add: function () {
             var args = Array.prototype.slice.call( arguments ),
                 element;
