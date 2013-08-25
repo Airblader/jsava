@@ -93,7 +93,21 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @param {Number} newLength
          */
         setLength: function (newLength) {
-            // TODO implement
+            if( newLength < 0 ) {
+                // TODO uncomment
+                //throw new jsava.lang.StringIndexOutOfBoundsException(newLength);
+            }
+            if( newLength > this.value.length ) {
+                this.expandCapacity( newLength );
+            }
+
+            if( this.count < newLength ) {
+                for( ; this.count < newLength; this.count++ ) {
+                    this.value[this.count] = '\0';
+                }
+            } else {
+                this.count = newLength;
+            }
         },
 
         charAt: function (index) {
