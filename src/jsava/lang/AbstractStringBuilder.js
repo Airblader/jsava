@@ -273,11 +273,41 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @public
          * @param {Number} start
          * @param {Number} end
-         * @param {String} str
+         * @param {String|jsava.lang.String} str
          * @return {jsava.lang.AbstractStringBuilder}
          */
         replace: function (start, end, str) {
-            // TODO implement
+            // TODO convert str into jsava.lang.String if it's a Javascript string
+
+            if( start < 0 ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( start );
+            }
+            if( start > this.count ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( "start > length()" );
+            }
+            if( start > end ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( "start > end" );
+            }
+
+            if( end > this.count ) {
+                end = this.count;
+            }
+
+            // TODO remove this exception
+            throw new jsava.lang.UnsupportedOperationException();
+
+            // TODO use : str.length()
+            var len = str.length;
+            var newCount = this.count + len - (end - start);
+            if( newCount > this.value.length ) {
+                this.expandCapacity( newCount );
+            }
+
+            jsava.lang.System.arraycopy( this.value, end, this.value, start + len, this.count - end );
+            // TODO use : str.getChars( this.value, start );
+            this.count = newCount;
+
+            return this;
         },
 
         /**
@@ -285,7 +315,12 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @return {String}
          */
         substring: function () {
-            // TODO implement (several signatures)
+            var args = Array.prototype.slice.call( arguments );
+            if( args.length === 1 ) {
+                return this.substring( start, this.count );
+            }
+
+            // TODO implement second signature
         },
 
         /**
