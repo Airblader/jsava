@@ -8,11 +8,13 @@ load:
   - lib/jsavaPrimitivesStubs.js
   - src/jsava/io/Serializable.js
   - src/jsava/lang/Object.js
+  - src/jsava/lang/Character.js
   - src/jsava/lang/Throwable.js
   - src/jsava/lang/Exception.js
   - src/jsava/lang/RuntimeException.js
   - src/jsava/lang/IndexOutOfBoundsException.js
   - src/jsava/lang/StringIndexOutOfBoundsException.js
+  - src/jsava/lang/Integer.js
   - src/jsava/lang/IllegalArgumentException.js
   - src/jsava/lang/CloneNotSupportedException.js
   - src/jsava/lang/Appendable.js
