@@ -14,9 +14,12 @@ load:
   - src/jsava/lang/IndexOutOfBoundsException.js
   - src/jsava/lang/IllegalArgumentException.js
   - src/jsava/lang/CloneNotSupportedException.js
+  - src/jsava/lang/Appendable.js
   - src/jsava/lang/NullPointerException.js
   - src/jsava/lang/Cloneable.js
+  - src/jsava/lang/CharSequence.js
   - src/jsava/lang/System.js
+  - src/jsava/lang/AbstractStringBuilder.js
   - src/jsava/lang/ClassCastException.js
   - src/jsava/lang/IllegalStateException.js
   - src/jsava/lang/Iterable.js
@@ -24,6 +27,7 @@ load:
   - src/jsava/lang/NoSuchElementException.js
   - src/jsava/lang/ConcurrentModificationException.js
   - src/jsava/JsavaUtils.js
+  - src/jsava/io/IOException.js
   - src/jsava/util/Collection.js
   - src/jsava/util/Set.js
   - src/jsava/util/Map.js
