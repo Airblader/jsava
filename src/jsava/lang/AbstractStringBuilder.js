@@ -123,7 +123,12 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @return {Number}
          */
         codePointAt: function (index) {
-            // TODO implement
+            if( index < 0 || index >= this.count ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( index );
+            }
+
+            // TODO use : return Character.codePointAt( this.value, index );
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         /**
@@ -132,7 +137,13 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @return {Number}
          */
         codePointBefore: function (index) {
-            // TODO implement
+            var i = index - 1;
+            if( i < 0 || i >= this.count ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( index );
+            }
+
+            // TODO use : return Character.codePointBefore( this.value, index );
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         /**
@@ -142,7 +153,12 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @return {Number}
          */
         codePointCount: function (beginIndex, endIndex) {
-            // TODO implement
+            if( beginIndex < 0 || endIndex > this.count || beginIndex > endIndex ) {
+                throw new jsava.lang.IndexOutOfBoundsException();
+            }
+
+            // TODO use : return Character.codePointCountImpl( this.value, beginIndex, endIndex - beginIndex );
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         /**
@@ -151,8 +167,13 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @param {Number} codePointOffset
          * @return {Number}
          */
-        offetByCodePoints: function (index, codePointOffset) {
-            // TODO implement
+        offsetByCodePoints: function (index, codePointOffset) {
+            if( index < 0 || index > this.count ) {
+                throw new jsava.lang.IndexOutOfBoundsException();
+            }
+
+            // TODO use : return Character.offsetByCodePointsImpl( this.value, 0, this.count, index, codePointOffset );
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         /**
@@ -163,7 +184,17 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @param {Number} dstBegin
          */
         getChars: function (srcBegin, srcEnd, dst, dstBegin) {
-            // TODO implement
+            if( srcBegin < 0 ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( srcBegin );
+            }
+            if( srcEnd < 0 || srcEnd > count ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( srcEnd );
+            }
+            if( srcBegin > srcEnd ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( "srcBegin > srcEnd" );
+            }
+
+            jsava.lang.System.arraycopy( this.value, srcBegin, dst, dstBegin, srcEnd - srcBegin );
         },
 
         /**
@@ -172,7 +203,11 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @param {String} ch
          */
         setCharAt: function (index, ch) {
-            // TODO implement
+            if( index < 0 || index >= this.count ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( index );
+            }
+
+            this.value[index] = ch;
         },
 
         /**
