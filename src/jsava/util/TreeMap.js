@@ -1,3 +1,11 @@
+Object.defineProperty( Number.prototype, 'compareTo', {value: function (another) {
+    return (this < another ? -1 : (this == another ? 0 : 1));
+}} );
+
+
+RED = 1;
+BLACK = 0;
+
 qx.Class.define( 'jsava.util.TreeMap', {
     extend: jsava.util.AbstractMap,
     implement: [jsava.io.Serializable],
@@ -24,7 +32,7 @@ qx.Class.define( 'jsava.util.TreeMap', {
                 left: null,
                 right: null,
                 parent: null,
-                color: 'black'
+                color: BLACK
             }
         } )
     },
@@ -83,6 +91,97 @@ qx.Class.define( 'jsava.util.TreeMap', {
             return null;
         },
         size: undefined,
-        isEmpty: undefined
+        isEmpty: undefined,
+
+        fixAfterInsertion: function (x) {
+            x.color = RED;
+
+            while( x != null && x != this.root && x.parent.color == RED ) {
+                if( this.parentOf( x ) == this.leftOf( this.parentOf( this.parentOf( x ) ) ) ) {
+                    var y = this.rightOf( this.parentOf( this.parentOf( x ) ) );
+                    if( this.colorOf( y ) == RED ) {
+                        this.setColor( this.parentOf( x ), BLACK );
+                        this.setColor( y, BLACK );
+                        this.setColor( this.parentOf( this.parentOf( x ) ), RED );
+                        x = this.parentOf( this.parentOf( x ) );
+                    } else {
+                        if( x == this.rightOf( this.parentOf( x ) ) ) {
+                            x = this.parentOf( x );
+                            this.rotateLeft( x );
+                        }
+                        this.setColor( this.parentOf( x ), BLACK );
+                        this.setColor( this.parentOf( this.parentOf( x ) ), RED );
+                        this.rotateRight( this.parentOf( this.parentOf( x ) ) );
+                    }
+                } else {
+                    var y = this.leftOf( this.parentOf( this.parentOf( x ) ) );
+                    if( this.colorOf( y ) == RED ) {
+                        this.setColor( this.parentOf( x ), BLACK );
+                        this.setColor( y, BLACK );
+                        this.setColor( this.parentOf( this.parentOf( x ) ), RED );
+                        x = this.parentOf( this.parentOf( x ) );
+                    } else {
+                        if( x == this.leftOf( this.parentOf( x ) ) ) {
+                            x = this.parentOf( x );
+                            this.rotateRight( x );
+                        }
+                        this.setColor( this.parentOf( x ), BLACK );
+                        this.setColor( this.parentOf( this.parentOf( x ) ), RED );
+                        this.rotateLeft( this.parentOf( this.parentOf( x ) ) );
+                    }
+                }
+            }
+            this.root.color = BLACK;
+        },
+        colorOf: function (p) {
+            return (p == null ? BLACK : p.color);
+        },
+        parentOf: function (p) {
+            return (p == null ? null : p.parent);
+        },
+        setColor: function (p, c) {
+            if( p != null )
+                p.color = c;
+        },
+        leftOf: function (p) {
+            return (p == null) ? null : p.left;
+        },
+        rightOf: function (p) {
+            return (p == null) ? null : p.right;
+        },
+        rotateLeft: function (p) {
+            if( p != null ) {
+                var r = p.right;
+                p.right = r.left;
+                if( r.left != null )
+                    r.left.parent = p;
+                r.parent = p.parent;
+                if( p.parent == null )
+                    this.root = r;
+                else if( p.parent.left == p )
+                    p.parent.left = r;
+                else
+                    p.parent.right = r;
+                r.left = p;
+                p.parent = r;
+            }
+        },
+        rotateRight: function (p) {
+            if( p != null ) {
+                console.log( p == this.root );
+                var l = p.left;
+                p.left = l.right;
+                if( l.right != null ) l.right.parent = p;
+                l.parent = p.parent;
+                if( p.parent == null )
+                    this.root = l;
+                else if( p.parent.right == p )
+                    p.parent.right = l;
+                else
+                    p.parent.left = l;
+                l.right = p;
+                p.parent = l;
+            }
+        }
     }
 } );
