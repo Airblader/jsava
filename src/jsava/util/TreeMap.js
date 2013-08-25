@@ -1,6 +1,6 @@
-qx.Class.define( 'jsava.util.TreeSet', {
-    extend: jsava.util.AbstractSet,
-    implement: [jsava.util.Set],
+qx.Class.define( 'jsava.util.TreeMap', {
+    extend: jsava.util.AbstractMap,
+    implement: [jsava.io.Serializable],
 
     construct: function () {
     },
