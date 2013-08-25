@@ -164,7 +164,6 @@ qx.Class.define( 'jsava.util.TreeMap', {
         },
         rotateRight: function (p) {
             if( p != null ) {
-                console.log( p == this.root );
                 var l = p.left;
                 p.left = l.right;
                 if( l.right != null ) l.right.parent = p;
