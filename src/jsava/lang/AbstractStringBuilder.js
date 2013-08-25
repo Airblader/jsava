@@ -19,9 +19,9 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @return {Number}
          */
         stringSizeOfLong: function (x) {
-            // TODO this is the Java implementation, but it might need to be adapted for Javascript
+            // Note that Java uses '19' here, but in Javascript we cannot go that high
             var p = 10;
-            for( var i = 1; i < 19; i++ ) {
+            for( var i = 1; i < 15; i++ ) {
                 if( x < p ) {
                     return i;
                 }
@@ -29,7 +29,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
                 p = 10 * p;
             }
 
-            return 19;
+            return 15;
         }
     },
 
@@ -72,8 +72,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
         expandCapacity: function (minimumCapacity) {
             var newCapacity = (this.value.length + 1) * 2;
             if( newCapacity < 0 ) {
-                // TODO use Integer.MAX_VALUE
-                newCapacity = 0x7fffffff;
+                newCapacity = jsava.lang.Integer.MAX_VALUE;
             } else if( minimumCapacity < newCapacity ) {
                 newCapacity = minimumCapacity;
             }
@@ -312,11 +311,12 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /**
          * @public
-         * @return {String}
+         * @return {String|jsava.lang.String}
          */
         substring: function () {
             var args = Array.prototype.slice.call( arguments );
             if( args.length === 1 ) {
+                var start = args[0];
                 return this.substring( start, this.count );
             }
 
@@ -330,7 +330,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @return {jsava.lang.CharSequence}
          */
         subSequence: function (start, end) {
-            // TODO implement
+            return this.substring( start, end );
         },
 
         /**
@@ -365,6 +365,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
             // TODO implement
         },
 
+        /** @abstract */
         toString: function () {
         },
 
@@ -373,6 +374,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @return {String[]}
          */
         getValue: function () {
+            return this.value;
         }
     }
 } );
