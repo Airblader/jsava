@@ -36,11 +36,13 @@ jsava classes follow the same package naming schema as in Java, with one slight 
     var map = new jsava.util.HashMap();
 
 However, this is pretty exhausting and verbose. To make life a bit easier, jsava currently tries to export all classes
-to a shortened name – **if possible**. Whenever the short name already exists, it will be skipped. This allows something like
+to a shortened name – **if possible**. Whenever the short name already exists, it will be tried with a 'j' prefix. If
+this is still not possible, it will be skipped. This allows something like
 
     var map = new HashMap();
 
-However, because `Object` is already a Javascript built-in type, the jsava class can only be accessed via `jsava.lang.Object`.
+However, because `Object` is already a Javascript built-in type, the jsava class is prefixed and will be available as
+`jObject`.
 
 A little example script would be
 
