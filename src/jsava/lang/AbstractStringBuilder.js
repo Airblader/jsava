@@ -94,8 +94,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          */
         setLength: function (newLength) {
             if( newLength < 0 ) {
-                // TODO uncomment
-                //throw new jsava.lang.StringIndexOutOfBoundsException(newLength);
+                throw new jsava.lang.StringIndexOutOfBoundsException( newLength );
             }
             if( newLength > this.value.length ) {
                 this.expandCapacity( newLength );

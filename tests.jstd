@@ -12,6 +12,7 @@ load:
   - src/jsava/lang/Exception.js
   - src/jsava/lang/RuntimeException.js
   - src/jsava/lang/IndexOutOfBoundsException.js
+  - src/jsava/lang/StringIndexOutOfBoundsException.js
   - src/jsava/lang/IllegalArgumentException.js
   - src/jsava/lang/CloneNotSupportedException.js
   - src/jsava/lang/Appendable.js
