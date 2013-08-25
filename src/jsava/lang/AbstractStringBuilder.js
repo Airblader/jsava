@@ -83,7 +83,9 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /** @public */
         trimToSize: function () {
-            // TODO implement
+            if( this.count < this.value.length ) {
+                this.value = jsava.util.Arrays.copyOf( this.value, this.count );
+            }
         },
 
         /**
