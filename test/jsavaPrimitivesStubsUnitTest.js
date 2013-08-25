@@ -171,4 +171,16 @@ describe( 'jsavaPrimitivesStubs', function () {
             } );
         } );
     } );
+    describe( 'compareTo()', function () {
+        describe( 'for Strings', function () {
+            it( 'works', function () {
+                expect( 'a'.compareTo( 'b' ) ).toBe( -1 );
+                expect( 'abb'.compareTo( 'b' ) ).toBe( -1 );
+                expect( 'abb'.compareTo( 'beee' ) ).toBe( -1 );
+                expect( 'abb'.compareTo( 'abeee' ) ).toBe( -3 );
+                expect( 'abeee'.compareTo( 'abb' ) ).toBe( 3 );
+                expect( 'abeee'.compareTo( 'abeee' ) ).toBe( 0 );
+            } );
+        } );
+    } );
 } );
