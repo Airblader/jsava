@@ -1,8 +1,9 @@
+// TODO Add a proper definiton of compare toa
 Object.defineProperty( Number.prototype, 'compareTo', {value: function (another) {
     return (this < another ? -1 : (this == another ? 0 : 1));
 }} );
 
-
+// TODO move constants somewhere else
 RED = 1;
 BLACK = 0;
 
