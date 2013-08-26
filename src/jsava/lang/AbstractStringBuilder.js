@@ -268,12 +268,10 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @public
          * @param {Number} start
          * @param {Number} end
-         * @param {String|jsava.lang.String} str
+         * @param {jsava.lang.String|String} str
          * @return {jsava.lang.AbstractStringBuilder}
          */
         replace: function (start, end, str) {
-            // TODO convert str into jsava.lang.String if it's a Javascript string
-
             if( start < 0 ) {
                 throw new jsava.lang.StringIndexOutOfBoundsException( start );
             }
@@ -288,18 +286,14 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
                 end = this.count;
             }
 
-            // TODO remove this exception
-            throw new jsava.lang.UnsupportedOperationException();
-
-            // TODO use : str.length()
-            var len = str.length;
-            var newCount = this.count + len - (end - start);
+            var len = str.length(),
+                newCount = this.count + len - (end - start);
             if( newCount > this.value.length ) {
                 this.expandCapacity( newCount );
             }
 
             jsava.lang.System.arraycopy( this.value, end, this.value, start + len, this.count - end );
-            // TODO use : str.getChars( this.value, start );
+            str.getChars( this.value, start );
             this.count = newCount;
 
             return this;
