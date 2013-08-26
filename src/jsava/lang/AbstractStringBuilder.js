@@ -36,7 +36,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
     members: {
         /**
          * @protected
-         * @type String[]
+         * @type {jsava.lang.String[]}
          */
         value: null,
 
@@ -126,8 +126,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
                 throw new jsava.lang.StringIndexOutOfBoundsException( index );
             }
 
-            // TODO use : return Character.codePointAt( this.value, index );
-            throw new jsava.lang.UnsupportedOperationException();
+            return jsava.lang.Character.codePointAt( this.value, index );
         },
 
         /**
@@ -141,8 +140,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
                 throw new jsava.lang.StringIndexOutOfBoundsException( index );
             }
 
-            // TODO use : return Character.codePointBefore( this.value, index );
-            throw new jsava.lang.UnsupportedOperationException();
+            return jsava.lang.Character.codePointBefore( this.value, index );
         },
 
         /**
@@ -156,8 +154,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
                 throw new jsava.lang.IndexOutOfBoundsException();
             }
 
-            // TODO use : return Character.codePointCountImpl( this.value, beginIndex, endIndex - beginIndex );
-            throw new jsava.lang.UnsupportedOperationException();
+            return jsava.lang.Character.codePointCountImpl( this.value, beginIndex, endIndex - beginIndex );
         },
 
         /**
@@ -171,8 +168,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
                 throw new jsava.lang.IndexOutOfBoundsException();
             }
 
-            // TODO use : return Character.offsetByCodePointsImpl( this.value, 0, this.count, index, codePointOffset );
-            throw new jsava.lang.UnsupportedOperationException();
+            return jsava.lang.Character.offsetByCodePointsImpl( this.value, 0, this.count, index, codePointOffset );
         },
 
         /**
