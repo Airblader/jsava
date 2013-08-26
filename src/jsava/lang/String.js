@@ -3,6 +3,11 @@ qx.Class.define( 'jsava.lang.String', {
     // TODO add Comparable interface
     implement: [jsava.io.Serializable, jsava.lang.CharSequence],
 
+    construct: function () {
+        // TODO implement constructors
+        throw new jsava.lang.UnsupportedOperationException();
+    },
+
     statics: {
         /** @private */
         serialVersionUID: 1,
