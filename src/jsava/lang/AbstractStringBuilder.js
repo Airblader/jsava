@@ -375,7 +375,16 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @return {Number}
          */
         lastIndexOf: function () {
-            // TODO implement (several signatures)
+            var args = Array.prototype.slice.call( arguments );
+            if( args.length === 1 ) {
+                return this.lastIndexOf( args[0], this.count );
+            }
+
+            var str = args[0],
+                fromIndex = args[1];
+
+            return jsava.lang.String.lastIndexOf( this.value, 0, this.count,
+                str.toCharArray(), 0, str.length(), fromIndex );
         },
 
         /**
@@ -388,6 +397,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /** @abstract */
         toString: function () {
+            /* abstract method */
         },
 
         /**

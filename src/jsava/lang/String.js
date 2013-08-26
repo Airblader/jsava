@@ -2,7 +2,12 @@ qx.Class.define( 'jsava.lang.String', {
     extend: jsava.lang.Object,
     implement: [jsava.io.Serializable, jsava.lang.Comparable, jsava.lang.CharSequence],
 
+    /**
+     * @public
+     */
     construct: function () {
+        var args = Array.prototype.slice.call( arguments );
+
         // TODO implement constructors
         throw new jsava.lang.UnsupportedOperationException();
     },
@@ -10,6 +15,23 @@ qx.Class.define( 'jsava.lang.String', {
     statics: {
         /** @private */
         serialVersionUID: 1,
+
+        /**
+         * @protected
+         * @static
+         * @param {jsava.lang.String[]|String[]} source
+         * @param {Number} sourceOffset
+         * @param {Number} sourceCount
+         * @param {jsava.lang.String[]|String[]} target
+         * @param {Number} targetOffset
+         * @param {Number} targetCount
+         * @param {Number} fromIndex
+         * @return {Number}
+         */
+        lastIndexOf: function (source, sourceOffset, sourceCount, target, targetOffset, targetCount, fromIndex) {
+            // TODO implement
+            throw new jsava.lang.UnsupportedOperationException();
+        }
     },
 
     members: {
@@ -33,6 +55,15 @@ qx.Class.define( 'jsava.lang.String', {
             }
 
             // TODO has another signature
+        },
+
+        /**
+         * @public
+         * @return {jsava.lang.String[]|String[]}
+         */
+        toCharArray: function () {
+            // TODO implement
+            throw new jsava.lang.UnsupportedOperationException();
         },
 
         /**
