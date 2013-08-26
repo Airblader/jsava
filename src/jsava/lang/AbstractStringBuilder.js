@@ -245,7 +245,25 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @return {jsava.lang.AbstractStringBuilder}
          */
         appendCodePoint: function (codePoint) {
-            // TODO implement
+            if( !jsava.lang.Character.isValidCodePoint( codePoint ) ) {
+                throw new jsava.lang.IllegalArgumentException();
+            }
+            var n = 1;
+            if( codePoint >= jsava.lang.Character.MIN_SUPPLEMENTARY_CODE_POINT ) {
+                n++;
+            }
+            var newCount = this.count + n;
+            if( newCount > this.value.length ) {
+                this.expandCapacity( newCount );
+            }
+            if( n === 1 ) {
+                this.value[this.count++] = codePoint;
+            } else {
+                jsava.lang.Character.toSurrogates( codePoint, this.value, this.count );
+                this.count += n;
+            }
+
+            return this;
         },
 
         /**

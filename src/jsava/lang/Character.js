@@ -4,6 +4,8 @@ qx.Class.define( 'jsava.lang.Character', {
     implement: [jsava.io.Serializable],
 
     statics: {
+        MIN_SUPPLEMENTARY_CODE_POINT: 0x010000,
+
         /**
          * @public
          * @static
@@ -52,6 +54,29 @@ qx.Class.define( 'jsava.lang.Character', {
          * @return {Number}
          */
         offsetByCodePointsImpl: function (a, start, count, index, codePointOffset) {
+            // TODO implement
+            throw new jsava.lang.UnsupportedOperationException();
+        },
+
+        /**
+         * @public
+         * @static
+         * @param {Number} codePoint
+         * @return {Boolean}
+         */
+        isValidCodePoint: function (codePoint) {
+            // TODO implement
+            throw new jsava.lang.UnsupportedOperationException();
+        },
+
+        /**
+         * @protected
+         * @static
+         * @param {Number} codePoint
+         * @param {jsava.lang.String[]|String[]} dst
+         * @param {Number} index
+         */
+        toSurrogates: function (codePoint, dst, index) {
             // TODO implement
             throw new jsava.lang.UnsupportedOperationException();
         }
