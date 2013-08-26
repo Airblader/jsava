@@ -1,8 +1,7 @@
 qx.Class.define( 'jsava.lang.Integer', {
     // TODO extend from Number
     extend: jsava.lang.Object,
-    // TODO implement Comparable
-    implement: [],
+    implement: [jsava.lang.Comparable],
 
     statics: {
         MIN_VALUE: 0x80000000,

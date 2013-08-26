@@ -1,7 +1,6 @@
 qx.Class.define( 'jsava.lang.String', {
     extend: jsava.lang.Object,
-    // TODO add Comparable interface
-    implement: [jsava.io.Serializable, jsava.lang.CharSequence],
+    implement: [jsava.io.Serializable, jsava.lang.Comparable, jsava.lang.CharSequence],
 
     construct: function () {
         // TODO implement constructors

@@ -1,7 +1,6 @@
 qx.Class.define( 'jsava.lang.Character', {
     extend: jsava.lang.Object,
-    // TODO add Comparable interface
-    implement: [jsava.io.Serializable],
+    implement: [jsava.io.Serializable, jsava.lang.Comparable],
 
     statics: {
         MIN_SUPPLEMENTARY_CODE_POINT: 0x010000,
