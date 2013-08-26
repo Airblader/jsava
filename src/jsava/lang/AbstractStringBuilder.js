@@ -328,7 +328,20 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
                 return this.substring( start, this.count );
             }
 
-            // TODO implement second signature
+            var start = args[0],
+                end = args[1];
+
+            if( start < 0 ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( start );
+            }
+            if( end > this.count ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( end );
+            }
+            if( start > end ) {
+                throw new jsava.lang.StringIndexOutOfBoundsException( end - start );
+            }
+
+            return new jsava.lang.String( this.value, start, end - start );
         },
 
         /**
