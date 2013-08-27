@@ -211,6 +211,95 @@ qx.Class.define( 'jsava.util.Vector', {
             }
 
             return -1;
+        },
+
+        /**
+         * @public
+         * @param {Number} index
+         * @return {jsava.lang.Object}
+         */
+        elementAt: function (index) {
+            if( index >= this.elementCount ) {
+                throw new jsava.lang.ArrayIndexOutOfBoundsException( index + ' >= ' + this.elementCount );
+            }
+
+            return this.elementData[index];
+        },
+
+        /**
+         * @public
+         * @return {jsava.lang.Object}
+         */
+        firstElement: function () {
+            if( this.elementCount === 0 ) {
+                throw new jsava.lang.NoSuchElementException();
+            }
+
+            return this.elementData[0];
+        },
+
+        /**
+         * @public
+         * @return {jsava.lang.Object}
+         */
+        lastElement: function () {
+            if( this.elementCount === 0 ) {
+                throw new jsava.lang.NoSuchElementException();
+            }
+
+            return this.elementData[this.elementCount - 1];
+        },
+
+        /**
+         * @public
+         * @param {jsava.lang.Object} obj
+         * @param {Number} index
+         */
+        setElementAt: function (obj, index) {
+            if( index >= this.elementCount ) {
+                throw new jsava.lang.ArrayIndexOutOfBoundsException( index + ' >= ' + this.elementCount );
+            }
+
+            this.elementData[index] = obj;
+        },
+
+        /**
+         * @public
+         * @param {Number} index
+         */
+        removeElementAt: function (index) {
+            this.modCount++;
+            if( index >= this.elementCount ) {
+                throw new jsava.lang.ArrayIndexOutOfBoundsException( index + ' >= ' + this.elementCount );
+            } else if( index < 0 ) {
+                throw new jsava.lang.ArrayIndexOutOfBoundsException( index );
+            }
+
+            var j = this.elementCount - index - 1;
+            if( j > 0 ) {
+                jsava.lang.System.arraycopy( this.elementData, index + 1, this.elementData, index, j );
+            }
+
+            this.elementCount--;
+            this.elementData[this.elementCount] = null;
+        },
+
+        /**
+         * @public
+         * @param {jsava.lang.Object} obj
+         * @param {Number} index
+         */
+        insertElementAt: function (obj, index) {
+            this.modCount++;
+            if( index > this.elementCount ) {
+                throw new jsava.lang.ArrayIndexOutOfBoundsException( index + ' >= ' + this.elementCount );
+            }
+
+            this.ensureCapacityHelper( this.elementCount + 1 );
+            jsava.lang.System.arraycopy( this.elementData, index, this.elementData, index + 1,
+                this.elementCount - index );
+            this.elementData[index] = obj;
+            this.elementCount++;
         }
     }
 } );
