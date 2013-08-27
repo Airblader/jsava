@@ -180,6 +180,37 @@ qx.Class.define( 'jsava.util.Vector', {
             }
 
             return -1;
+        },
+
+        lastIndexOf: function () {
+            var args = Array.prototype.slice.call( arguments ),
+                obj = args[0],
+                i;
+
+            if( args.length === 1 ) {
+                return this.lastIndexOf( obj, this.elementCount - 1 );
+            }
+
+            var index = args[1];
+            if( index >= this.elementCount ) {
+                throw new jsava.lang.IndexOutOfBoundsException( index + ' >= ' + this.elementCount );
+            }
+
+            if( obj === null ) {
+                for( i = index; i >= 0; i-- ) {
+                    if( this.elementData[i] === null ) {
+                        return i;
+                    }
+                }
+            } else {
+                for( i = index; i >= 0; i-- ) {
+                    if( obj.equals( this.elementData[i] ) ) {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
         }
     }
 } );
