@@ -31,6 +31,7 @@ load:
   - src/jsava/lang/UnsupportedOperationException.js
   - src/jsava/lang/NoSuchElementException.js
   - src/jsava/lang/ConcurrentModificationException.js
+  - src/jsava/lang/ArrayIndexOutOfBoundsException.js
   - src/jsava/JsavaUtils.js
   - src/jsava/io/IOException.js
   - src/jsava/util/Collection.js
