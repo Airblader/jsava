@@ -7,6 +7,7 @@ load:
   - lib/qx-oo-3.0.js
   - lib/jsavaPrimitivesStubs.js
   - src/jsava/io/Serializable.js
+  - src/jsava/lang/Comparable.js
   - src/jsava/lang/Object.js
   - src/jsava/lang/Character.js
   - src/jsava/lang/Throwable.js
@@ -40,13 +41,15 @@ load:
   - src/jsava/util/AbstractSet.js
   - src/jsava/util/AbstractMap.js
   - src/jsava/util/HashMap.js
+  - src/jsava/util/Enumeration.js
   - src/jsava/util/List.js
   - src/jsava/util/ListIterator.js
   - src/jsava/util/AbstractList.js
+  - src/jsava/util/RandomAccess.js
+  - src/jsava/util/Vector.js
   - src/jsava/util/Arrays.js
   - src/jsava/util/SubList.js
   - src/jsava/util/LinkedList.js
-  - src/jsava/util/RandomAccess.js
   - src/jsava/util/RandomAccessSubList.js
   - src/jsava/util/ArrayList.js
 
