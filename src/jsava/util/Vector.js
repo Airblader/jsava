@@ -300,6 +300,181 @@ qx.Class.define( 'jsava.util.Vector', {
                 this.elementCount - index );
             this.elementData[index] = obj;
             this.elementCount++;
+        },
+
+        /**
+         * @public
+         * @param {jsava.lang.Object} obj
+         */
+        addElement: function (obj) {
+            this.modCount++;
+            this.ensureCapacityHelper( this.elementCount + 1 );
+            this.elementData[this.elementCount++] = obj;
+        },
+
+        /**
+         * @public
+         * @param {jsava.lang.Object} obj
+         * @return {Boolean}
+         */
+        removeElement: function (obj) {
+            this.modCount++;
+            var i = this.indexOf( obj );
+            if( i >= 0 ) {
+                this.removeElementAt( i );
+                return true;
+            }
+
+            return false;
+        },
+
+        /** @public */
+        removeAllElements: function () {
+            this.modCount++;
+            for( var i = 0; i < this.elementCount; i++ ) {
+                this.elementData[i] = null;
+            }
+
+            this.elementCount = 0;
+        },
+
+        clone: function () {
+            try {
+                var vector = this.base( arguments );
+                vector.elementData = jsava.util.Arrays.copyOf( this.elementData, this.elementCount );
+                vector.modCount = 0;
+            } catch( e ) {
+                if( qx.Class.isSubClassOf( e.constructor, jsava.lang.CloneNotSupportedException ) ) {
+                    // TODO throw InternalError
+                    throw e;
+                }
+
+                throw e;
+            }
+        },
+
+        toArray: function () {
+            return jsava.util.Arrays.copyOf( this.elementData, this.elementCount );
+        },
+
+        get: function (index) {
+            if( index >= this.elementCount ) {
+                throw new jsava.lang.ArrayIndexOutOfBoundsException( index );
+            }
+
+            return this.elementData[index];
+        },
+
+        set: function (index, element) {
+            if( index >= this.elementCount ) {
+                throw new jsava.lang.ArrayIndexOutOfBoundsException( index );
+            }
+
+            var oldValue = this.elementData[index];
+            this.elementData[index] = element;
+            return oldValue;
+        },
+
+        add: function () {
+            var args = Array.prototype.slice.call( arguments );
+            if( args.length === 1 ) {
+                var element = args[0];
+                this.modCount++;
+                this.ensureCapacityHelper( this.elementCount + 1 );
+                this.elementData[this.elementCount++] = element;
+
+                return true;
+            } else {
+                var index = args[0],
+                    element = args[1];
+                this.insertElementAt( element, index );
+            }
+        },
+
+        remove: function () {
+            var args = Array.prototype.slice.call( arguments );
+            if( qx.Class.isSubClassOf( args[0], jsava.lang.Object ) ) {
+                this.removeElement( args[0] );
+            } else {
+                var index = args[0];
+
+                this.modCount++;
+                if( index >= this.elementCount ) {
+                    throw new jsava.lang.ArrayIndexOutOfBoundsException( index );
+                }
+
+                var oldValue = this.elementData[index],
+                    numMoved = this.elementCount - index - 1;
+                if( numMoved > 0 ) {
+                    jsava.lang.System.arraycopy( this.elementData, index + 1, this.elementData, index, numMoved );
+                }
+
+                this.elementData[--this.elementCount] = null;
+                return oldValue;
+            }
+        },
+
+        clear: function () {
+            this.removeAllElements();
+        },
+
+        containsAll: function (collection) {
+            return this.base( arguments, collection );
+        },
+
+        addAll: function (collection) {
+            // TODO second signature
+
+            this.modCount++;
+            var array = collection.toArray(),
+                numNew = array.length;
+
+            this.ensureCapacityHelper( this.elementCount + numNew );
+            jsava.lang.System.arraycopy( array, 0, this.elementData, this.elementCount, numNew );
+            this.elementCount += numNew;
+
+            return numNew !== 0;
+        },
+
+        removeAll: function (collection) {
+            return this.base( arguments, collection );
+        },
+
+        retainAll: function (collection) {
+            return this.base( arguments, collection );
+        },
+
+        equals: function (obj) {
+            return this.base( arguments, obj );
+        },
+
+        hashCode: function () {
+            return this.base( arguments );
+        },
+
+        toString: function () {
+            return this.base( arguments );
+        },
+
+        subList: function (fromIndex, toIndex) {
+            // TODO implement
+            throw new jsava.lang.UnsupportedOperationException();
+        },
+
+        removeRange: function (fromIndex, toIndex) {
+            this.modCount++;
+            var numMoved = this.elementCount - toIndex;
+            jsava.lang.System.arraycopy( this.elementData, toIndex, this.elementData, fromIndex, numMoved );
+
+            var newElementCount = this.elementCount - (toIndex - fromIndex);
+            while( this.elementCount !== newElementCount ) {
+                this.elementData[--this.elementCount] = null;
+            }
+        },
+
+        /** @private */
+        writeObject: function () {
+            throw new jsava.lang.UnsupportedOperationException();
         }
     }
 } );
