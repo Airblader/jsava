@@ -393,8 +393,8 @@ qx.Class.define( 'jsava.util.Vector', {
 
         remove: function () {
             var args = Array.prototype.slice.call( arguments );
-            if( qx.Class.isSubClassOf( args[0], jsava.lang.Object ) ) {
-                this.removeElement( args[0] );
+            if( qx.Class.isSubClassOf( args[0].constructor, jsava.lang.Object ) ) {
+                return this.removeElement( args[0] );
             } else {
                 var index = args[0];
 
