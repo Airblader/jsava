@@ -63,6 +63,7 @@ test:
   - test/./jsava/JsavaUtilsUnitTest.js
   - test/./jsava/util/LinkedListUnitTest.js
   - test/./jsava/util/ArrayListUnitTest.js
+  - test/./jsava/util/VectorUnitTest.js
   - test/./jsava/util/HashMapUnitTest.js
   - test/./jsava/util/ArraysUnitTest.js
   - test/./jsavaPrimitivesStubsUnitTest.js
