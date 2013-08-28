@@ -19,7 +19,6 @@ qx.Interface.define( 'jsava.util.Collection', {
          * @return {Boolean}
          */
         contains: function (obj) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         /**
@@ -39,7 +38,6 @@ qx.Interface.define( 'jsava.util.Collection', {
          * @return {Boolean}
          */
         add: function (elem) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         /**
@@ -47,7 +45,6 @@ qx.Interface.define( 'jsava.util.Collection', {
          * @return {Boolean}
          */
         remove: function (obj) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         /**
@@ -55,7 +52,6 @@ qx.Interface.define( 'jsava.util.Collection', {
          * @return {Boolean}
          */
         containsAll: function (collection) {
-            this.assertInterface( collection, jsava.util.Collection );
         },
 
         /**
@@ -63,7 +59,6 @@ qx.Interface.define( 'jsava.util.Collection', {
          * @return {Boolean}
          */
         addAll: function (collection) {
-            this.assertInterface( collection, jsava.util.Collection );
         },
 
         /**
@@ -71,7 +66,6 @@ qx.Interface.define( 'jsava.util.Collection', {
          * @return {Boolean}
          */
         removeAll: function (collection) {
-            this.assertInterface( collection, jsava.util.Collection );
         },
 
         /**
@@ -79,7 +73,6 @@ qx.Interface.define( 'jsava.util.Collection', {
          * @return {Boolean}
          */
         retainAll: function (collection) {
-            this.assertInterface( collection, jsava.util.Collection );
         },
 
         clear: function () {
@@ -90,7 +83,6 @@ qx.Interface.define( 'jsava.util.Collection', {
          * @return {Boolean}
          */
         equals: function (other) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
         /**
