@@ -1,6 +1,13 @@
 describe( 'Vector', function () {
     var Vector = jsava.util.Vector,
-        vector;
+        vector,
+
+        add = function () {
+            var args = Array.prototype.slice.call( arguments );
+            for( var i = 0; i < args.length; i++ ) {
+                vector.add( args[i] );
+            }
+        };
 
     beforeEach( function () {
         vector = new Vector();
@@ -16,8 +23,7 @@ describe( 'Vector', function () {
         vector.add( 10 );
         expect( vector.size() ).toBe( 1 );
 
-        vector.add( 20 );
-        vector.add( 30 );
+        add( 20, 30 );
         expect( vector.size() ).toBe( 3 );
     } );
 
@@ -29,8 +35,7 @@ describe( 'Vector', function () {
     } );
 
     it( 'clear() empties the vector', function () {
-        vector.add( 10 );
-        vector.add( 20 );
+        add( 10, 20 );
 
         expect( vector.isEmpty() ).toBe( false );
         vector.clear();
@@ -40,9 +45,7 @@ describe( 'Vector', function () {
     it( 'toArray() yields a correct array representation of the vector', function () {
         expect( vector.toArray() ).toEqual( [] );
 
-        vector.add( 10 );
-        vector.add( 20 );
-        vector.add( 30 );
+        add( 10, 20, 30 );
         expect( vector.toArray() ).toEqual( [10, 20, 30] );
     } );
 
@@ -53,14 +56,12 @@ describe( 'Vector', function () {
     } );
 
     it( 'toString() works', function () {
-        vector.add( 42 );
-        vector.add( 84 );
+        add( 42, 84 );
         expect( vector.toString() ).toBe( '[42, 84]' );
     } );
 
     it( 'copyInto() works', function () {
-        vector.add( 10 );
-        vector.add( 20 );
+        add( 10, 20 );
 
         var anArray = [];
         vector.copyInto( anArray );
@@ -98,8 +99,7 @@ describe( 'Vector', function () {
         } );
 
         it( 'works for specified position', function () {
-            vector.add( 10 );
-            vector.add( 30 );
+            add( 10, 30 );
 
             vector.add( 1, 20 );
             expect( vector.size() ).toBe( 3 );
@@ -111,9 +111,7 @@ describe( 'Vector', function () {
 
     describe( 'remove()', function () {
         it( 'works for index', function () {
-            vector.add( 10 );
-            vector.add( 20 );
-            vector.add( 30 );
+            add( 10, 20, 30 );
 
             var removedElement = vector.remove( 1 );
             expect( removedElement ).toBe( 20 );
@@ -145,10 +143,7 @@ describe( 'Vector', function () {
         } );
 
         it( 'works when shrinking', function () {
-            vector.add( 10 );
-            vector.add( 20 );
-            vector.add( 32 );
-            vector.add( 42 );
+            add( 10, 20, 32, 42 );
             vector.trimToSize();
 
             vector.setSize( 2 );
@@ -159,10 +154,7 @@ describe( 'Vector', function () {
 
     describe( 'contains()', function () {
         it( 'returns true if the object is contained', function () {
-            vector.add( 10 );
-            vector.add( 20 );
-            vector.add( 30 );
-
+            add( 10, 20, 30 );
             expect( vector.contains( 20 ) ).toBe( true );
         } );
 
@@ -173,10 +165,7 @@ describe( 'Vector', function () {
 
     describe( 'indexOf()', function () {
         it( 'returns the index for existing an existing element', function () {
-            vector.add( 10 );
-            vector.add( 20 );
-            vector.add( 30 );
-
+            add( 10, 20, 30 );
             expect( vector.indexOf( 20 ) ).toBe( 1 );
         } );
 
@@ -187,11 +176,7 @@ describe( 'Vector', function () {
 
     describe( 'lastIndexOf()', function () {
         it( 'returns the last index for an existing element', function () {
-            vector.add( 10 );
-            vector.add( 20 );
-            vector.add( 10 );
-            vector.add( 30 );
-
+            add( 10, 20, 10, 30 );
             expect( vector.lastIndexOf( 10 ) ).toBe( 2 );
         } );
 
@@ -202,22 +187,65 @@ describe( 'Vector', function () {
 
     describe( 'firstElement() and lastElement()', function () {
         it( 'return the correct elements', function () {
-            vector.add( 10 );
-            vector.add( 20 );
-            vector.add( 30 );
+            add( 10, 20, 30 );
 
             expect( vector.firstElement() ).toBe( 10 );
             expect( vector.lastElement() ).toBe( 30 );
         } );
     } );
 
+    describe( 'elements()', function () {
+        it( 'works', function () {
+            var enumerator = vector.elements();
+            expect( enumerator.hasMoreElements() ).toBe( false );
+
+            add( 10, 20 );
+
+            expect( enumerator.hasMoreElements() ).toBe( true );
+            expect( enumerator.nextElement() ).toBe( 10 );
+            expect( enumerator.hasMoreElements() ).toBe( true );
+            expect( enumerator.nextElement() ).toBe( 20 );
+
+            expect( enumerator.hasMoreElements() ).toBe( false );
+        } );
+    } );
+
+    describe( 'elementAt()', function () {
+        it( 'works', function () {
+            add( 10, 20, 30 );
+            expect( vector.elementAt( 1 ) ).toBe( 20 );
+        } );
+    } );
+
+    describe( 'setElementAt()', function () {
+        it( 'works', function () {
+            add( 10, 20, 30 );
+
+            vector.setElementAt( 42, 1 );
+            expect( vector.get( 1 ) ).toBe( 42 );
+        } );
+    } );
+
+    describe( 'insertElementAt()', function () {
+        it( 'works', function () {
+            add( 10, 30 );
+
+            vector.insertElementAt( 20, 1 );
+            expect( vector.toArray() ).toEqual( [10, 20, 30] );
+        } );
+    } );
+
+    describe( 'removeElementAt()', function () {
+        it( 'works', function () {
+            add( 10, 20, 30 );
+
+            vector.removeElementAt( 1 );
+            expect( vector.toArray() ).toEqual( [10, 30] );
+        } );
+    } );
+
     /*
      TODO Methods that still need tested:
-     elements
-     elementAt
-     setElementAt
-     removeElementAt
-     insertElementAt
      addElement
      removeElement
      removeAllElements
@@ -229,7 +257,6 @@ describe( 'Vector', function () {
      removeAll
      retainAll
      equals
-     hashCode
      subList
      removeRange */
 } );
