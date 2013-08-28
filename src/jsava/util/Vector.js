@@ -140,7 +140,7 @@ qx.Class.define( 'jsava.util.Vector', {
                     },
 
                     nextElement: function () {
-                        if( count < this.elementCount ) {
+                        if( this.count < __thisVector.elementCount ) {
                             return __thisVector.elementData[this.count++];
                         }
 
