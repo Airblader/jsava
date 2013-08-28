@@ -157,15 +157,64 @@ describe( 'Vector', function () {
         } );
     } );
 
+    describe( 'contains()', function () {
+        it( 'returns true if the object is contained', function () {
+            vector.add( 10 );
+            vector.add( 20 );
+            vector.add( 30 );
+
+            expect( vector.contains( 20 ) ).toBe( true );
+        } );
+
+        it( 'returns false if the object is not contained', function () {
+            expect( vector.contains( 42 ) ).toBe( false );
+        } );
+    } );
+
+    describe( 'indexOf()', function () {
+        it( 'returns the index for existing an existing element', function () {
+            vector.add( 10 );
+            vector.add( 20 );
+            vector.add( 30 );
+
+            expect( vector.indexOf( 20 ) ).toBe( 1 );
+        } );
+
+        it( 'returns -1 if the element is not contained', function () {
+            expect( vector.indexOf( 42 ) ).toBe( -1 );
+        } );
+    } );
+
+    describe( 'lastIndexOf()', function () {
+        it( 'returns the last index for an existing element', function () {
+            vector.add( 10 );
+            vector.add( 20 );
+            vector.add( 10 );
+            vector.add( 30 );
+
+            expect( vector.lastIndexOf( 10 ) ).toBe( 2 );
+        } );
+
+        it( 'returns -1 if the element is not contained', function () {
+            expect( vector.lastIndexOf( 42 ) ).toBe( -1 );
+        } );
+    } );
+
+    describe( 'firstElement() and lastElement()', function () {
+        it( 'return the correct elements', function () {
+            vector.add( 10 );
+            vector.add( 20 );
+            vector.add( 30 );
+
+            expect( vector.firstElement() ).toBe( 10 );
+            expect( vector.lastElement() ).toBe( 30 );
+        } );
+    } );
+
     /*
-    TODO Methods that still need tested:
+     TODO Methods that still need tested:
      elements
-     contains
-     indexOf
-     lastIndexOf
      elementAt
-     firstElement
-     lastElement
      setElementAt
      removeElementAt
      insertElementAt
