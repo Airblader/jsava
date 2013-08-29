@@ -347,8 +347,7 @@ qx.Class.define( 'jsava.util.Vector', {
                 return vector;
             } catch( e ) {
                 if( qx.Class.isSubClassOf( e.constructor, jsava.lang.CloneNotSupportedException ) ) {
-                    // TODO throw InternalError
-                    throw e;
+                    throw new jsava.lang.InternalError();
                 }
 
                 throw e;
