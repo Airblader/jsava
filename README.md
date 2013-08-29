@@ -113,6 +113,11 @@ try {
 }
 ```
 
+### Testing
+
+1. Every public method of a class shall have at least one test.
+2. Every non-error use-case of a method shall be tested (error-cases are a nice plus, though).
+
 ### Comments
 
 1. A `TODO` comment may never be empty; it should always contain what the comment is about.
