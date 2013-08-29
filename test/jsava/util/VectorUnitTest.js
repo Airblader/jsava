@@ -366,8 +366,7 @@ describe( 'Vector', function () {
     } );
 
     describe( 'clone()', function () {
-        // TODO fix test
-        xit( 'works', function () {
+        it( 'works', function () {
             add( 10, 20, 30 );
 
             var cloned = vector.clone();

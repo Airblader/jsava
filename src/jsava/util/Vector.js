@@ -343,6 +343,8 @@ qx.Class.define( 'jsava.util.Vector', {
                 var vector = this.base( arguments );
                 vector.elementData = jsava.util.Arrays.copyOf( this.elementData, this.elementCount );
                 vector.modCount = 0;
+
+                return vector;
             } catch( e ) {
                 if( qx.Class.isSubClassOf( e.constructor, jsava.lang.CloneNotSupportedException ) ) {
                     // TODO throw InternalError
