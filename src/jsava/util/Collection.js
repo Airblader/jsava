@@ -3,20 +3,20 @@ qx.Interface.define( 'jsava.util.Collection', {
 
     members: {
         /**
-         * @return {Integer}
+         * @returns {Integer}
          */
         size: function () {
         },
 
         /**
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         isEmpty: function () {
         },
 
         /**
          * @param {jsava.lang.Object} obj
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         contains: function (obj) {
         },
@@ -28,49 +28,49 @@ qx.Interface.define( 'jsava.util.Collection', {
         },
 
         /**
-         * @return {jsava.lang.Object[]}
+         * @returns {jsava.lang.Object[]}
          */
         toArray: function () {
         },
 
         /**
          * @param elem
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         add: function (elem) {
         },
 
         /**
          * @param obj
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         remove: function (obj) {
         },
 
         /**
          * @param {jsava.util.Collection} collection
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         containsAll: function (collection) {
         },
 
         /**
          * @param {jsava.util.Collection} collection
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         addAll: function (collection) {
         },
 
         /**
          * @param {jsava.util.Collection} collection
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         removeAll: function (collection) {
         },
 
         /**
          * @param {jsava.util.Collection} collection
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         retainAll: function (collection) {
         },
@@ -80,13 +80,13 @@ qx.Interface.define( 'jsava.util.Collection', {
 
         /**
          * @param {jsava.lang.Object} other
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         equals: function (other) {
         },
 
         /**
-         * @return {Integer}
+         * @returns {Integer}
          */
         hashCode: function () {
         }

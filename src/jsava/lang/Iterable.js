@@ -3,7 +3,7 @@ qx.Interface.define( 'jsava.lang.Iterable', {
         /**
          * Returns an iterator
          *
-         * @return {jsava.util.Iterator} an iterator
+         * @returns {jsava.util.Iterator} an iterator
          */
         iterator: function () {
         }

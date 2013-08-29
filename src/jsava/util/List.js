@@ -3,72 +3,72 @@ qx.Interface.define( 'jsava.util.List', {
 
     members: {
         /**
-         * @return {Number}
+         * @returns {Number}
          */
         size: function () {
         },
 
         /**
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         isEmpty: function () {
         },
 
         /**
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         contains: function (obj) {
         },
 
         /**
-         * @return {jsava.util.Iterator}
+         * @returns {jsava.util.Iterator}
          */
         iterator: function () {
         },
 
         /**
-         * @return {jsava.lang.Object[]}
+         * @returns {jsava.lang.Object[]}
          */
         toArray: function () {
         },
 
         /**
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         add: function () {
         },
 
         /**
          * @param {jsava.lang.Object} obj
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         remove: function (obj) {
         },
 
         /**
          * @param {jsava.util.Collection} collection
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         containsAll: function (collection) {
         },
 
         /**
          * @param {jsava.util.Collection} collection
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         addAll: function (collection) {
         },
 
         /**
          * @param {jsava.util.Collection} collection
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         removeAll: function (collection) {
         },
 
         /**
          * @param {jsava.util.Collection} collection
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         retainAll: function (collection) {
         },
@@ -78,13 +78,13 @@ qx.Interface.define( 'jsava.util.List', {
 
         /**
          * @param {jsava.lang.Object} other
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         equals: function (other) {
         },
 
         /**
-         * @return {Number}
+         * @returns {Number}
          */
         hashCode: function () {
         },
@@ -104,20 +104,20 @@ qx.Interface.define( 'jsava.util.List', {
 
         /**
          * @param {jsava.lang.Object} obj
-         * @return {Number}
+         * @returns {Number}
          */
         indexOf: function (obj) {
         },
 
         /**
          * @param {jsava.lang.Object} obj
-         * @return {Number}
+         * @returns {Number}
          */
         lastIndexOf: function (obj) {
         },
 
         /**
-         * @return {jsava.util.ListIterator}
+         * @returns {jsava.util.ListIterator}
          */
         listIterator: function () {
         },
@@ -125,7 +125,7 @@ qx.Interface.define( 'jsava.util.List', {
         /**
          * @param {Number} fromIndex
          * @param {Number} toIndex
-         * @return {jsava.util.List}
+         * @returns {jsava.util.List}
          */
         subList: function (fromIndex, toIndex) {
         }

@@ -26,7 +26,7 @@ qx.Class.define( 'jsava.lang.String', {
          * @param {Number} targetOffset
          * @param {Number} targetCount
          * @param {Number} fromIndex
-         * @return {Number}
+         * @returns {Number}
          */
         lastIndexOf: function (source, sourceOffset, sourceCount, target, targetOffset, targetCount, fromIndex) {
             // TODO implement
@@ -59,7 +59,7 @@ qx.Class.define( 'jsava.lang.String', {
 
         /**
          * @public
-         * @return {jsava.lang.String[]|String[]}
+         * @returns {jsava.lang.String[]|String[]}
          */
         toCharArray: function () {
             // TODO implement
@@ -68,7 +68,7 @@ qx.Class.define( 'jsava.lang.String', {
 
         /**
          * @public
-         * @return {Number}
+         * @returns {Number}
          */
         length: function () {
             return this.count;

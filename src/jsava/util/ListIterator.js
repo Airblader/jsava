@@ -3,7 +3,7 @@ qx.Interface.define( 'jsava.util.ListIterator', {
 
     members: {
         /**
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         hasNext: function () {
         },
@@ -12,7 +12,7 @@ qx.Interface.define( 'jsava.util.ListIterator', {
         },
 
         /**
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         hasPrevious: function () {
         },
@@ -21,13 +21,13 @@ qx.Interface.define( 'jsava.util.ListIterator', {
         },
 
         /**
-         * @return {Number}
+         * @returns {Number}
          */
         nextIndex: function () {
         },
 
         /**
-         * @return {Number}
+         * @returns {Number}
          */
         previousIndex: function () {
         },

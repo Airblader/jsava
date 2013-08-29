@@ -10,7 +10,7 @@ qx.Class.define( 'jsava.lang.Character', {
          * @static
          * @param {jsava.lang.String[]|String[]} seq
          * @param {Number} index
-         * @return {Number}
+         * @returns {Number}
          */
         codePointBefore: function (seq, index) {
             // TODO implement
@@ -22,7 +22,7 @@ qx.Class.define( 'jsava.lang.Character', {
          * @static
          * @param {jsava.lang.String[]|String[]} a
          * @param {Number} index
-         * @return {Number}
+         * @returns {Number}
          */
         codePointAt: function (a, index) {
             // TODO implement
@@ -35,7 +35,7 @@ qx.Class.define( 'jsava.lang.Character', {
          * @param {String[]|jsava.lang.String[]} a
          * @param {Number} offset
          * @param {Number} count
-         * @return {Number}
+         * @returns {Number}
          */
         codePointCountImpl: function (a, offset, count) {
             // TODO implement
@@ -50,7 +50,7 @@ qx.Class.define( 'jsava.lang.Character', {
          * @param {Number} count
          * @param {Number} index
          * @param {Number} codePointOffset
-         * @return {Number}
+         * @returns {Number}
          */
         offsetByCodePointsImpl: function (a, start, count, index, codePointOffset) {
             // TODO implement
@@ -61,7 +61,7 @@ qx.Class.define( 'jsava.lang.Character', {
          * @public
          * @static
          * @param {Number} codePoint
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         isValidCodePoint: function (codePoint) {
             // TODO implement

@@ -22,27 +22,27 @@ qx.Interface.define( "jsava.util.Map", {
 
     members: {
         /**
-         * @return {Integer}
+         * @returns {Integer}
          */
         size: function () {
         },
 
         /**
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         isEmpty: function () {
         },
 
         /**
          * @param {jsava.lang.Object} key
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         containsKey: function (key) {
         },
 
         /**
          * @param {jsava.lang.Object} value
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         containsValue: function (value) {
         },
@@ -65,32 +65,32 @@ qx.Interface.define( "jsava.util.Map", {
         },
 
         /**
-         * @return {jsava.util.Set}
+         * @returns {jsava.util.Set}
          */
         keySet: function () {
         },
 
         /**
-         * @return {jsava.util.Collection}
+         * @returns {jsava.util.Collection}
          */
         values: function () {
         },
 
         /**
-         * @return {jsava.util.Set}
+         * @returns {jsava.util.Set}
          */
         entrySet: function () {
         },
 
         /**
          * @param other
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         equals: function (other) {
         },
 
         /**
-         * @return {Integer}
+         * @returns {Integer}
          */
         hashCode: function () {
         }

@@ -1,13 +1,13 @@
 qx.Interface.define( 'jsava.util.Iterator', {
     members: {
         /**
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         hasNext: function () {
         },
 
         /**
-         * @return {*}
+         * @returns {*}
          */
         next: function () {
         },

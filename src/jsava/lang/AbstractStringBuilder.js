@@ -20,7 +20,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
         /**
          * @protected
          * @param {Number} x
-         * @return {Number}
+         * @returns {Number}
          */
         stringSizeOfLong: function (x) {
             // Note that Java uses '19' here, but in Javascript we cannot go that high
@@ -53,7 +53,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /**
          * @public
-         * @return {Number}
+         * @returns {Number}
          */
         capacity: function () {
             return this.value.length;
@@ -123,7 +123,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
         /**
          * @public
          * @param {Number} index
-         * @return {Number}
+         * @returns {Number}
          */
         codePointAt: function (index) {
             if( index < 0 || index >= this.count ) {
@@ -136,7 +136,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
         /**
          * @public
          * @param {Number} index
-         * @return {Number}
+         * @returns {Number}
          */
         codePointBefore: function (index) {
             var i = index - 1;
@@ -151,7 +151,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @public
          * @param {Number} beginIndex
          * @param {Number} endIndex
-         * @return {Number}
+         * @returns {Number}
          */
         codePointCount: function (beginIndex, endIndex) {
             if( beginIndex < 0 || endIndex > this.count || beginIndex > endIndex ) {
@@ -165,7 +165,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @public
          * @param {Number} index
          * @param {Number} codePointOffset
-         * @return {Number}
+         * @returns {Number}
          */
         offsetByCodePoints: function (index, codePointOffset) {
             if( index < 0 || index > this.count ) {
@@ -211,7 +211,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /**
          * @public
-         * @return {jsava.lang.AbstractStringBuilder}
+         * @returns {jsava.lang.AbstractStringBuilder}
          */
         append: function () {
             // TODO implement (many signatures!)
@@ -221,7 +221,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @public
          * @param {Number} start
          * @param {Number} end
-         * @return {jsava.lang.AbstractStringBuilder}
+         * @returns {jsava.lang.AbstractStringBuilder}
          */
         // TODO 'delete' not allowed because it's a reserved keyword
         delete_: function (start, end) {
@@ -246,7 +246,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
         /**
          * @public
          * @param {Number} codePoint
-         * @return {jsava.lang.AbstractStringBuilder}
+         * @returns {jsava.lang.AbstractStringBuilder}
          */
         appendCodePoint: function (codePoint) {
             if( !jsava.lang.Character.isValidCodePoint( codePoint ) ) {
@@ -273,7 +273,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
         /**
          * @public
          * @param {Number} index
-         * @return {jsava.lang.AbstractStringBuilder}
+         * @returns {jsava.lang.AbstractStringBuilder}
          */
         deleteCharAt: function (index) {
             if( index < 0 || index >= this.count ) {
@@ -291,7 +291,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @param {Number} start
          * @param {Number} end
          * @param {jsava.lang.String|String} str
-         * @return {jsava.lang.AbstractStringBuilder}
+         * @returns {jsava.lang.AbstractStringBuilder}
          */
         replace: function (start, end, str) {
             if( start < 0 ) {
@@ -323,7 +323,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /**
          * @public
-         * @return {String|jsava.lang.String}
+         * @returns {String|jsava.lang.String}
          */
         substring: function () {
             var args = Array.prototype.slice.call( arguments );
@@ -352,7 +352,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
          * @public
          * @param {Number} start
          * @param {Number} end
-         * @return {jsava.lang.CharSequence}
+         * @returns {jsava.lang.CharSequence}
          */
         subSequence: function (start, end) {
             return this.substring( start, end );
@@ -360,7 +360,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /**
          * @public
-         * @return {jsava.lang.AbstractStringBuilder}
+         * @returns {jsava.lang.AbstractStringBuilder}
          */
         insert: function () {
             // TODO implement (several signatures)
@@ -368,7 +368,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /**
          * @public
-         * @return {Number}
+         * @returns {Number}
          */
         indexOf: function () {
             // TODO implement (several signatures)
@@ -376,7 +376,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /**
          * @public
-         * @return {Number}
+         * @returns {Number}
          */
         lastIndexOf: function () {
             var args = Array.prototype.slice.call( arguments );
@@ -393,7 +393,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /**
          * @public
-         * @return {jsava.lang.AbstractStringBuilder}
+         * @returns {jsava.lang.AbstractStringBuilder}
          */
         reverse: function () {
             // TODO implement
@@ -406,7 +406,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
 
         /**
          * @protected
-         * @return {String[]}
+         * @returns {String[]}
          */
         getValue: function () {
             return this.value;

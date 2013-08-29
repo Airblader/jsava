@@ -3,21 +3,21 @@ qx.Class.define( 'jsava.lang.Object', {
 
     members: {
         /**
-         * @return {String}
+         * @returns {String}
          */
         getClass: function () {
             // TODO return Class object
             throw new jsava.lang.UnsupportedOperationException();
         },
 
-        /** @return {String} */
+        /** @returns {String} */
         getClassName: function () {
             // TODO remove this method and replace with getClass().getName()
             return this.name;
         },
 
         /**
-         * @return {Number}
+         * @returns {Number}
          */
         hashCode: function () {
             var hashCode = 0;
@@ -36,7 +36,7 @@ qx.Class.define( 'jsava.lang.Object', {
 
         /**
          * @param other
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         equals: function (other) {
             return this === other;
@@ -60,7 +60,7 @@ qx.Class.define( 'jsava.lang.Object', {
         },
 
         /**
-         * @return {String}
+         * @returns {String}
          */
         toString: function () {
             return this.getClassName() + '@' + this.hashCode().toString( 16 );

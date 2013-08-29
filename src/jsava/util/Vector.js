@@ -106,7 +106,7 @@ qx.Class.define( 'jsava.util.Vector', {
 
         /**
          * @public
-         * @return {Number}
+         * @returns {Number}
          */
         capacity: function () {
             return this.elementData.length;
@@ -122,7 +122,7 @@ qx.Class.define( 'jsava.util.Vector', {
 
         /**
          * @public
-         * @return {jsava.util.Enumeration}
+         * @returns {jsava.util.Enumeration}
          */
         elements: function () {
             var __thisVector = this;
@@ -216,7 +216,7 @@ qx.Class.define( 'jsava.util.Vector', {
         /**
          * @public
          * @param {Number} index
-         * @return {jsava.lang.Object}
+         * @returns {jsava.lang.Object}
          */
         elementAt: function (index) {
             if( index >= this.elementCount ) {
@@ -228,7 +228,7 @@ qx.Class.define( 'jsava.util.Vector', {
 
         /**
          * @public
-         * @return {jsava.lang.Object}
+         * @returns {jsava.lang.Object}
          */
         firstElement: function () {
             if( this.elementCount === 0 ) {
@@ -240,7 +240,7 @@ qx.Class.define( 'jsava.util.Vector', {
 
         /**
          * @public
-         * @return {jsava.lang.Object}
+         * @returns {jsava.lang.Object}
          */
         lastElement: function () {
             if( this.elementCount === 0 ) {
@@ -315,7 +315,7 @@ qx.Class.define( 'jsava.util.Vector', {
         /**
          * @public
          * @param {jsava.lang.Object} obj
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         removeElement: function (obj) {
             this.modCount++;

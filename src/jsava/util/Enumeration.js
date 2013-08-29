@@ -1,7 +1,7 @@
 qx.Interface.define( 'jsava.util.Enumeration', {
     /**
      * @protected
-     * @return {Boolean}
+     * @returns {Boolean}
      */
     hasMoreElements: function () {
     },

@@ -3,7 +3,7 @@ qx.Interface.define( 'jsava.lang.Comparable', {
         /**
          * @public
          * @param other
-         * @return {Number}
+         * @returns {Number}
          */
         compareTo: function (other) {
         }
