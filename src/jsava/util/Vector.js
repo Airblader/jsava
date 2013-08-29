@@ -481,8 +481,7 @@ qx.Class.define( 'jsava.util.Vector', {
         },
 
         subList: function (fromIndex, toIndex) {
-            // TODO implement
-            throw new jsava.lang.UnsupportedOperationException();
+            return jsava.util.Collections.synchronizedList( this.base( arguments, fromIndex, toIndex ), this );
         },
 
         removeRange: function (fromIndex, toIndex) {

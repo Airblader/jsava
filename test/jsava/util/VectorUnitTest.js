@@ -385,12 +385,13 @@ describe( 'Vector', function () {
     } );
 
     describe( 'subList()', function () {
-        // TODO not yet implemented
-        xit( 'works', function () {
+        it( 'works', function () {
             add( 10, 20, 30, 40, 50, 60 );
 
             var subList = vector.subList( 1, 5 );
-            expect( subList.toArray() ).toEqual( [10, 60] );
+            expect( subList.toArray() ).toEqual( [20, 30, 40, 50] );
         } );
     } );
+
+    // TODO check methods for second signatures that may be untested
 } );
