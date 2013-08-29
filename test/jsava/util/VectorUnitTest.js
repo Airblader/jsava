@@ -375,7 +375,13 @@ describe( 'Vector', function () {
         } );
     } );
 
-    /*
-     TODO Methods that still need tested:
-     subList */
+    describe( 'subList()', function () {
+        // TODO not yet implemented
+        xit( 'works', function () {
+            add( 10, 20, 30, 40, 50, 60 );
+
+            var subList = vector.subList( 1, 5 );
+            expect( subList.toArray() ).toEqual( [10, 60] );
+        } );
+    } );
 } );
