@@ -25,6 +25,7 @@ Installation
   * (Only needed for coverage analysis) [nodejs](http://nodejs.org/) and the [node-coverage](https://github.com/piuccio/node-coverage) module
 3. Execute `tools/compile.pl` to build the project.
 4. To run the tests you can either open the `SpecRunner.html` in a browser or use the `tests.jstd` file for jsTestDriver.
+Both files will be generated in the previous step.
 
 
 Usage

@@ -182,7 +182,7 @@ foreach( @compileOrder ) {
     $testsSourceFilesList .= "  - src/$filename\n";
 }
 
-my @testFiles = split/\n/, `find . -type f -name "*UnitTest.js" -print`;
+my @testFiles = split/\n/, `find * -type f -name "*UnitTest.js" -print`;
 my $testsTestFilesList = "";
 foreach( @testFiles ) {
     $testsTestFilesList .= "  - test/$_\n";
@@ -192,3 +192,17 @@ $testsContent =~ s/\Q__SOURCEFILES__\E/$testsSourceFilesList/;
 $testsContent =~ s/\Q__TESTFILES__\E/$testsTestFilesList/;
 
 system( "echo \"$testsContent\" >> ../tests.jstd" );
+
+# Generate SpecRunner.html
+system( "rm -f ../SpecRunner.html" );
+my $specRunnerContent = `cat ../tools/SpecRunner.html.template`;
+
+my $specsList = "";
+foreach( @testFiles ) {
+    $specsList .= "    <script type=\"text/javascript\" src=\"test/$_\"></script>\n";
+}
+
+$specRunnerContent =~ s/\Q__SPECS__\E/$specsList/;
+$specRunnerContent =~ s/\Q__JSAVASRC__\E/jsava.min.js/; # TODO add parameter to use non-minified version
+
+system( "echo \"$specRunnerContent\" >> ../SpecRunner.html" );
