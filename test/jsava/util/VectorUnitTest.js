@@ -7,6 +7,16 @@ describe( 'Vector', function () {
             for( var i = 0; i < args.length; i++ ) {
                 vector.add( args[i] );
             }
+        },
+
+        toCollection = function () {
+            var args = Array.prototype.slice.call( arguments ),
+                collection = new ArrayList();
+            for( var i = 0; i < args.length; i++ ) {
+                collection.add( args[i] );
+            }
+
+            return collection;
         };
 
     beforeEach( function () {
@@ -32,14 +42,6 @@ describe( 'Vector', function () {
 
         vector.add( 10 );
         expect( vector.isEmpty() ).toBe( false );
-    } );
-
-    it( 'clear() empties the vector', function () {
-        add( 10, 20 );
-
-        expect( vector.isEmpty() ).toBe( false );
-        vector.clear();
-        expect( vector.isEmpty() ).toBe( true );
     } );
 
     it( 'toArray() yields a correct array representation of the vector', function () {
@@ -244,19 +246,136 @@ describe( 'Vector', function () {
         } );
     } );
 
+    describe( 'addElement()', function () {
+        it( 'works', function () {
+            vector.add( 10 );
+            expect( vector.get( 0 ) ).toBe( 10 );
+
+            vector.add( 20 );
+            expect( vector.get( 1 ) ).toBe( 20 );
+            expect( vector.size() ).toBe( 2 );
+        } );
+    } );
+
+    describe( 'removeElement()', function () {
+        it( 'works', function () {
+            add( 10, 20, 30 );
+
+            vector.removeElement( 20 );
+            expect( vector.size() ).toBe( 2 );
+            expect( vector.toArray() ).toEqual( [10, 30] );
+        } );
+    } );
+
+    describe( 'removeAllElements()', function () {
+        it( 'works', function () {
+            add( 10, 20, 30 );
+            expect( vector.isEmpty() ).toBe( false );
+
+            vector.removeAllElements();
+            expect( vector.isEmpty() ).toBe( true );
+        } );
+    } );
+
+    describe( 'containsAll()', function () {
+        it( 'works', function () {
+            add( 10, 20, 30, 42 );
+
+            expect( vector.containsAll( toCollection( 20, 42 ) ) ).toBe( true );
+            expect( vector.containsAll( toCollection( 100 ) ) ).toBe( false );
+        } );
+    } );
+
+    describe( 'addAll()', function () {
+        it( 'works', function () {
+            vector.addAll( toCollection( 10, 20, 30 ) );
+            expect( vector.size() ).toBe( 3 );
+            expect( vector.toArray() ).toEqual( [10, 20, 30] );
+        } );
+    } );
+
+    describe( 'removeAll()', function () {
+        it( 'works', function () {
+            add( 10, 20, 42, 30 );
+
+            vector.removeAll( toCollection( 20, 30 ) );
+            expect( vector.size() ).toBe( 2 );
+            expect( vector.toArray() ).toEqual( [10, 42] );
+        } );
+    } );
+
+    describe( 'retainAll()', function () {
+        it( 'works', function () {
+            add( 10, 20, 42, 30 );
+
+            vector.retainAll( toCollection( 20, 30 ) );
+            expect( vector.size() ).toBe( 2 );
+            expect( vector.toArray() ).toEqual( [20, 30] );
+        } );
+    } );
+
+    describe( 'removeRange()', function () {
+        it( 'works', function () {
+            add( 10, 20, 30, 40, 50 );
+
+            vector.removeRange( 1, 4 );
+            expect( vector.size() ).toBe( 2 );
+            expect( vector.toArray() ).toEqual( [10, 50] );
+        } );
+    } );
+
+    describe( 'get()', function () {
+        it( 'works', function () {
+            add( 10, 20, 30 );
+
+            expect( vector.get( 1 ) ).toBe( 20 );
+        } );
+    } );
+
+    describe( 'set()', function () {
+        it( 'works', function () {
+            add( 10, 42, 30 );
+
+            var oldValue = vector.set( 1, 20 );
+            expect( oldValue ).toBe( 42 );
+            expect( vector.get( 1 ) ).toBe( 20 );
+        } );
+    } );
+
+    describe( 'equals()', function () {
+        it( 'returns true if vectors are equal', function () {
+            add( 10, 20 );
+
+            var other = new Vector( 100 );
+            other.add( 10 );
+            other.add( 20 );
+
+            expect( vector.equals( other ) ).toBe( true );
+            expect( other.equals( vector ) ).toBe( true );
+        } );
+
+        it( 'returns false if vectors are not equal', function () {
+            add( 10, 20 );
+
+            var other = new Vector();
+            other.add( 10 );
+
+            expect( vector.equals( other ) ).toBe( false );
+            expect( other.equals( vector ) ).toBe( false );
+        } );
+    } );
+
+    describe( 'clone()', function () {
+        // TODO fix test
+        xit( 'works', function () {
+            add( 10, 20, 30 );
+
+            var cloned = vector.clone();
+            expect( vector.equals( cloned ) ).toBe( true );
+        } );
+    } );
+
     /*
      TODO Methods that still need tested:
-     addElement
-     removeElement
-     removeAllElements
-     clone
-     get
-     set
-     containsAll
-     addAll
-     removeAll
-     retainAll
-     equals
-     subList
-     removeRange */
+     subList */
 } );
