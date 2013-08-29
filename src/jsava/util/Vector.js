@@ -424,18 +424,41 @@ qx.Class.define( 'jsava.util.Vector', {
             return this.base( arguments, collection );
         },
 
-        addAll: function (collection) {
-            // TODO second signature
+        addAll: function () {
+            var args = Array.prototype.slice.call( arguments ),
+                collection, array, numNew;
+            if( args.length === 1 ) {
+                collection = args[0];
 
-            this.modCount++;
-            var array = collection.toArray(),
+                this.modCount++;
+                array = collection.toArray();
                 numNew = array.length;
 
-            this.ensureCapacityHelper( this.elementCount + numNew );
-            jsava.lang.System.arraycopy( array, 0, this.elementData, this.elementCount, numNew );
-            this.elementCount += numNew;
+                this.ensureCapacityHelper( this.elementCount + numNew );
+                jsava.lang.System.arraycopy( array, 0, this.elementData, this.elementCount, numNew );
+                this.elementCount += numNew;
 
-            return numNew !== 0;
+                return numNew !== 0;
+            } else {
+                var index = args[0];
+                collection = args[1];
+
+                this.modCount++;
+                array = collection.toArray();
+                numNew = array.length;
+
+                this.ensureCapacityHelper( this.elementCount + numNew );
+
+                var numMoved = this.elementCount - index;
+                if( numMoved > 0 ) {
+                    jsava.lang.System.arraycopy( this.elementData, index, this.elementData, index + numNew, numMoved );
+                }
+
+                jsava.lang.System.arraycopy( array, 0, this.elementData, index, numNew );
+                this.elementCount += numNew;
+
+                return numNew !== 0;
+            }
         },
 
         removeAll: function (collection) {

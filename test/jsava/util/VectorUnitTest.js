@@ -287,10 +287,20 @@ describe( 'Vector', function () {
     } );
 
     describe( 'addAll()', function () {
-        it( 'works', function () {
+        it( 'works without passing an index', function () {
+            vector.add( 42 );
+
             vector.addAll( toCollection( 10, 20, 30 ) );
-            expect( vector.size() ).toBe( 3 );
-            expect( vector.toArray() ).toEqual( [10, 20, 30] );
+            expect( vector.size() ).toBe( 4 );
+            expect( vector.toArray() ).toEqual( [42, 10, 20, 30] );
+        } );
+
+        it( 'works with passing an index', function () {
+            add( 42, 84 );
+
+            vector.addAll( 1, toCollection( 10, 20 ) );
+            expect( vector.size() ).toBe( 4 );
+            expect( vector.toArray() ).toEqual( [42, 10, 20, 84] );
         } );
     } );
 
