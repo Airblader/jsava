@@ -13,6 +13,8 @@
     <script type="text/javascript" src="lib/qx-oo-3.0.min.js"></script>
     <script type="text/javascript" src="__JSAVASRC__"></script>
 
+    <script type="text/javascript" src="tools/checkSuperConstructorCalled.js"></script>
+
     <!-- include spec files here... -->
 __SPECS__
 
