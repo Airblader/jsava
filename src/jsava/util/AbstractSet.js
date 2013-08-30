@@ -6,6 +6,7 @@ qx.Class.define( 'jsava.util.AbstractSet', {
 
     /** @protected */
     construct: function () {
+        this.base( arguments );
     },
 
     members: {

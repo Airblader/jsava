@@ -3,13 +3,14 @@ qx.Class.define( 'jsava.util.LinkedList', {
     implement: jsava.util.List,
 
     construct: function () {
+        this.base( arguments );
+
         this.header = new jsava.util.LinkedList.Entry( null, null, null );
         this.header.next = this.header;
         this.header.previous = this.header;
         var args = Array.prototype.slice.call( arguments );
-        if( args.length !== 0 &&
-            qx.Class.implementsInterface( args[0], jsava.util.Collection ) ) {
-            this.addAll( arg )
+        if( args.length !== 0 && qx.Class.implementsInterface( args[0], jsava.util.Collection ) ) {
+            this.addAll( args[0] );
         }
     },
 

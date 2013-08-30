@@ -18,6 +18,8 @@ qx.Class.define( 'jsava.util.SubList', {
             throw new jsava.util.IllegalArgumentException( 'fromIndex(' + fromIndex + ') > toIndex(' + toIndex + ')' );
         }
 
+        this.base( arguments );
+
         this.l = list;
         this.offset = fromIndex;
         this.__size = toIndex - fromIndex;

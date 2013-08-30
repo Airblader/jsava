@@ -3,6 +3,8 @@ qx.Class.define( 'jsava.lang.Throwable', {
     implement: [jsava.io.Serializable],
 
     construct: function () {
+        this.base( arguments );
+
         var args = Array.prototype.slice.call( arguments );
         this.fillInStackTrace();
         this.__cause = this;

@@ -3,6 +3,8 @@ qx.Class.define( 'jsava.util.HashMap', {
     implement: [jsava.util.Map, jsava.io.Serializable, jsava.lang.Cloneable],
 
     construct: function () {
+        this.base( arguments );
+
         var args = Array.prototype.slice.call( arguments ),
             initialCapacity = this.self( arguments ).DEFAULT_INITIAL_CAPACITY,
             loadFactor = this.self( arguments ).DEFAULT_LOAD_FACTOR;

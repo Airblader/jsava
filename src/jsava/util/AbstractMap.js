@@ -6,6 +6,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
     /** @protected */
     construct: function () {
+        this.base( arguments );
     },
 
     statics: {
