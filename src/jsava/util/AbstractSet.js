@@ -19,7 +19,7 @@ qx.Class.define( 'jsava.util.AbstractSet', {
                 return false;
             }
 
-            if( !qx.Class.implementsInterface( obj, jsava.util.Set ) ) {
+            if( !qx.Class.hasInterface( obj.constructor, jsava.util.Set ) ) {
                 return false;
             }
 

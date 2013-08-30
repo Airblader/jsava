@@ -4,7 +4,7 @@ qx.Class.define( 'jsava.util.Vector', {
 
     construct: function () {
         var args = Array.prototype.slice.call( arguments );
-        if( args.length === 1 && qx.Class.implementsInterface( args[0], jsava.util.Collection ) ) {
+        if( args.length === 1 && qx.Class.hasInterface( args[0].constructor, jsava.util.Collection ) ) {
             /** @type jsava.util.Collection */
             var collection = args[0];
 

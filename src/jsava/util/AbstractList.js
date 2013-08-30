@@ -107,7 +107,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
         },
 
         subList: function (fromIndex, toIndex) {
-            return (qx.Interface.objectImplements( this, jsava.util.RandomAccess ) ?
+            return (qx.Class.hasInterface( this.constructor, jsava.util.RandomAccess ) ?
                 new jsava.util.RandomAccessSubList( this, fromIndex, toIndex ) :
                 new jsava.util.SubList( this, fromIndex, toIndex ))
         },
@@ -121,7 +121,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
                 return false;
             }
 
-            if( !qx.Interface.objectImplements( other, jsava.util.List ) ) {
+            if( !qx.Class.hasInterface( other.constructor, jsava.util.List ) ) {
                 return false;
             }
 

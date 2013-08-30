@@ -11,7 +11,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         switch( args.length ) {
             case 1:
-                if( qx.Class.implementsInterface( args[0], jsava.util.Map ) ) {
+                if( qx.Class.hasInterface( args[0].constructor, jsava.util.Map ) ) {
                     initialCapacity = Math.max( ((args[0].size() / this.self( arguments ).DEFAULT_LOAD_FACTOR) | 0) + 1,
                         this.self( arguments ).DEFAULT_INITIAL_CAPACITY );
                     loadFactor = this.self( arguments ).DEFAULT_LOAD_FACTOR;
@@ -133,7 +133,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 },
 
                 contains: function (obj) {
-                    if( obj === null || !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
+                    if( obj === null || !qx.Class.hasInterface( obj.constructor, jsava.util.Map.Entry ) ) {
                         return false;
                     }
 
@@ -289,7 +289,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 },
 
                 equals: function (obj) {
-                    if( obj === null || !qx.Class.implementsInterface( obj, jsava.util.HashMap.Entry ) ) {
+                    if( obj === null || !qx.Class.hasInterface( obj.constructor, jsava.util.HashMap.Entry ) ) {
                         return false;
                     }
 
@@ -618,7 +618,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         /** @protected */
         removeMapping: function (obj) {
-            if( obj === null || !qx.Class.implementsInterface( obj, jsava.util.Map.Entry ) ) {
+            if( obj === null || !qx.Class.hasInterface( obj.constructor, jsava.util.Map.Entry ) ) {
                 return null;
             }
 

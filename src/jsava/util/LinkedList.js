@@ -9,7 +9,7 @@ qx.Class.define( 'jsava.util.LinkedList', {
         this.header.next = this.header;
         this.header.previous = this.header;
         var args = Array.prototype.slice.call( arguments );
-        if( args.length !== 0 && qx.Class.implementsInterface( args[0], jsava.util.Collection ) ) {
+        if( args.length !== 0 && qx.Class.hasInterface( args[0].constructor, jsava.util.Collection ) ) {
             this.addAll( args[0] );
         }
     },
