@@ -28,7 +28,7 @@ qx.Class.define( 'jsava.util.ArrayList', {
 
     statics: {
         /** @private */
-        serialVersionUID: 1
+        serialVersionUID: 8683452581122892
     },
 
     members: {

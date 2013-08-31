@@ -25,7 +25,7 @@ qx.Class.define( 'jsava.lang.Throwable', {
 
     statics: {
         /** @private */
-        serialVersionUID: 1
+        serialVersionUID: -3042686055658047
     },
 
     members: {

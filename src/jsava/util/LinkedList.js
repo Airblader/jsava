@@ -16,7 +16,7 @@ qx.Class.define( 'jsava.util.LinkedList', {
 
     statics: {
         /** @private */
-        serialVersionUID: 1,
+        serialVersionUID: 876323262645176,
 
         Entry: qx.Class.define( 'jsava.util.LinkedList.Entry', {
             extend: jsava.lang.Object,

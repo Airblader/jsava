@@ -7,6 +7,6 @@ qx.Class.define( 'jsava.lang.UnsupportedOperationException', {
 
     statics: {
         /** @private */
-        serialVersionUID: 1
+        serialVersionUID: -1242599979055084
     }
 } );

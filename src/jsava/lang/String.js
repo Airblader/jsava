@@ -16,7 +16,7 @@ qx.Class.define( 'jsava.lang.String', {
 
     statics: {
         /** @private */
-        serialVersionUID: 1,
+        serialVersionUID: -6849794470754667,
 
         /**
          * @protected
