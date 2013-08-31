@@ -3,42 +3,49 @@ qx.Interface.define( 'jsava.util.List', {
 
     members: {
         /**
+         * @public
          * @returns {Number}
          */
         size: function () {
         },
 
         /**
+         * @public
          * @returns {Boolean}
          */
         isEmpty: function () {
         },
 
         /**
+         * @public
          * @returns {Boolean}
          */
         contains: function (obj) {
         },
 
         /**
+         * @public
          * @returns {jsava.util.Iterator}
          */
         iterator: function () {
         },
 
         /**
+         * @public
          * @returns {jsava.lang.Object[]}
          */
         toArray: function () {
         },
 
         /**
+         * @public
          * @returns {Boolean}
          */
         add: function () {
         },
 
         /**
+         * @public
          * @param {jsava.lang.Object} obj
          * @returns {Boolean}
          */
@@ -46,6 +53,7 @@ qx.Interface.define( 'jsava.util.List', {
         },
 
         /**
+         * @public
          * @param {jsava.util.Collection} collection
          * @returns {Boolean}
          */
@@ -53,6 +61,7 @@ qx.Interface.define( 'jsava.util.List', {
         },
 
         /**
+         * @public
          * @param {jsava.util.Collection} collection
          * @returns {Boolean}
          */
@@ -60,6 +69,7 @@ qx.Interface.define( 'jsava.util.List', {
         },
 
         /**
+         * @public
          * @param {jsava.util.Collection} collection
          * @returns {Boolean}
          */
@@ -67,16 +77,19 @@ qx.Interface.define( 'jsava.util.List', {
         },
 
         /**
+         * @public
          * @param {jsava.util.Collection} collection
          * @returns {Boolean}
          */
         retainAll: function (collection) {
         },
 
+        /** @public */
         clear: function () {
         },
 
         /**
+         * @public
          * @param {jsava.lang.Object} other
          * @returns {Boolean}
          */
@@ -84,18 +97,21 @@ qx.Interface.define( 'jsava.util.List', {
         },
 
         /**
+         * @public
          * @returns {Number}
          */
         hashCode: function () {
         },
 
         /**
+         * @public
          * @param {Number} index
          */
         get: function (index) {
         },
 
         /**
+         * @public
          * @param {Number} index
          * @param element
          */
@@ -103,6 +119,7 @@ qx.Interface.define( 'jsava.util.List', {
         },
 
         /**
+         * @public
          * @param {jsava.lang.Object} obj
          * @returns {Number}
          */
@@ -110,6 +127,7 @@ qx.Interface.define( 'jsava.util.List', {
         },
 
         /**
+         * @public
          * @param {jsava.lang.Object} obj
          * @returns {Number}
          */
@@ -117,12 +135,14 @@ qx.Interface.define( 'jsava.util.List', {
         },
 
         /**
+         * @public
          * @returns {jsava.util.ListIterator}
          */
         listIterator: function () {
         },
 
         /**
+         * @public
          * @param {Number} fromIndex
          * @param {Number} toIndex
          * @returns {jsava.util.List}

@@ -2,53 +2,59 @@ qx.Interface.define( 'jsava.util.Set', {
     extend: jsava.util.Collection,
 
     members: {
+        /** @public */
         size: function () {
         },
 
+        /** @public */
         isEmpty: function () {
         },
 
+        /** @public */
         contains: function (obj) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
+        /** @public */
         iterator: function () {
         },
 
+        /** @public */
         toArray: function () {
         },
 
+        /** @public */
         add: function (elem) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
+        /** @public */
         remove: function (elem) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
+        /** @public */
         containsAll: function (collection) {
-            this.assertInterface( collection, jsava.util.Collection );
         },
 
+        /** @public */
         addAll: function (collection) {
-            this.assertInterface( collection, jsava.util.Collection );
         },
 
+        /** @public */
         retainAll: function (collection) {
-            this.assertInterface( collection, jsava.util.Collection );
         },
 
+        /** @public */
         removeAll: function (collection) {
-            this.assertInterface( collection, jsava.util.Collection );
         },
 
+        /** @public */
         clear: function () {
         },
 
+        /** @public */
         equals: function (other) {
-            this.assertArgumentsCount( arguments, 1, 1 );
         },
 
+        /** @public */
         hashCode: function () {
         }
     }

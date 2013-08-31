@@ -2,18 +2,23 @@ qx.Interface.define( "jsava.util.Map", {
     statics: {
         Entry: qx.Interface.define( 'jsava.util.Map.Entry', {
             members: {
+                /** @public */
                 getKey: function () {
                 },
 
+                /** @public */
                 getValue: function () {
                 },
 
+                /** @public */
                 setValue: function (value) {
                 },
 
+                /** @public */
                 equals: function (other) {
                 },
 
+                /** @public */
                 hashCode: function () {
                 }
             }
@@ -22,18 +27,21 @@ qx.Interface.define( "jsava.util.Map", {
 
     members: {
         /**
+         * @public
          * @returns {Integer}
          */
         size: function () {
         },
 
         /**
+         * @public
          * @returns {Boolean}
          */
         isEmpty: function () {
         },
 
         /**
+         * @public
          * @param {jsava.lang.Object} key
          * @returns {Boolean}
          */
@@ -41,48 +49,56 @@ qx.Interface.define( "jsava.util.Map", {
         },
 
         /**
+         * @public
          * @param {jsava.lang.Object} value
          * @returns {Boolean}
          */
         containsValue: function (value) {
         },
 
+        /** @public */
         get: function (key) {
         },
 
+        /** @public */
         put: function (key, value) {
-
         },
 
+        /** @public */
         remove: function (key) {
         },
 
+        /** @public */
         putAll: function (map) {
         },
 
+        /** @public */
         clear: function () {
-
         },
 
         /**
+         * @public
          * @returns {jsava.util.Set}
          */
         keySet: function () {
         },
 
         /**
+         * @public
          * @returns {jsava.util.Collection}
          */
         values: function () {
         },
 
         /**
+         * @public
          * @returns {jsava.util.Set}
          */
         entrySet: function () {
         },
 
         /**
+         * @public
          * @param other
          * @returns {Boolean}
          */
@@ -90,6 +106,7 @@ qx.Interface.define( "jsava.util.Map", {
         },
 
         /**
+         * @public
          * @returns {Integer}
          */
         hashCode: function () {

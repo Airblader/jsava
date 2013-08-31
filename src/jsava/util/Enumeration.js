@@ -1,12 +1,12 @@
 qx.Interface.define( 'jsava.util.Enumeration', {
     /**
-     * @protected
+     * @public
      * @returns {Boolean}
      */
     hasMoreElements: function () {
     },
 
-    /** @protected */
+    /** @public */
     nextElement: function () {
     }
 } );

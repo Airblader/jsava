@@ -1,12 +1,14 @@
 qx.Interface.define( 'jsava.lang.CharSequence', {
     members: {
         /**
+         * @public
          * @returns {Number}
          */
         length: function () {
         },
 
         /**
+         * @public
          * @param {Number} index
          * @returns {String}
          */
@@ -14,6 +16,7 @@ qx.Interface.define( 'jsava.lang.CharSequence', {
         },
 
         /**
+         * @public
          * @param {Number} start
          * @param {Number} end
          * @returns {jsava.lang.CharSequence}
@@ -22,6 +25,7 @@ qx.Interface.define( 'jsava.lang.CharSequence', {
         },
 
         /**
+         * @public
          * @returns {String}
          */
         toString: function () {

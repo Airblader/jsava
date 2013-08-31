@@ -3,18 +3,21 @@ qx.Interface.define( 'jsava.util.Collection', {
 
     members: {
         /**
+         * @public
          * @returns {Integer}
          */
         size: function () {
         },
 
         /**
+         * @public
          * @returns {Boolean}
          */
         isEmpty: function () {
         },
 
         /**
+         * @public
          * @param {jsava.lang.Object} obj
          * @returns {Boolean}
          */
@@ -22,18 +25,21 @@ qx.Interface.define( 'jsava.util.Collection', {
         },
 
         /**
+         * @public
          * @inheritDoc
          */
         iterator: function () {
         },
 
         /**
+         * @public
          * @returns {jsava.lang.Object[]}
          */
         toArray: function () {
         },
 
         /**
+         * @public
          * @param elem
          * @returns {Boolean}
          */
@@ -41,6 +47,7 @@ qx.Interface.define( 'jsava.util.Collection', {
         },
 
         /**
+         * @public
          * @param obj
          * @returns {Boolean}
          */
@@ -48,6 +55,7 @@ qx.Interface.define( 'jsava.util.Collection', {
         },
 
         /**
+         * @public
          * @param {jsava.util.Collection} collection
          * @returns {Boolean}
          */
@@ -55,6 +63,7 @@ qx.Interface.define( 'jsava.util.Collection', {
         },
 
         /**
+         * @public
          * @param {jsava.util.Collection} collection
          * @returns {Boolean}
          */
@@ -62,6 +71,7 @@ qx.Interface.define( 'jsava.util.Collection', {
         },
 
         /**
+         * @public
          * @param {jsava.util.Collection} collection
          * @returns {Boolean}
          */
@@ -69,16 +79,19 @@ qx.Interface.define( 'jsava.util.Collection', {
         },
 
         /**
+         * @public
          * @param {jsava.util.Collection} collection
          * @returns {Boolean}
          */
         retainAll: function (collection) {
         },
 
+        /** @public */
         clear: function () {
         },
 
         /**
+         * @public
          * @param {jsava.lang.Object} other
          * @returns {Boolean}
          */
@@ -86,6 +99,7 @@ qx.Interface.define( 'jsava.util.Collection', {
         },
 
         /**
+         * @public
          * @returns {Integer}
          */
         hashCode: function () {

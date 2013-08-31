@@ -1,6 +1,7 @@
 qx.Interface.define( 'jsava.lang.Iterable', {
     members: {
         /**
+         * @public
          * Returns an iterator
          *
          * @returns {jsava.util.Iterator} an iterator
