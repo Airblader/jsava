@@ -18,9 +18,11 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                 var args = Array.prototype.slice.call( arguments );
                 switch( args.length ) {
                     case 1:
-                        this.assertInterface( args[0], jsava.util.Map.Entry );
-                        this.__key = args[0].getKey();
-                        this.__value = args[0].getValue();
+                        /** @type jsava.util.Map.Entry */
+                        var entry = args[0];
+
+                        this.__key = entry.getKey();
+                        this.__value = entry.getValue();
                         break;
                     case 2:
                         this.__key = args[0];
@@ -86,9 +88,11 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                 var args = Array.prototype.slice.call( arguments );
                 switch( args.length ) {
                     case 1:
-                        this.assertInterface( args[0], jsava.util.Map.Entry );
-                        this.__key = args[0].getKey();
-                        this.__value = args[0].getValue();
+                        /** @type jsava.util.Map.Entry */
+                        var entry = args[0];
+
+                        this.__key = entry.getKey();
+                        this.__value = entry.getValue();
                         break;
                     case 2:
                         this.__key = args[0];
