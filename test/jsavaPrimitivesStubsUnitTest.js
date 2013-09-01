@@ -23,7 +23,6 @@ describe( 'jsavaPrimitivesStubs', function () {
 
             it( 'returns the expected value', function () {
                 var string = 'Hello World!';
-                // TODO check actual Java value
                 expect( string.hashCode() ).toBe( -969099747 );
             } );
         } );

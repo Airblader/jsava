@@ -126,8 +126,7 @@ qx.Class.define( 'jsava.util.ArrayList', {
                 return v;
             } catch( e ) {
                 if( qx.Class.isSubClassOf( e.constructor, jsava.lang.CloneNotSupportedException ) ) {
-                    // TODO throw InternalError.InternalError
-                    throw new jsava.lang.Exception();
+                    throw new jsava.lang.InternalError();
                 }
 
                 throw e;
