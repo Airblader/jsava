@@ -263,7 +263,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 this.value = value;
                 this._next = nextEntry;
                 this.key = key;
-                this._hash = hash;
+                this.hash = hash;
             },
 
             members: {
@@ -272,7 +272,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 /** @type jsava.util.HashMap.Entry */
                 _next: null,
                 /** @type Number */
-                _hash: 0,
+                hash: 0,
 
                 getKey: function () {
                     return this.key;
@@ -416,7 +416,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                  entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
-                if( entry._hash === hash && ((k = entry.key) === key || key.equals( k )) ) {
+                if( entry.hash === hash && ((k = entry.key) === key || key.equals( k )) ) {
                     return entry.value;
                 }
             }
@@ -444,7 +444,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                  entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
-                if( entry._hash === hash
+                if( entry.hash === hash
                     && ( ( k = entry.key ) === key || ( key !== null && key.equals( k ) ) ) ) {
                     return entry;
                 }
@@ -463,7 +463,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
-                if( entry._hash === hash && ( (k = entry.key) === key || key.equals( k ) ) ) {
+                if( entry.hash === hash && ( (k = entry.key) === key || key.equals( k ) ) ) {
                     var oldValue = entry.value;
                     entry.value = value;
                     entry.recordAccess( this );
@@ -499,7 +499,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             for( var entry = this.table[i]; entry !== null; entry = entry._next ) {
                 /** @type jsava.lang.Object */
                 var k;
-                if( entry._hash === hash
+                if( entry.hash === hash
                     && ( (k = entry.key) === key || ( key !== null && key.equals( k ) ) ) ) {
                     entry.value = value;
                     return;
@@ -543,7 +543,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                     src[j] = null;
                     do {
                         var next = entry._next,
-                            i = this.self( arguments ).indexFor( entry._hash, newCapacity );
+                            i = this.self( arguments ).indexFor( entry.hash, newCapacity );
                         entry._next = newTable[i];
                         newTable[i] = entry;
                         entry = next;
@@ -596,7 +596,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 var next = entry._next,
                     /** @type jsava.lang.Object */
                         k;
-                if( entry._hash === hash
+                if( entry.hash === hash
                     && ( (k = entry.key) === key || ( key !== null && key.equals( k ) ) ) ) {
                     this.modCount++;
                     this._size--;
@@ -631,7 +631,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
             while( e !== null ) {
                 var next = e._next;
-                if( e._hash === hash && e.equals( entry ) ) {
+                if( e.hash === hash && e.equals( entry ) ) {
                     this.modCount++;
                     this._size--;
                     if( prev === e ) {
