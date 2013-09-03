@@ -260,6 +260,8 @@ qx.Class.define( 'jsava.util.HashMap', {
             implement: [jsava.util.Map.Entry],
 
             construct: function (hash, key, value, nextEntry) {
+                this.base( arguments );
+
                 this.value = value;
                 this.next = nextEntry;
                 this.key = key;
