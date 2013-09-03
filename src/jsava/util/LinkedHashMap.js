@@ -11,7 +11,66 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
 
     statics: {
         /** @private */
-        serialVersionUID: 3801124242820219
+        serialVersionUID: 3801124242820219,
+
+        Entry: qx.Class.define( 'jsava.util.LinkedHashMap.Entry', {
+            extend: jsava.util.HashMap.Entry,
+
+            /**
+             * @param {Number} hash
+             * @param key
+             * @param value
+             * @param {jsava.util.HashMap.Entry} next
+             */
+            construct: function (hash, key, value, next) {
+                this.base( arguments, hash, key, value, next );
+            },
+
+            members: {
+                /**
+                 * @protected
+                 * @type {jsava.util.LinkedHashMap.Entry}
+                 */
+                before: null,
+                /**
+                 * @protected
+                 * @type {jsava.util.LinkedHashMap.Entry}
+                 */
+                after: null,
+
+                /** @private */
+                remove: function () {
+                    this.before.after = this.after;
+                    this.after.before = this.before;
+                },
+
+                /**
+                 * @private
+                 * @param {jsava.util.LinkedHashMap.Entry} existingEntry
+                 */
+                addBefore: function (existingEntry) {
+                    this.after = existingEntry;
+                    this.before = existingEntry.before;
+                    this.before.after = this;
+                    this.after.before = this;
+                },
+
+                recordAccess: function (map) {
+                    /** @type jsava.util.LinkedHashMap */
+                    var linkedMap = map;
+
+                    if( linkedMap.accessOrder ) {
+                        linkedMap.modCount++;
+                        this.remove();
+                        this.addBefore( linkedMap.header );
+                    }
+                },
+
+                recordRemoval: function (map) {
+                    this.remove();
+                }
+            }
+        } )
     },
 
     members: {
