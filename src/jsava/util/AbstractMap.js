@@ -21,12 +21,12 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                         /** @type jsava.util.Map.Entry */
                         var entry = args[0];
 
-                        this.__key = entry.getKey();
-                        this.__value = entry.getValue();
+                        this.key = entry.getKey();
+                        this.value = entry.getValue();
                         break;
                     case 2:
-                        this.__key = args[0];
-                        this.__value = args[1];
+                        this.key = args[0];
+                        this.value = args[1];
                         break;
                     default:
                         throw new jsava.lang.IllegalArgumentException();
@@ -40,24 +40,24 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             },
 
             members: {
-                __key: null,
-                __value: null,
+                key: null,
+                value: null,
 
                 __eq: function (obj1, obj2) {
                     return obj1 === null ? obj2 === null : obj1.equals( obj2 );
                 },
 
                 getKey: function () {
-                    return this.__key;
+                    return this.key;
                 },
 
                 getValue: function () {
-                    return this.__value;
+                    return this.value;
                 },
 
                 setValue: function (value) {
-                    var oldValue = this.__value;
-                    this.__value = value;
+                    var oldValue = this.value;
+                    this.value = value;
                     return oldValue;
                 },
 
@@ -66,16 +66,16 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                         return false;
                     }
 
-                    return this.__eq( this.__key, other.getKey() ) && this.__eq( this.__value, other.getValue() );
+                    return this.__eq( this.key, other.getKey() ) && this.__eq( this.value, other.getValue() );
                 },
 
                 hashCode: function () {
-                    return (this.__key === null ? 0 : this.__key.hashCode()) ^
-                        (this.__value === null ? 0 : this.__value.hashCode());
+                    return (this.key === null ? 0 : this.key.hashCode()) ^
+                        (this.value === null ? 0 : this.value.hashCode());
                 },
 
                 toString: function () {
-                    return this.__key + '=' + this.__value;
+                    return this.key + '=' + this.value;
                 }
             }
         } ),
@@ -91,12 +91,12 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                         /** @type jsava.util.Map.Entry */
                         var entry = args[0];
 
-                        this.__key = entry.getKey();
-                        this.__value = entry.getValue();
+                        this.key = entry.getKey();
+                        this.value = entry.getValue();
                         break;
                     case 2:
-                        this.__key = args[0];
-                        this.__value = args[1];
+                        this.key = args[0];
+                        this.value = args[1];
                         break;
                     default:
                         throw new jsava.lang.IllegalArgumentException();
@@ -110,19 +110,19 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             },
 
             members: {
-                __key: null,
-                __value: null,
+                key: null,
+                value: null,
 
                 __eq: function (obj1, obj2) {
                     return obj1 === null ? obj2 === null : obj1.equals( obj2 );
                 },
 
                 getKey: function () {
-                    return this.__key;
+                    return this.key;
                 },
 
                 getValue: function () {
-                    return this.__value;
+                    return this.value;
                 },
 
                 setValue: function (value) {
@@ -134,16 +134,16 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                         return false;
                     }
 
-                    return this.__eq( this.__key, other.getKey() ) && this.__eq( this.__value, other.getValue() );
+                    return this.__eq( this.key, other.getKey() ) && this.__eq( this.value, other.getValue() );
                 },
 
                 hashCode: function () {
-                    return (this.__key === null ? 0 : this.__key.hashCode()) ^
-                        (this.__value === null ? 0 : this.__value.hashCode());
+                    return (this.key === null ? 0 : this.key.hashCode()) ^
+                        (this.value === null ? 0 : this.value.hashCode());
                 },
 
                 toString: function () {
-                    return this.__key + '=' + this.__value;
+                    return this.key + '=' + this.value;
                 }
             }
         } )
