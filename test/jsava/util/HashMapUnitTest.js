@@ -75,7 +75,7 @@ describe( 'HashMap', function () {
         it( 'with custom initial capacity and a custom load factor', function () {
             var mapWithParameters = new HashMap( 4, 0.5 );
             expect( mapWithParameters.table.length ).toBe( 4 );
-            expect( mapWithParameters._threshold ).toBe( 2 );
+            expect( mapWithParameters.threshold ).toBe( 2 );
         } );
 
         it( 'with another map', function () {

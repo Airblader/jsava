@@ -41,7 +41,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         }
 
         this._loadFactor = loadFactor;
-        this._threshold = (capacity * loadFactor) | 0;
+        this.threshold = (capacity * loadFactor) | 0;
         this.table = jsava.JsavaUtils.arrayOfGivenSize( capacity, null );
         this.init();
 
@@ -343,7 +343,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         /** @type Number */
         _size: 0,
         /** @type Number */
-        _threshold: 0,
+        threshold: 0,
         /** @type Number */
         _loadFactor: 0,
         /** @type Number */
@@ -523,14 +523,14 @@ qx.Class.define( 'jsava.util.HashMap', {
             var oldTable = this.table,
                 oldCapacity = oldTable.length;
             if( oldCapacity === this.self( arguments ).MAXIMUM_CAPACITY ) {
-                this._threshold = jsava.lang.Integer.MAX_VALUE;
+                this.threshold = jsava.lang.Integer.MAX_VALUE;
                 return;
             }
 
             var newTable = jsava.JsavaUtils.arrayOfGivenSize( newCapacity, null );
             this.transfer( newTable );
             this.table = newTable;
-            this._threshold = (newCapacity * this._loadFactor) | 0;
+            this.threshold = (newCapacity * this._loadFactor) | 0;
         },
 
         /** @protected */
@@ -558,7 +558,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 return;
             }
 
-            if( numKeysToBeAdded > this._threshold ) {
+            if( numKeysToBeAdded > this.threshold ) {
                 var targetCapacity = (numKeysToBeAdded / this._loadFactor + 1) | 0;
                 if( targetCapacity > this.self( arguments ).MAXIMUM_CAPACITY ) {
                     targetCapacity = this.self( arguments ).MAXIMUM_CAPACITY;
@@ -714,7 +714,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         addEntry: function (hash, key, value, bucketIndex) {
             var entry = this.table[bucketIndex];
             this.table[bucketIndex] = new (this.self( arguments ).Entry)( hash, key, value, entry );
-            if( this._size++ >= this._threshold ) {
+            if( this._size++ >= this.threshold ) {
                 this.resize( 2 * this.table.length );
             }
         },
