@@ -16,19 +16,28 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
 
             type: 'abstract',
 
+            construct: function () {
+                this.base( arguments );
+                
+                this.expectedModCount = this.__thisLinkedHashMap.modCount;
+                this._nextEntry = this.__thisLinkedHashMap.header.after;
+            },
+
             members: {
+                __thisLinkedHashMap: thisLinkedHashMap,
+
                 /**
                  * @protected
                  * @type {jsava.util.LinkedHashMap.Entry}
                  */
-                _nextEntry: thisLinkedHashMap.header.after,
+                _nextEntry: null,
                 /**
                  * @protected
                  * @type {jsava.util.LinkedHashMap.Entry}
                  */
                 lastReturned: null,
 
-                expectedModCount: thisLinkedHashMap.modCount,
+                expectedModCount: 0,
 
                 hasNext: function () {
                     return this._nextEntry !== thisLinkedHashMap.header;
