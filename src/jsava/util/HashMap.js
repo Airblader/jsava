@@ -40,7 +40,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             capacity <<= 1;
         }
 
-        this._loadFactor = loadFactor;
+        this.loadFactor = loadFactor;
         this.threshold = (capacity * loadFactor) | 0;
         this.table = jsava.JsavaUtils.arrayOfGivenSize( capacity, null );
         this.init();
@@ -345,7 +345,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         /** @type Number */
         threshold: 0,
         /** @type Number */
-        _loadFactor: 0,
+        loadFactor: 0,
         /** @type Number */
         modCount: 0,
         /** @implements jsava.util.Set */
@@ -530,7 +530,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             var newTable = jsava.JsavaUtils.arrayOfGivenSize( newCapacity, null );
             this.transfer( newTable );
             this.table = newTable;
-            this.threshold = (newCapacity * this._loadFactor) | 0;
+            this.threshold = (newCapacity * this.loadFactor) | 0;
         },
 
         /** @protected */
@@ -559,7 +559,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
 
             if( numKeysToBeAdded > this.threshold ) {
-                var targetCapacity = (numKeysToBeAdded / this._loadFactor + 1) | 0;
+                var targetCapacity = (numKeysToBeAdded / this.loadFactor + 1) | 0;
                 if( targetCapacity > this.self( arguments ).MAXIMUM_CAPACITY ) {
                     targetCapacity = this.self( arguments ).MAXIMUM_CAPACITY;
                 }

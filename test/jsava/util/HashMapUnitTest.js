@@ -58,7 +58,7 @@ describe( 'HashMap', function () {
 
     describe( 'constructor', function () {
         it( 'without any parameters', function () {
-            expect( map._loadFactor ).toBe( HashMap.DEFAULT_LOAD_FACTOR );
+            expect( map.loadFactor ).toBe( HashMap.DEFAULT_LOAD_FACTOR );
             expect( map.table.length ).toBe( 16 );
         } );
 
