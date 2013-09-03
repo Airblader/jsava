@@ -18,7 +18,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
 
             construct: function () {
                 this.base( arguments );
-                
+
                 this.expectedModCount = this.__thisLinkedHashMap.modCount;
                 this._nextEntry = this.__thisLinkedHashMap.header.after;
             },
@@ -209,7 +209,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
         transfer: function (newTable) {
             var newCapacity = newTable.length;
             for( var entry = this.header.after; entry !== this.header; entry = entry.after ) {
-                var index = this.indexFor( entry.hash, newCapacity );
+                var index = jsava.util.HashMap.indexFor( entry.hash, newCapacity );
                 entry.next = newTable[index];
                 newTable[index] = entry;
             }
