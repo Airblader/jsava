@@ -11,8 +11,8 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
     statics: {
         SimpleEntry: qx.Class.define( 'jsava.util.AbstractMap.SimpleEntry', {
-            extend: jsava.util.Map.Entry,
-            implement: [jsava.io.Serializable],
+            extend: jsava.lang.Object,
+            implement: [jsava.util.Map.Entry, jsava.io.Serializable],
 
             construct: function () {
                 var args = Array.prototype.slice.call( arguments );
@@ -81,8 +81,8 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         } ),
 
         SimpleImmutableEntry: qx.Class.define( 'jsava.util.AbstractMap.SimpleImmutableEntry', {
-            extend: jsava.util.Map.Entry,
-            implement: [jsava.io.Serializable],
+            extend: jsava.lang.Object,
+            implement: [jsava.util.Map.Entry, jsava.io.Serializable],
 
             construct: function () {
                 var args = Array.prototype.slice.call( arguments );
