@@ -7,6 +7,62 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
 
         this.base.apply( this, Array.prototype.concat.call( arguments, Array.prototype.slice.call( arguments ) ) );
         this.accessOrder = args.length === 3 ? args[2] : false;
+
+        var thisLinkedHashMap = this;
+
+        this.LinkedHashIterator = jsava.JsavaUtils.createAnonymousClass( {
+            extend: jsava.lang.Object,
+            implement: jsava.util.Iterator,
+
+            type: 'abstract',
+
+            members: {
+                /**
+                 * @protected
+                 * @type {jsava.util.LinkedHashMap.Entry}
+                 */
+                _nextEntry: thisLinkedHashMap.header.after,
+                /**
+                 * @protected
+                 * @type {jsava.util.LinkedHashMap.Entry}
+                 */
+                lastReturned: null,
+
+                expectedModCount: thisLinkedHashMap.modCount,
+
+                hasNext: function () {
+                    return this._nextEntry !== thisLinkedHashMap.header;
+                },
+
+                remove: function () {
+                    if( this.lastReturned === null ) {
+                        throw new jsava.lang.IllegalStateException();
+                    }
+
+                    if( thisLinkedHashMap.modCount !== this.expectedModCount ) {
+                        throw new jsava.lang.ConcurrentModificationException();
+                    }
+
+                    thisLinkedHashMap.remove( this.lastReturned.key );
+                    this.lastReturned = null;
+                    this.expectedModCount = thisLinkedHashMap.modCount;
+                },
+
+                nextEntry: function () {
+                    if( thisLinkedHashMap.modCount !== this.expectedModCount ) {
+                        throw new jsava.lang.ConcurrentModificationException();
+                    }
+
+                    if( this._nextEntry === thisLinkedHashMap.header ) {
+                        throw new jsava.lang.NoSuchElementException();
+                    }
+
+                    var entry = this.lastReturned = this._nextEntry;
+                    this._nextEntry = entry.after;
+                    return entry;
+                }
+            }
+        } );
     },
 
     statics: {
@@ -82,6 +138,13 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
 
         /** @private */
         accessOrder: false,
+
+        /**
+         * @private
+         * @abstract
+         * @type Class
+         */
+        LinkedHashIterator: null,
 
         init: function () {
             // TODO initialize as new Entry<K,V>(-1, null, null, null)
