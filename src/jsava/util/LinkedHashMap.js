@@ -193,8 +193,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
         EntryIterator: null,
 
         init: function () {
-            // TODO initialize as new Entry<K,V>(-1, null, null, null)
-            this.header = null;
+            this.header = new (this.self( arguments ).Entry)( -1, null, null, null );
             this.header.before = this.header.after = this.header;
         },
 
