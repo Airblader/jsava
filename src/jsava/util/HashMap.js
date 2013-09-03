@@ -58,7 +58,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 this.expectedModCount = this.__thisHashMap.modCount;
                 if( this.__thisHashMap._size > 0 ) {
                     var table = this.__thisHashMap.table;
-                    while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
+                    while( this.index < table.length && ( this._next = table[this.index++] ) === null ) {
                         // do nothing
                     }
                 }
@@ -72,7 +72,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 /** @type Number */
                 expectedModCount: 0,
                 /** @type Number */
-                _index: 0,
+                index: 0,
                 /** @type jsava.util.HashMap.Entry */
                 current: null,
 
@@ -92,7 +92,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
                     if( (this._next = entry._next) === null ) {
                         var table = this.__thisHashMap.table;
-                        while( this._index < table.length && ( this._next = table[this._index++] ) === null ) {
+                        while( this.index < table.length && ( this._next = table[this.index++] ) === null ) {
                             // do nothing
                         }
                     }
