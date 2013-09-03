@@ -250,6 +250,35 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
 
         newEntryIterator: function () {
             return new this.EntryIterator();
+        },
+
+        addEntry: function (hash, key, value, bucketIndex) {
+            this.createEntry( hash, key, value, bucketIndex );
+
+            var eldest = this.header.after;
+            if( this.removeEldestEntry( eldest ) ) {
+                this.removeEntryForKey( eldest.key );
+            } else {
+                if( this._size >= this.threshold ) {
+                    this.resize( 2 * this.table.length );
+                }
+            }
+        },
+
+        createEntry: function (hash, key, value, bucketIndex) {
+            var old = this.table[bucketIndex],
+                entry = new (this.self( arguments ).Entry)( hash, key, value, old );
+            this.table[bucketIndex] = entry;
+            entry.addBefore( this.header );
+            this._size++;
+        },
+
+        /**
+         * @param {jsava.util.LinkedHashMap.Entry} eldest
+         * @returns {boolean}
+         */
+        removeEldestEntry: function (eldest) {
+            return false;
         }
     }
 } );
