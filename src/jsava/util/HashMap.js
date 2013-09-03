@@ -80,7 +80,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                     return this._next !== null;
                 },
 
-                _nextEntry: function () {
+                nextEntry: function () {
                     if( this.__thisHashMap.modCount !== this.expectedModCount ) {
                         throw new jsava.lang.ConcurrentModificationException();
                     }
@@ -158,7 +158,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
             members: {
                 next: function () {
-                    return this._nextEntry().value;
+                    return this.nextEntry().value;
                 }
             }
         } );
@@ -168,7 +168,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
             members: {
                 next: function () {
-                    return this._nextEntry().getKey();
+                    return this.nextEntry().getKey();
                 }
             }
         } );
@@ -178,7 +178,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
             members: {
                 next: function () {
-                    return this._nextEntry();
+                    return this.nextEntry();
                 }
             }
         } );
