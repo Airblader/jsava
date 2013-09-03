@@ -63,6 +63,36 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
                 }
             }
         } );
+
+        this.KeyIterator = jsava.JsavaUtils.createAnonymousClass( {
+            extend: thisLinkedHashMap.LinkedHashIterator,
+
+            members: {
+                next: function () {
+                    return this.nextEntry().getKey();
+                }
+            }
+        } );
+
+        this.ValueIterator = jsava.JsavaUtils.createAnonymousClass( {
+            extend: thisLinkedHashMap.LinkedHashIterator,
+
+            members: {
+                next: function () {
+                    return this.nextEntry().value;
+                }
+            }
+        } );
+
+        this.EntryIterator = jsava.JsavaUtils.createAnonymousClass( {
+            extend: thisLinkedHashMap.LinkedHashIterator,
+
+            members: {
+                next: function () {
+                    return this.nextEntry();
+                }
+            }
+        } );
     },
 
     statics: {
@@ -145,6 +175,22 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
          * @type Class
          */
         LinkedHashIterator: null,
+
+        /**
+         * @private
+         * @type Class
+         */
+        KeyIterator: null,
+        /**
+         * @private
+         * @type Class
+         */
+        ValueIterator: null,
+        /**
+         * @private
+         * @type Class
+         */
+        EntryIterator: null,
 
         init: function () {
             // TODO initialize as new Entry<K,V>(-1, null, null, null)
