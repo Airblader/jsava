@@ -238,6 +238,18 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
         clear: function () {
             this.base( arguments );
             this.header.before = this.header.after = this.header;
+        },
+
+        newKeyIterator: function () {
+            return new this.KeyIterator();
+        },
+
+        newValueIterator: function () {
+            return new this.ValueIterator();
+        },
+
+        newEntryIterator: function () {
+            return new this.EntryIterator();
         }
     }
 } );
