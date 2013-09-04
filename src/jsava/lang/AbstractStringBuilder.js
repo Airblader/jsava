@@ -14,7 +14,7 @@ qx.Class.define( 'jsava.lang.AbstractStringBuilder', {
         var args = Array.prototype.slice.call( arguments );
         if( args.length === 1 ) {
             var capacity = args[0];
-            this.value = jsava.JsavaUtils.arrayOfGivenSize( capacity, '\u0000' );
+            this.value = jsava.Utils.arrayOfGivenSize( capacity, '\u0000' );
         }
     },
 

@@ -282,12 +282,12 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             if( this._keySet === null ) {
                 var _this = this;
 
-                this._keySet = new (jsava.JsavaUtils.createAnonymousClass( {
+                this._keySet = new (jsava.Utils.createAnonymousClass( {
                     extend: jsava.util.AbstractSet,
 
                     members: {
                         iterator: function () {
-                            return new (jsava.JsavaUtils.createAnonymousClass( {
+                            return new (jsava.Utils.createAnonymousClass( {
                                 extend: jsava.lang.Object,
                                 implement: [jsava.util.Iterator],
 
@@ -327,12 +327,12 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             if( this._values === null ) {
                 var _this = this;
 
-                this._values = new (jsava.JsavaUtils.createAnonymousClass( {
+                this._values = new (jsava.Utils.createAnonymousClass( {
                     extend: jsava.util.AbstractCollection,
 
                     members: {
                         iterator: function () {
-                            return new (jsava.JsavaUtils.createAnonymousClass( {
+                            return new (jsava.Utils.createAnonymousClass( {
                                 extend: jsava.lang.Object,
                                 implement: [jsava.util.Iterator],
 

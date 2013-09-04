@@ -10,7 +10,7 @@ qx.Class.define( 'jsava.util.Arrays', {
          * @param {Number} newLength
          */
         copyOf: function (original, newLength) {
-            var copy = jsava.JsavaUtils.arrayOfGivenSize( newLength, null );
+            var copy = jsava.Utils.arrayOfGivenSize( newLength, null );
             jsava.lang.System.arraycopy( original, 0, copy, 0, Math.min( original.length, newLength ) );
 
             return copy;

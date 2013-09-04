@@ -22,7 +22,7 @@ qx.Class.define( 'jsava.util.Vector', {
                 throw new jsava.lang.IllegalArgumentException( 'Illegal Capacity: ' + initialCapacity );
             }
 
-            this.elementData = jsava.JsavaUtils.arrayOfGivenSize( initialCapacity, null );
+            this.elementData = jsava.Utils.arrayOfGivenSize( initialCapacity, null );
             this.capacityIncrement = capacityIncrement;
         }
     },
@@ -127,7 +127,7 @@ qx.Class.define( 'jsava.util.Vector', {
         elements: function () {
             var __thisVector = this;
 
-            return new ( jsava.JsavaUtils.createAnonymousClass( {
+            return new ( jsava.Utils.createAnonymousClass( {
                 extend: jsava.lang.Object,
                 implement: jsava.util.Enumeration,
 

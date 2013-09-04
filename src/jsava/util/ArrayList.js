@@ -22,7 +22,7 @@ qx.Class.define( 'jsava.util.ArrayList', {
                 throw new jsava.lang.IllegalArgumentException( 'Illegal Capacity: ' + initialCapacity );
             }
 
-            this.elementData = jsava.JsavaUtils.arrayOfGivenSize( initialCapacity, null );
+            this.elementData = jsava.Utils.arrayOfGivenSize( initialCapacity, null );
         }
     },
 

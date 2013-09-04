@@ -130,7 +130,7 @@ qx.Class.define( 'jsava.util.SubList', {
                 throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index + ', Size: ' + this.__size );
             }
 
-            return new (jsava.JsavaUtils.createAnonymousClass( {
+            return new (jsava.Utils.createAnonymousClass( {
                 extend: jsava.lang.Object,
                 implement: jsava.util.ListIterator,
 

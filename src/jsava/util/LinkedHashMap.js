@@ -10,7 +10,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
 
         var thisLinkedHashMap = this;
 
-        this.LinkedHashIterator = jsava.JsavaUtils.createAnonymousClass( {
+        this.LinkedHashIterator = jsava.Utils.createAnonymousClass( {
             extend: jsava.lang.Object,
             implement: jsava.util.Iterator,
 
@@ -73,7 +73,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
             }
         } );
 
-        this.KeyIterator = jsava.JsavaUtils.createAnonymousClass( {
+        this.KeyIterator = jsava.Utils.createAnonymousClass( {
             extend: thisLinkedHashMap.LinkedHashIterator,
 
             members: {
@@ -83,7 +83,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
             }
         } );
 
-        this.ValueIterator = jsava.JsavaUtils.createAnonymousClass( {
+        this.ValueIterator = jsava.Utils.createAnonymousClass( {
             extend: thisLinkedHashMap.LinkedHashIterator,
 
             members: {
@@ -93,7 +93,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
             }
         } );
 
-        this.EntryIterator = jsava.JsavaUtils.createAnonymousClass( {
+        this.EntryIterator = jsava.Utils.createAnonymousClass( {
             extend: thisLinkedHashMap.LinkedHashIterator,
 
             members: {

@@ -1,9 +1,9 @@
-describe( 'JsavaUtils', function () {
-    var JsavaUtils = jsava.JsavaUtils;
+describe( 'Utils', function () {
+    var Utils = jsava.Utils;
 
     describe( 'createAnonymousClass()', function () {
         it( 'returns a class that can be instanciated', function () {
-            var Clazz = JsavaUtils.createAnonymousClass( {
+            var Clazz = Utils.createAnonymousClass( {
                 extend: jsava.lang.Object,
 
                 construct: function () {
@@ -33,11 +33,11 @@ describe( 'JsavaUtils', function () {
 
     describe( 'arrayOfGivenSize()', function () {
         it( 'creates null array of given size', function () {
-            expect( JsavaUtils.arrayOfGivenSize( 3, null ) ).toEqual( [null, null, null] );
+            expect( Utils.arrayOfGivenSize( 3, null ) ).toEqual( [null, null, null] );
         } );
 
         it( 'creates array of given size with given default value', function () {
-            expect( JsavaUtils.arrayOfGivenSize( 3, 42 ) ).toEqual( [42, 42, 42] );
+            expect( Utils.arrayOfGivenSize( 3, 42 ) ).toEqual( [42, 42, 42] );
         } );
     } );
 } );

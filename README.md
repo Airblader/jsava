@@ -94,7 +94,7 @@ a simple `Number` member will be `0` while any complex object will default to `n
 6. If any implementation -- or its behavior -- differs from the original Java code, there shall be comments if necessary.
 7. Inner classes, especially those requiring a reference to the enclosing class, shall be initialized with `null` as a
 member (with corresponding annotations) and be defined in the enclosing class's constructor using
-`jsava.JsavaUtils.createAnonymousClass` (see example in `jsava.util.HashMap`).
+`jsava.Utils.createAnonymousClass` (see example in `jsava.util.HashMap`).
 
 ### Exceptions
 

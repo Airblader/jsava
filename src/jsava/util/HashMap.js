@@ -42,12 +42,12 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         this.loadFactor = loadFactor;
         this.threshold = (capacity * loadFactor) | 0;
-        this.table = jsava.JsavaUtils.arrayOfGivenSize( capacity, null );
+        this.table = jsava.Utils.arrayOfGivenSize( capacity, null );
         this.init();
 
         var thisHashMap = this;
 
-        this.HashIterator = jsava.JsavaUtils.createAnonymousClass( {
+        this.HashIterator = jsava.Utils.createAnonymousClass( {
             extend: jsava.lang.Object,
             implement: [jsava.util.Iterator],
 
@@ -118,7 +118,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
         } );
 
-        this.EntrySet = jsava.JsavaUtils.createAnonymousClass( {
+        this.EntrySet = jsava.Utils.createAnonymousClass( {
             extend: jsava.util.AbstractSet,
 
             members: {
@@ -153,7 +153,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
         } );
 
-        this.ValueIterator = jsava.JsavaUtils.createAnonymousClass( {
+        this.ValueIterator = jsava.Utils.createAnonymousClass( {
             extend: thisHashMap.HashIterator,
 
             members: {
@@ -163,7 +163,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
         } );
 
-        this.KeyIterator = jsava.JsavaUtils.createAnonymousClass( {
+        this.KeyIterator = jsava.Utils.createAnonymousClass( {
             extend: thisHashMap.HashIterator,
 
             members: {
@@ -173,7 +173,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
         } );
 
-        this.EntryIterator = jsava.JsavaUtils.createAnonymousClass( {
+        this.EntryIterator = jsava.Utils.createAnonymousClass( {
             extend: thisHashMap.HashIterator,
 
             members: {
@@ -183,7 +183,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
         } );
 
-        this.KeySet = jsava.JsavaUtils.createAnonymousClass( {
+        this.KeySet = jsava.Utils.createAnonymousClass( {
             extend: jsava.util.AbstractSet,
 
             members: {
@@ -211,7 +211,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             }
         } );
 
-        this.Values = jsava.JsavaUtils.createAnonymousClass( {
+        this.Values = jsava.Utils.createAnonymousClass( {
             extend: jsava.util.AbstractCollection,
 
             members: {
@@ -529,7 +529,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 return;
             }
 
-            var newTable = jsava.JsavaUtils.arrayOfGivenSize( newCapacity, null );
+            var newTable = jsava.Utils.arrayOfGivenSize( newCapacity, null );
             this.transfer( newTable );
             this.table = newTable;
             this.threshold = (newCapacity * this.loadFactor) | 0;
@@ -702,7 +702,7 @@ qx.Class.define( 'jsava.util.HashMap', {
                 }
             }
 
-            result.table = jsava.JsavaUtils.arrayOfGivenSize( this.table.length, null );
+            result.table = jsava.Utils.arrayOfGivenSize( this.table.length, null );
             result.__entrySet = null;
             result.modCount = 0;
             result._size = 0;

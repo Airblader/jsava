@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.JsavaUtils', {
+qx.Class.define( 'jsava.Utils', {
     extend: qx.core.Object,
 
     type: 'static',
