@@ -16,6 +16,10 @@
     var errors = [];
 
     var checkConstructor = function (Clazz) {
+        if( Clazz === jsava.lang.Object ) {
+            return;
+        }
+
         var oldBase = Clazz.constructor.base;
         try {
             if( !checkBySpying( Clazz, oldBase ) ) {
@@ -42,12 +46,15 @@
     var checkFields = function (Clazz) {
         var fields = Object.keys( Clazz );
         for( var j = 0; j < fields.length; j++ ) {
+            if( ['superclass', 'constructor', 'self', 'base'].indexOf( fields[j] ) !== -1 ) {
+                continue;
+            }
+
             var current = Clazz[fields[j]];
 
             if( isClass( current ) ) {
                 checkConstructor( current );
-                // TODO check fields for this class too (inner classes can have inner classes and so on)
-                //checkStaticsAndMembers( current );
+                checkStaticsAndMembers( current );
             }
         }
     };
@@ -72,7 +79,9 @@
     };
 
     var addClassToErrors = function (Clazz) {
-        errors.push( Clazz.classname );
+        if( errors.indexOf( Clazz ) === -1 ) {
+            errors.push( Clazz.classname );
+        }
     };
 
     var isClass = function (obj) {
