@@ -7,11 +7,176 @@ qx.Class.define( 'jsava.util.AbstractList', {
     /** @protected */
     construct: function () {
         this.base( arguments );
+
+        var thisAbstractList = this;
+
+        this.Itr = jsava.Utils.createAnonymousClass( {
+            extend: jsava.lang.Object,
+            implement: jsava.util.Iterator,
+
+            /** @private */
+            construct: function () {
+                this.base( arguments );
+                this.expectedModCount = this.__thisAbstractList.modCount;
+            },
+
+            members: {
+                /** @type jsava.util.AbstractList */
+                __thisAbstractList: thisAbstractList,
+
+                /** @protected */
+                cursor: 0,
+                /** @protected */
+                lastRet: -1,
+                /**
+                 * @protected
+                 * @type Number
+                 */
+                expectedModCount: 0,
+
+                hasNext: function () {
+                    return this.cursor !== this.__thisAbstractList.size();
+                },
+
+                next: function () {
+                    this.checkForComodification();
+
+                    try {
+                        var next = this.__thisAbstractList.get( this.cursor );
+                        this.lastRet = this.cursor++;
+                        return next;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            this.checkForComodification();
+                            throw new jsava.lang.NoSuchElementException();
+                        }
+
+                        throw e;
+                    }
+                },
+
+                remove: function () {
+                    if( this.lastRet === -1 ) {
+                        throw new jsava.lang.IllegalStateException();
+                    }
+                    this.checkForComodification();
+
+                    try {
+                        this.__thisAbstractList.remove( this.lastRet );
+                        if( this.lastRet < this.cursor ) {
+                            this.cursor--;
+                        }
+                        this.lastRet = -1;
+                        this.expectedModCount = this.__thisAbstractList.modCount;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            throw new jsava.lang.ConcurrentModificationException();
+                        }
+
+                        throw e;
+                    }
+                },
+
+                /** @protected */
+                checkForComodification: function () {
+                    if( this.__thisAbstractList.modCount !== this.expectedModCount ) {
+                        throw new jsava.lang.ConcurrentModificationException();
+                    }
+                }
+            }
+        } );
+
+        this.ListItr = jsava.Utils.createAnonymousClass( {
+            extend: thisAbstractList.Itr,
+            implement: jsava.util.ListIterator,
+
+            /** @private */
+            construct: function (index) {
+                this.base( arguments );
+                this.cursor = index;
+            },
+
+            members: {
+                hasPrevious: function () {
+                    return this.cursor !== 0;
+                },
+
+                previous: function () {
+                    this.checkForComodification();
+                    try {
+                        var i = this.cursor - 1,
+                            previous = this.__thisAbstractList.get( i );
+                        this.lastRet = this.cursor = i;
+                        return previous;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            this.checkForComodification();
+                            throw new jsava.lang.NoSuchElementException();
+                        }
+
+                        throw e;
+                    }
+                },
+
+                nextIndex: function () {
+                    return this.cursor;
+                },
+
+                previousIndex: function () {
+                    return this.cursor - 1;
+                },
+
+                set: function (element) {
+                    if( this.lastRet === 1 ) {
+                        throw new jsava.lang.IllegalStateException();
+                    }
+                    this.checkForComodification();
+
+                    try {
+                        this.__thisAbstractList.set( this.lastRet, element );
+                        this.expectedModCount = this.__thisAbstractList.modCount;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            throw new jsava.lang.ConcurrentModificationException();
+                        }
+
+                        throw e;
+                    }
+                },
+
+                add: function (element) {
+                    this.checkForComodification();
+                    try {
+                        this.__thisAbstractList.add( this.cursor++, element );
+                        this.lastRet = -1;
+                        this.expectedModCount = this.__thisAbstractList.modCount;
+                    } catch( e ) {
+                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
+                            throw new jsava.lang.ConcurrentModificationException();
+                        }
+
+                        throw e;
+                    }
+                }
+            }
+        } );
     },
 
     members: {
         /** @protected */
         modCount: 0,
+
+        /**
+         * @private
+         * @type Class
+         */
+        Itr: null,
+
+        /**
+         * @private
+         * @type Class
+         */
+        ListItr: null,
 
         add: function () {
             if( arguments.length === 1 ) {
@@ -90,7 +255,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
         },
 
         iterator: function () {
-            return new this.Itr( this );
+            return new this.Itr();
         },
 
         listIterator: function () {
@@ -103,7 +268,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
                 throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index );
             }
 
-            return new this.ListItr( this, index );
+            return new this.ListItr( index );
         },
 
         subList: function (fromIndex, toIndex) {
@@ -163,160 +328,6 @@ qx.Class.define( 'jsava.util.AbstractList', {
                 iterator.next();
                 iterator.remove();
             }
-        },
-
-        /** @private */
-        Itr: qx.Class.define( 'jsava.util.AbstractList.Itr', {
-            extend: jsava.lang.Object,
-            implement: jsava.util.Iterator,
-
-            /** @private */
-            construct: function (thisAbstractList) {
-                this.base( arguments );
-                this.__thisAbstractList = thisAbstractList;
-                this.expectedModCount = this.__thisAbstractList.modCount;
-            },
-
-            members: {
-                /** @type jsava.util.AbstractList */
-                __thisAbstractList: null,
-
-                /** @protected */
-                cursor: 0,
-                /** @protected */
-                lastRet: -1,
-                /**
-                 * @protected
-                 * @type Number
-                 */
-                expectedModCount: 0,
-
-                hasNext: function () {
-                    return this.cursor !== this.__thisAbstractList.size();
-                },
-
-                next: function () {
-                    this.checkForComodification();
-
-                    try {
-                        var next = this.__thisAbstractList.get( this.cursor );
-                        this.lastRet = this.cursor++;
-                        return next;
-                    } catch( e ) {
-                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
-                            this.checkForComodification();
-                            throw new jsava.lang.NoSuchElementException();
-                        }
-
-                        throw e;
-                    }
-                },
-
-                remove: function () {
-                    if( this.lastRet === -1 ) {
-                        throw new jsava.lang.IllegalStateException();
-                    }
-                    this.checkForComodification();
-
-                    try {
-                        this.__thisAbstractList.remove( this.lastRet );
-                        if( this.lastRet < this.cursor ) {
-                            this.cursor--;
-                        }
-                        this.lastRet = -1;
-                        this.expectedModCount = this.__thisAbstractList.modCount;
-                    } catch( e ) {
-                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
-                            throw new jsava.lang.ConcurrentModificationException();
-                        }
-
-                        throw e;
-                    }
-                },
-
-                /** @protected */
-                checkForComodification: function () {
-                    if( this.__thisAbstractList.modCount !== this.expectedModCount ) {
-                        throw new jsava.lang.ConcurrentModificationException();
-                    }
-                }
-            }
-        } ),
-
-        /** @private */
-        ListItr: qx.Class.define( 'jsava.util.AbstractList.ListItr', {
-            extend: jsava.util.AbstractList.Itr,
-            implement: jsava.util.ListIterator,
-
-            /** @private */
-            construct: function (thisAbstractList, index) {
-                this.base( arguments, thisAbstractList );
-                this.cursor = index;
-            },
-
-            members: {
-                hasPrevious: function () {
-                    return this.cursor !== 0;
-                },
-
-                previous: function () {
-                    this.checkForComodification();
-                    try {
-                        var i = this.cursor - 1,
-                            previous = this.__thisAbstractList.get( i );
-                        this.lastRet = this.cursor = i;
-                        return previous;
-                    } catch( e ) {
-                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
-                            this.checkForComodification();
-                            throw new jsava.lang.NoSuchElementException();
-                        }
-
-                        throw e;
-                    }
-                },
-
-                nextIndex: function () {
-                    return this.cursor;
-                },
-
-                previousIndex: function () {
-                    return this.cursor - 1;
-                },
-
-                set: function (element) {
-                    if( this.lastRet === 1 ) {
-                        throw new jsava.lang.IllegalStateException();
-                    }
-                    this.checkForComodification();
-
-                    try {
-                        this.__thisAbstractList.set( this.lastRet, element );
-                        this.expectedModCount = this.__thisAbstractList.modCount;
-                    } catch( e ) {
-                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
-                            throw new jsava.lang.ConcurrentModificationException();
-                        }
-
-                        throw e;
-                    }
-                },
-
-                add: function (element) {
-                    this.checkForComodification();
-                    try {
-                        this.__thisAbstractList.add( this.cursor++, element );
-                        this.lastRet = -1;
-                        this.expectedModCount = this.__thisAbstractList.modCount;
-                    } catch( e ) {
-                        if( qx.Class.isSubClassOf( e.constructor, jsava.lang.IndexOutOfBoundsException ) ) {
-                            throw new jsava.lang.ConcurrentModificationException();
-                        }
-
-                        throw e;
-                    }
-                }
-            }
-        } )
+        }
     }
 } );
