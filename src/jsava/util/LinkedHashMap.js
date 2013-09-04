@@ -202,7 +202,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
         EntryIterator: null,
 
         init: function () {
-            this.header = new (this.self( arguments ).Entry)( -1, null, null, null );
+            this.header = new this.constructor.Entry( -1, null, null, null );
             this.header.before = this.header.after = this.header;
         },
 
@@ -275,7 +275,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
 
         createEntry: function (hash, key, value, bucketIndex) {
             var old = this.table[bucketIndex],
-                entry = new (this.self( arguments ).Entry)( hash, key, value, old );
+                entry = new this.constructor.Entry( hash, key, value, old );
             this.table[bucketIndex] = entry;
             entry.addBefore( this.header );
             this._size++;

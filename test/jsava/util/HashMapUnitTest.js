@@ -354,4 +354,41 @@ describe( 'HashMap', function () {
             expect( valueMap.get( 2 ) ).toBe( 20 );
         } );
     } );
+
+    describe( 'recordAccess() and recordRemoval()', function () {
+        var snapshotAfterRemoval = false,
+            snapshotAfterAccess = false,
+            map = new (jsava.Utils.createAnonymousClass( {
+                extend: HashMap,
+
+                statics: {
+                    Entry: jsava.Utils.createAnonymousClass( {
+                        extend: HashMap.Entry,
+
+                        members: {
+                            recordAccess: function () {
+                                snapshotAfterAccess = true;
+                            },
+
+                            recordRemoval: function () {
+                                snapshotAfterRemoval = true;
+                            }
+                        }
+                    } )
+                }
+            } ))();
+
+        map.put( 1, 10 );
+        map.put( 2, 20 );
+
+        it( 'work', function () {
+            expect( snapshotAfterAccess ).toBe( false );
+            map.put( 1, 42 );
+            expect( snapshotAfterAccess ).toBe( true );
+
+            expect( snapshotAfterRemoval ).toBe( false );
+            map.remove( 1 );
+            expect( snapshotAfterRemoval ).toBe( true );
+        } );
+    } );
 } );
