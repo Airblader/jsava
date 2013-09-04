@@ -12,7 +12,7 @@ describe( 'Object', function () {
     } );
 
     describe( 'toString()', function () {
-        it( 'returns the correct resuöt', function () {
+        it( 'returns the correct result', function () {
             var obj = new _Object();
             obj.hashCode = function () {
                 return -42;
