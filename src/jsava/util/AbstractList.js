@@ -172,6 +172,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
 
             /** @private */
             construct: function (thisAbstractList) {
+                this.base( arguments );
                 this.__thisAbstractList = thisAbstractList;
                 this.expectedModCount = this.__thisAbstractList.modCount;
             },

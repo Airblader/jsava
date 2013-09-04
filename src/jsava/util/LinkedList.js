@@ -21,6 +21,8 @@ qx.Class.define( 'jsava.util.LinkedList', {
         Entry: qx.Class.define( 'jsava.util.LinkedList.Entry', {
             extend: jsava.lang.Object,
             construct: function (element, next, previous) {
+                this.base( arguments );
+
                 this.element = element;
                 this.next = next;
                 this.previous = previous;

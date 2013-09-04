@@ -15,6 +15,8 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             implement: [jsava.util.Map.Entry, jsava.io.Serializable],
 
             construct: function () {
+                this.base( arguments );
+
                 var args = Array.prototype.slice.call( arguments );
                 switch( args.length ) {
                     case 1:
@@ -85,6 +87,8 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             implement: [jsava.util.Map.Entry, jsava.io.Serializable],
 
             construct: function () {
+                this.base( arguments );
+
                 var args = Array.prototype.slice.call( arguments );
                 switch( args.length ) {
                     case 1:
