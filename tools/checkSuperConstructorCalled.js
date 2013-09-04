@@ -82,7 +82,7 @@
 
     (function traversePackage (obj) {
         for( var i in obj ) {
-            if( !obj.hasOwnProperty( i ) ) {
+            if( !Object.prototype.hasOwnProperty.call( obj, i ) ) {
                 continue;
             }
 
@@ -90,11 +90,11 @@
                 traversePackage( obj[i] );
             }
 
-            var Clazz = obj[i];
-            if( !isClass( Clazz ) ) {
+            if( !isClass( obj[i] ) ) {
                 continue;
             }
 
+            var Clazz = obj[i];
             try {
                 checkConstructor( Clazz );
                 checkStaticsAndMembers( Clazz );
