@@ -105,6 +105,13 @@
     })( root );
 
     if( errors.length !== 0 ) {
-        throw new Error( 'Found errors during super call validation: ' + errors.join( ', ' ) );
+        console.error( 'Found errors during validation' );
+        console.group( 'Classes with missing super constructor calls' );
+        for( var i = 0; i < errors.length; i++ ) {
+            console.debug( errors[i] );
+        }
+        console.groupEnd();
     }
+
+    console.groupEnd();
 })( jsava );
