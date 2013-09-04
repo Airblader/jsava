@@ -203,6 +203,6 @@ foreach( @testFiles ) {
 }
 
 $specRunnerContent =~ s/\Q__SPECS__\E/$specsList/;
-$specRunnerContent =~ s/\Q__JSAVASRC__\E/jsava.min.js/; # TODO add parameter to use non-minified version
+$specRunnerContent =~ s/\Q__JSAVASRC__\E/jsava.js/;
 
 system( "echo \"$specRunnerContent\" >> ../SpecRunner.html" );
