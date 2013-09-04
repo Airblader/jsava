@@ -78,9 +78,14 @@ visibility retains the name conflict, the entity shall be handled as private.
 
 1. Every method in an interface that takes a parameter or returns something shall have annotations.
 2. Every method in a class that has not been defined in a superclass or interface shall be annotated.
-3. If a class has a constructor, it *must* call the parent constructor.
+3. If a class has a constructor, it *must* call the parent constructor (this is tested).
 4. To check an argument for its type, use either `qx.Class.hasInterface()` (for interfaces) or `qx.Class.isSubClassOf`
 (for classes). Do *not* use `implementsInterface`, `objectImplements`, …
+5. Static inner classes must be instanciated with `new this.constructor.SomeClass(...)`, *not* `new this.self( arguments ).SomeClass(...)`
+(otherwise overwriting methods in subclasses will cause wrong behavior).
+6. Inner classes, especially those requiring a reference to the enclosing class, shall be initialized with `null` as a
+member (with corresponding annotations) and be defined in the enclosing class's constructor using
+`jsava.Utils.createAnonymousClass` (see example in `jsava.util.HashMap`).
 
 ### Members
 
@@ -92,13 +97,10 @@ visibility retains the name conflict, the entity shall be handled as private.
 5. No member variable shall ever be initialized with `undefined`. Instead, the correct default value shall be taken, i.e.
 a simple `Number` member will be `0` while any complex object will default to `null`.
 6. If any implementation -- or its behavior -- differs from the original Java code, there shall be comments if necessary.
-7. Inner classes, especially those requiring a reference to the enclosing class, shall be initialized with `null` as a
-member (with corresponding annotations) and be defined in the enclosing class's constructor using
-`jsava.Utils.createAnonymousClass` (see example in `jsava.util.HashMap`).
 
 ### Exceptions
 
-1. See `jsava.lang.RuntimeException` for an example on how to define a simple exception only capsulating a sub class
+1. See `jsava.lang.RuntimeException` for an example on how to define a simple exception only encapsulating a subclass
 with a new name.
 2. Since Javascript can only catch anything that is thrown, the following pattern shall be used to catch exceptions
 in a similar manner to Java:
