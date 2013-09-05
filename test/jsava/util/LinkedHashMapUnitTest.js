@@ -327,7 +327,36 @@ describe( 'LinkedHashMap', function () {
         } );
     } );
 
-    // TODO test removeOldestEntry
+    describe( 'removeEldestEntry()', function () {
+        it( 'works', function () {
+            var map = new (jsava.Utils.createAnonymousClass( {
+                extend: LinkedHashMap,
+
+                members: {
+                    removeEldestEntry: function (eldest) {
+                        return eldest.getValue() <= 5;
+                    }
+                }
+            } ))();
+
+            map.put( 1, 1 );
+            expect( map.size() ).toBe( 0 );
+
+            map.put( 2, 5 );
+            expect( map.size() ).toBe( 0 );
+
+            map.put( 3, 10 );
+            expect( map.size() ).toBe( 1 );
+
+            map.put( 4, 20 );
+            expect( map.size() ).toBe( 2 );
+
+            map.put( 5, 1 );
+            expect( map.size() ).toBe( 3 );
+        } );
+    } );
+
     // TODO verify the correct iteration order (that's the point of this class anyway...)
     // TODO remove tests that are contained in HashMapUnitTest and not needed here
+    // TODO test accessOrder
 } );
