@@ -34,6 +34,31 @@ qx.Class.define( 'jsava.Utils', {
             }
 
             return result;
+        },
+
+        /**
+         * Returns the static class with given name in respect to hidden classes, i.e.
+         * if clazz has a static class with the given name itself, it will be used. Otherwise,
+         * this method will go up the inheritance chain until it finds a static class of that name
+         * and then return it.
+         *
+         * For an example refer to jsava.util.HashMap#createEntry
+         *
+         * @param clazz The encapsulating class (typically 'this')
+         * @param {string} staticClazz Name of the static class to look for
+         * @returns {*}
+         */
+        getStaticClass: function (clazz, staticClazz) {
+            var parent = clazz.constructor;
+            while( typeof parent.superclass !== 'undefined' ) {
+                if( typeof parent[staticClazz] !== 'undefined' ) {
+                    return parent[staticClazz];
+                }
+
+                parent = parent.superclass.constructor;
+            }
+
+            throw new jsava.lang.IllegalStateException( 'could not find static class in hierarchy' );
         }
     }
 } );

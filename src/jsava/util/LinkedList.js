@@ -56,6 +56,7 @@ qx.Class.define( 'jsava.util.LinkedList', {
             }
         },
         addBefore: function (e, entry) {
+            // TODO use jsava.Utils.getStaticClass()
             var newEntry = new jsava.util.LinkedList.Entry( e, entry, entry.previous );
             newEntry.previous.next = newEntry;
             newEntry.next.previous = newEntry;
