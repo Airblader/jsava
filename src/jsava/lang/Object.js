@@ -83,6 +83,31 @@ qx.Class.define( 'jsava.lang.Object', {
 
         finalize: function () {
             throw new jsava.lang.UnsupportedOperationException();
+        },
+
+        /**
+         * Returns a static member (i.e. an static inner class) with given name and respect to the fact
+         * that subclasses can hide static members.
+         * All static fields that don't explicitly reference a class should use this method instead of
+         * this.self(arguments), this.constructor or similar techniques in order to allow subclasses to hide
+         * the value of the member.
+         *
+         * For an example refer to jsava.util.HashMap#createEntry
+         *
+         * @param {string} staticMember Name of the static member to look for
+         * @returns {jsava.lang.Object}
+         */
+        statics: function (staticMember) {
+            var parent = this.constructor;
+            while( typeof parent.superclass !== 'undefined' ) {
+                if( typeof parent[staticMember] !== 'undefined' ) {
+                    return parent[staticMember];
+                }
+
+                parent = parent.superclass.constructor;
+            }
+
+            throw new jsava.lang.IllegalStateException( 'could not find static member' );
         }
     }
 } );
