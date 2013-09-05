@@ -715,7 +715,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         /** @protected */
         addEntry: function (hash, key, value, bucketIndex) {
             var entry = this.table[bucketIndex];
-            this.table[bucketIndex] = new (this.statics( jsava.util.HashMap.Entry.basename ))( hash, key, value, entry );
+            this.table[bucketIndex] = new (this.statics( jsava.util.HashMap.Entry ))( hash, key, value, entry );
             if( this._size++ >= this.threshold ) {
                 this.resize( 2 * this.table.length );
             }
@@ -724,7 +724,7 @@ qx.Class.define( 'jsava.util.HashMap', {
         /** @protected */
         createEntry: function (hash, key, value, bucketIndex) {
             var entry = this.table[bucketIndex];
-            this.table[bucketIndex] = new (this.statics( jsava.util.HashMap.Entry.basename ))( hash, key, value, entry );
+            this.table[bucketIndex] = new (this.statics( jsava.util.HashMap.Entry ))( hash, key, value, entry );
             this._size++;
         },
 

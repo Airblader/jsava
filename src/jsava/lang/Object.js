@@ -94,20 +94,24 @@ qx.Class.define( 'jsava.lang.Object', {
          *
          * For an example refer to jsava.util.HashMap#createEntry
          *
-         * @param {string} staticMember Name of the static member to look for
+         * @param {object} staticMember Name of the static member to look for. This can also be a reference to a class,
+         * in which case the basename will be extracted from it automatically.
          * @returns {jsava.lang.Object}
          */
         statics: function (staticMember) {
-            var parent = this.constructor;
+            var parent = this.constructor,
+                name = qx.Class.isSubClassOf( staticMember.constructor, jsava.lang.Object )
+                    ? staticMember.basename : staticMember;
+
             while( typeof parent.superclass !== 'undefined' ) {
-                if( typeof parent[staticMember] !== 'undefined' ) {
-                    return parent[staticMember];
+                if( typeof parent[name] !== 'undefined' ) {
+                    return parent[name];
                 }
 
                 parent = parent.superclass.constructor;
             }
 
-            throw new jsava.lang.IllegalStateException( 'could not find static member' );
+            throw new jsava.lang.IllegalStateException( 'could not find static member "' + name + '"' );
         }
     }
 } );
