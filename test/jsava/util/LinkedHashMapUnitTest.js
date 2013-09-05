@@ -185,7 +185,61 @@ describe( 'LinkedHashMap', function () {
         } );
     } );
 
+    describe( 'accessOrder', function () {
+        var assertIterationOrder = function (expectedOrder) {
+            var it = map.entrySet().iterator();
+            while( it.hasNext() ) {
+                expect( it.next().getKey() ).toBe( expectedOrder.shift() );
+            }
+
+            expect( expectedOrder.length ).toBe( 0 );
+        };
+
+        it( 'changes the iteration order to the order of last access if activated', function () {
+            map = new LinkedHashMap( 10, 0.75, true );
+            map.put( 1, 10 );
+            map.put( 3, 30 );
+
+            assertIterationOrder( [1, 3] );
+
+            map.put( 2, 20 );
+
+            assertIterationOrder( [1, 3, 2] );
+
+            map.get( 1 );
+
+            assertIterationOrder( [3, 2, 1] );
+
+            map.put( 1, 42 );
+            map.get( 3 );
+            map.put( 5, 50 );
+
+            assertIterationOrder( [2, 1, 3, 5] );
+        } );
+
+        it( 'preserves the insert order if deactivated', function () {
+            map = new LinkedHashMap( 10, 0.75, false );
+            map.put( 1, 10 );
+            map.put( 3, 30 );
+
+            assertIterationOrder( [1, 3] );
+
+            map.put( 2, 20 );
+
+            assertIterationOrder( [1, 3, 2] );
+
+            map.get( 1 );
+
+            assertIterationOrder( [1, 3, 2] );
+
+            map.put( 1, 42 );
+            map.get( 3 );
+            map.put( 5, 50 );
+
+            assertIterationOrder( [1, 3, 2, 5] );
+        } );
+    } );
+
     // TODO verify the correct iteration order (that's the point of this class anyway...)
-    // TODO remove tests that are contained in HashMapUnitTest and not needed here
     // TODO test accessOrder
 } );
