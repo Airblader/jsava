@@ -81,8 +81,8 @@ visibility retains the name conflict, the entity shall be handled as private.
 3. If a class has a constructor, it *must* call the parent constructor (this is tested).
 4. To check an argument for its type, use either `qx.Class.hasInterface()` (for interfaces) or `qx.Class.isSubClassOf`
 (for classes). Do *not* use `implementsInterface`, `objectImplements`, …
-5. Static inner classes must be instanciated with `new (jsava.Utils.getStaticClass( this, 'SomeClass' ))(...)`, otherwise
-it will result in wrong behavior when the class is inherited.
+5. Static inner classes must be instanciated with `new (this.statics( xyz.SomeClass.basename ))(...)`, otherwise
+it will result in wrong behavior when the class is inherited (see example in `jsava.util.HashMap`).
 6. Inner classes, especially those requiring a reference to the enclosing class, shall be initialized with `null` as a
 member (with corresponding annotations) and be defined in the enclosing class's constructor using
 `jsava.Utils.createAnonymousClass` (see example in `jsava.util.HashMap`).
@@ -97,6 +97,8 @@ member (with corresponding annotations) and be defined in the enclosing class's 
 5. No member variable shall ever be initialized with `undefined`. Instead, the correct default value shall be taken, i.e.
 a simple `Number` member will be `0` while any complex object will default to `null`.
 6. If any implementation -- or its behavior -- differs from the original Java code, there shall be comments if necessary.
+7. Any static member that is not explicitly referenced from a class needs to be called via `this.statics( ... )` in order
+to allow hiding the value.
 
 ### Exceptions
 
