@@ -239,7 +239,4 @@ describe( 'LinkedHashMap', function () {
             assertIterationOrder( [1, 3, 2, 5] );
         } );
     } );
-
-    // TODO verify the correct iteration order (that's the point of this class anyway...)
-    // TODO test accessOrder
 } );
