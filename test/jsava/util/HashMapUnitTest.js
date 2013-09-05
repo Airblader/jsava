@@ -1,3 +1,4 @@
+// TODO tests in here heavily rely on the iteration order, which in a HashMap is *not* guaranteed
 describe( 'HashMap', function () {
     var HashMap = jsava.util.HashMap,
         map;
