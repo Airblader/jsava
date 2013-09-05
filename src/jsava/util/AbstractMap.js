@@ -329,7 +329,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
         values: function () {
             if( this._values === null ) {
-                var _this = this;
+                var thisAbstractMap = this;
 
                 this._values = new (jsava.Utils.createAnonymousClass( {
                     extend: jsava.util.AbstractCollection,
@@ -341,7 +341,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                                 implement: [jsava.util.Iterator],
 
                                 members: {
-                                    __iterator: _this.entrySet().iterator(),
+                                    __iterator: thisAbstractMap.entrySet().iterator(),
 
                                     hasNext: function () {
                                         return this.__iterator.hasNext();
@@ -359,11 +359,11 @@ qx.Class.define( 'jsava.util.AbstractMap', {
                         },
 
                         size: function () {
-                            return _this.size();
+                            return thisAbstractMap.size();
                         },
 
                         contains: function (value) {
-                            return _this.containsValue( value );
+                            return thisAbstractMap.containsValue( value );
                         }
                     }
                 } ) );

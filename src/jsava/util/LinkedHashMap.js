@@ -234,7 +234,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
         },
 
         get: function (key) {
-            var entry = this._getEntry( key );
+            var entry = this.getEntry( key );
             if( entry === null ) {
                 return null;
             }

@@ -125,7 +125,7 @@ qx.Class.define( 'jsava.util.Vector', {
          * @returns {jsava.util.Enumeration}
          */
         elements: function () {
-            var __thisVector = this;
+            var thisVector = this;
 
             return new ( jsava.Utils.createAnonymousClass( {
                 extend: jsava.lang.Object,
@@ -136,12 +136,12 @@ qx.Class.define( 'jsava.util.Vector', {
                     count: 0,
 
                     hasMoreElements: function () {
-                        return this.count < __thisVector.elementCount;
+                        return this.count < thisVector.elementCount;
                     },
 
                     nextElement: function () {
-                        if( this.count < __thisVector.elementCount ) {
-                            return __thisVector.elementData[this.count++];
+                        if( this.count < thisVector.elementCount ) {
+                            return thisVector.elementData[this.count++];
                         }
 
                         throw new jsava.lang.NoSuchElementException( 'Vector Enumeration' );

@@ -139,7 +139,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
                     /** @implements jsava.util.Map.Entry */
                     var entry = obj,
-                        candidate = this.__thisHashMap._getEntry( entry.getKey() );
+                        candidate = this.__thisHashMap.getEntry( entry.getKey() );
                     return candidate !== null && candidate.equals( entry );
                 },
 
@@ -410,7 +410,7 @@ qx.Class.define( 'jsava.util.HashMap', {
 
         get: function (key) {
             if( key === null ) {
-                return this.__getForNullKey();
+                return this.getForNullKey();
             }
 
             var hash = this.self( arguments ).hash( key.hashCode() );
@@ -426,7 +426,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             return null;
         },
 
-        __getForNullKey: function () {
+        getForNullKey: function () {
             for( var entry = this.table[0]; entry !== null; entry = entry.next ) {
                 if( entry.key === null ) {
                     return entry.value;
@@ -437,10 +437,10 @@ qx.Class.define( 'jsava.util.HashMap', {
         },
 
         containsKey: function (key) {
-            return this._getEntry( key ) !== null;
+            return this.getEntry( key ) !== null;
         },
 
-        _getEntry: function (key) {
+        getEntry: function (key) {
             var hash = (key === null) ? 0 : this.self( arguments ).hash( key.hashCode() );
             for( var entry = this.table[this.self( arguments ).indexFor( hash, this.table.length )];
                  entry !== null; entry = entry.next ) {
