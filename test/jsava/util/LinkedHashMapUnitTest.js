@@ -24,7 +24,14 @@ describe( 'LinkedHashMap', function () {
     } );
 
     describe( 'constructor', function () {
-        // TODO constructors
+        it( 'without accessOrder', function () {
+            expect( map.accessOrder ).toBe( false );
+        } );
+
+        it( 'with accessOrder', function () {
+            map = new LinkedHashMap( 10, 0.75, true );
+            expect( map.accessOrder ).toBe( true );
+        } );
     } );
 
     describe( 'get()', function () {
