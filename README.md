@@ -9,9 +9,10 @@ Technology Stack
 ----------------
 
 * OOP Layer: [qooxdoo Core](http://qooxdoo.org/)
-  * Although it comes with a toolchain, jsava currently utilizes its own compiler script for dependency management
-and minification.
+  * Although it comes with a toolchain, jsava currently utilizes its own compiler script to organize dependency management
+  and task execution.
 * Testing: [Jasmine](http://pivotal.github.io/jasmine/)
+* Minification: [UglifyJS](https://github.com/mishoo/UglifyJS)
 * Code Style: configuration file is found in lib/style.xml
 
 
@@ -22,7 +23,9 @@ Installation
 2. Make sure your system meets the following requirements:
   * Perl (>= 5.010)
   * Java (>= 1.6)
-  * (Only needed for coverage analysis) [nodejs](http://nodejs.org/) and the [node-coverage](https://github.com/piuccio/node-coverage) module
+  * [nodejs](http://nodejs.org/)
+    * [node-coverage](https://github.com/piuccio/node-coverage) module (Only needed for coverage analysis)
+    * [UglifyJS](https://github.com/mishoo/UglifyJS) (contained in `lib/`)
 3. Execute `tools/compile.pl` to build the project.
 4. To run the tests you can either open the `SpecRunner.html` in a browser or use the `tests.jstd` file for jsTestDriver.
 Both files will be generated in the previous step.
