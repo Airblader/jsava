@@ -3,7 +3,7 @@ qx.Class.define( 'jsava.util.LinkedList', {
     implement: jsava.util.List,
 
     construct: function () {
-        this.base( arguments );
+        this.super( arguments );
 
         this.header = new jsava.util.LinkedList.Entry( null, null, null );
         this.header.next = this.header;
@@ -21,7 +21,7 @@ qx.Class.define( 'jsava.util.LinkedList', {
         Entry: qx.Class.define( 'jsava.util.LinkedList.Entry', {
             extend: jsava.lang.Object,
             construct: function (element, next, previous) {
-                this.base( arguments );
+                this.super( arguments );
 
                 this.element = element;
                 this.next = next;
@@ -136,9 +136,9 @@ qx.Class.define( 'jsava.util.LinkedList', {
         },
         addAll: function () {
             if( arguments.length === 2 ) {
-                this.base( arguments, arguments[0], arguments[1] );
+                this.super( arguments, arguments[0], arguments[1] );
             } else {
-                this.base( arguments, this.size(), arguments[0] );
+                this.super( arguments, this.size(), arguments[0] );
             }
         }
     }

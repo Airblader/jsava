@@ -38,7 +38,7 @@ qx.Class.define( 'jsava.util.Collections', {
                 var args = Array.prototype.slice.call( arguments ),
                     collection = args[0];
 
-                this.base( arguments );
+                this.super( arguments );
 
                 if( args.length === 1 ) {
                     if( collection === null ) {
@@ -140,9 +140,9 @@ qx.Class.define( 'jsava.util.Collections', {
                     list = args[0];
 
                 if( args.length === 1 ) {
-                    this.base( arguments, list );
+                    this.super( arguments, list );
                 } else {
-                    this.base( arguments, list, args[1] );
+                    this.super( arguments, list, args[1] );
                 }
 
                 this.list = list;
@@ -223,9 +223,9 @@ qx.Class.define( 'jsava.util.Collections', {
                     list = args[0];
 
                 if( args.length === 1 ) {
-                    this.base( arguments, list );
+                    this.super( arguments, list );
                 } else {
-                    this.base( arguments, list, args[1] );
+                    this.super( arguments, list, args[1] );
                 }
             },
 

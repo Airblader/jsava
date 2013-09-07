@@ -17,7 +17,7 @@ qx.Class.define( 'jsava.util.ArrayList', {
         } else {
             var initialCapacity = args[0];
 
-            this.base( arguments );
+            this.super( arguments );
             if( initialCapacity < 10 ) {
                 throw new jsava.lang.IllegalArgumentException( 'Illegal Capacity: ' + initialCapacity );
             }
@@ -120,7 +120,7 @@ qx.Class.define( 'jsava.util.ArrayList', {
         clone: function () {
             try {
                 /** @type jsava.util.ArrayList */
-                var v = this.base( arguments );
+                var v = this.super( arguments );
                 v.elementData = jsava.util.Arrays.copyOf( this.elementData, this.__size );
                 v.modCount = 0;
                 return v;

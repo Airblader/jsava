@@ -73,10 +73,12 @@ describe( 'Jsava Internals', function () {
             };
 
             var checkByToString = function (Clazz) {
+                var constructorAsString = Function.prototype.toString.call( Clazz.constructor );
                 // TODO can be improved
                 // usually the call is 'this.base( arguments ...)', but sometimes it is
                 // 'this.base.apply', so this currently covers both
-                return Function.prototype.toString.call( Clazz.constructor ).indexOf( 'this.base' ) !== -1;
+                return constructorAsString.indexOf( 'this.base' ) !== -1
+                    || constructorAsString.indexOf( 'this.super' ) !== -1;
             };
 
             var addClassToErrors = function (Clazz) {

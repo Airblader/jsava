@@ -9,7 +9,7 @@ qx.Class.define( 'jsava.util.RandomAccessSubList', {
      * @param {Number} toIndex
      */
     construct: function (list, fromIndex, toIndex) {
-        this.base( arguments, list, fromIndex, toIndex );
+        this.super( arguments, list, fromIndex, toIndex );
     },
 
     members: {

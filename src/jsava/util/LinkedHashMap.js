@@ -5,7 +5,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
     construct: function () {
         var args = Array.prototype.slice.call( arguments );
 
-        this.base.apply( this, Array.prototype.concat.call( arguments, Array.prototype.slice.call( arguments ) ) );
+        this.super.apply( this, Array.prototype.concat.call( arguments, Array.prototype.slice.call( arguments ) ) );
         this.accessOrder = args.length === 3 ? args[2] : false;
 
         var thisLinkedHashMap = this;
@@ -17,7 +17,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
             type: 'abstract',
 
             construct: function () {
-                this.base( arguments );
+                this.super( arguments );
 
                 this.expectedModCount = this.__thisLinkedHashMap.modCount;
                 this._nextEntry = this.__thisLinkedHashMap.header.after;
@@ -118,7 +118,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
              * @param {jsava.util.HashMap.Entry} next
              */
             construct: function (hash, key, value, next) {
-                this.base( arguments, hash, key, value, next );
+                this.super( arguments, hash, key, value, next );
             },
 
             members: {
@@ -244,7 +244,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
         },
 
         clear: function () {
-            this.base( arguments );
+            this.super( arguments );
             this.header.before = this.header.after = this.header;
         },
 

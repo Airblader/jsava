@@ -8,7 +8,7 @@ qx.Class.define( 'jsava.util.Vector', {
             /** @type jsava.util.Collection */
             var collection = args[0];
 
-            this.base( arguments );
+            this.super( arguments );
 
             this.elementData = collection.toArray();
             this.elementCount = this.elementData.length;
@@ -16,7 +16,7 @@ qx.Class.define( 'jsava.util.Vector', {
             var initialCapacity = args.length !== 0 ? args[0] : 10,
                 capacityIncrement = args.length === 2 ? args[1] : 0;
 
-            this.base( arguments );
+            this.super( arguments );
 
             if( initialCapacity < 0 ) {
                 throw new jsava.lang.IllegalArgumentException( 'Illegal Capacity: ' + initialCapacity );
@@ -340,7 +340,7 @@ qx.Class.define( 'jsava.util.Vector', {
 
         clone: function () {
             try {
-                var vector = this.base( arguments );
+                var vector = this.super( arguments );
                 vector.elementData = jsava.util.Arrays.copyOf( this.elementData, this.elementCount );
                 vector.modCount = 0;
 
@@ -420,7 +420,7 @@ qx.Class.define( 'jsava.util.Vector', {
         },
 
         containsAll: function (collection) {
-            return this.base( arguments, collection );
+            return this.super( arguments, collection );
         },
 
         addAll: function () {
@@ -461,27 +461,27 @@ qx.Class.define( 'jsava.util.Vector', {
         },
 
         removeAll: function (collection) {
-            return this.base( arguments, collection );
+            return this.super( arguments, collection );
         },
 
         retainAll: function (collection) {
-            return this.base( arguments, collection );
+            return this.super( arguments, collection );
         },
 
         equals: function (obj) {
-            return this.base( arguments, obj );
+            return this.super( arguments, obj );
         },
 
         hashCode: function () {
-            return this.base( arguments );
+            return this.super( arguments );
         },
 
         toString: function () {
-            return this.base( arguments );
+            return this.super( arguments );
         },
 
         subList: function (fromIndex, toIndex) {
-            return jsava.util.Collections.synchronizedList( this.base( arguments, fromIndex, toIndex ), this );
+            return jsava.util.Collections.synchronizedList( this.super( arguments, fromIndex, toIndex ), this );
         },
 
         removeRange: function (fromIndex, toIndex) {

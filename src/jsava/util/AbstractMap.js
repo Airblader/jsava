@@ -6,7 +6,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
 
     /** @protected */
     construct: function () {
-        this.base( arguments );
+        this.super( arguments );
     },
 
     statics: {
@@ -15,7 +15,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             implement: [jsava.util.Map.Entry, jsava.io.Serializable],
 
             construct: function () {
-                this.base( arguments );
+                this.super( arguments );
 
                 var args = Array.prototype.slice.call( arguments );
                 switch( args.length ) {
@@ -87,7 +87,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
             implement: [jsava.util.Map.Entry, jsava.io.Serializable],
 
             construct: function () {
-                this.base( arguments );
+                this.super( arguments );
 
                 var args = Array.prototype.slice.call( arguments );
                 switch( args.length ) {
@@ -450,7 +450,7 @@ qx.Class.define( 'jsava.util.AbstractMap', {
         },
 
         clone: function () {
-            var result = this.base( arguments );
+            var result = this.super( arguments );
             result._keySet = null;
             result._values = null;
             return result;

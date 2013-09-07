@@ -45,7 +45,7 @@ qx.Class.define( 'jsava.lang.Object', {
         clone: function () {
             var result;
             try {
-                result = this.base( arguments );
+                result = this.super( arguments );
             } finally {
                 for( var property in this ) {
                     if( !this.hasOwnProperty( property ) || result.hasOwnProperty( property ) ) {
@@ -112,6 +112,14 @@ qx.Class.define( 'jsava.lang.Object', {
             }
 
             throw new jsava.lang.IllegalStateException( 'could not find static member "' + name + '"' );
+        },
+
+        /**
+         * Synonym for this.super(arguments) for more Java-like syntax.
+         * @returns {*}
+         */
+        super: function () {
+            return this.base.apply( this, arguments );
         }
     }
 } );

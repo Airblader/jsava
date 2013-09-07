@@ -3,7 +3,7 @@ qx.Class.define( 'jsava.util.HashMap', {
     implement: [jsava.util.Map, jsava.io.Serializable, jsava.lang.Cloneable],
 
     construct: function () {
-        this.base( arguments );
+        this.super( arguments );
 
         var args = Array.prototype.slice.call( arguments ),
             initialCapacity = this.self( arguments ).DEFAULT_INITIAL_CAPACITY,
@@ -260,7 +260,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             implement: [jsava.util.Map.Entry],
 
             construct: function (hash, key, value, nextEntry) {
-                this.base( arguments );
+                this.super( arguments );
 
                 this.value = value;
                 this.next = nextEntry;
@@ -695,7 +695,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             /** @type jsava.util.HashMap */
             var result = null;
             try {
-                result = this.base( arguments );
+                result = this.super( arguments );
             } catch( e ) {
                 if( !qx.Class.isSubClassOf( e.constructor, jsava.lang.CloneNotSupportedException ) ) {
                     throw e;

@@ -6,7 +6,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
 
     /** @protected */
     construct: function () {
-        this.base( arguments );
+        this.super( arguments );
 
         var thisAbstractList = this;
 
@@ -16,7 +16,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
 
             /** @private */
             construct: function () {
-                this.base( arguments );
+                this.super( arguments );
                 this.expectedModCount = this.__thisAbstractList.modCount;
             },
 
@@ -92,7 +92,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
 
             /** @private */
             construct: function (index) {
-                this.base( arguments );
+                this.super( arguments );
                 this.cursor = index;
             },
 
@@ -185,7 +185,7 @@ qx.Class.define( 'jsava.util.AbstractList', {
             }
 
             // add(index, element) needs to be implemented in the child class
-            // add(element) shall either be overridden or call this.base(arguments)
+            // add(element) shall either be overridden or call this.super(arguments)
             throw new jsava.lang.UnsupportedOperationException();
         },
 

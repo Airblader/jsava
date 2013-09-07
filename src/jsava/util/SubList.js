@@ -18,7 +18,7 @@ qx.Class.define( 'jsava.util.SubList', {
             throw new jsava.util.IllegalArgumentException( 'fromIndex(' + fromIndex + ') > toIndex(' + toIndex + ')' );
         }
 
-        this.base( arguments );
+        this.super( arguments );
 
         this.l = list;
         this.offset = fromIndex;
@@ -120,7 +120,7 @@ qx.Class.define( 'jsava.util.SubList', {
 
         listIterator: function () {
             if( arguments.length === 0 ) {
-                return this.base( arguments );
+                return this.super( arguments );
             }
 
             var index = arguments[0];

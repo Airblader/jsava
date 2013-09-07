@@ -6,7 +6,7 @@ qx.Class.define( 'jsava.lang.String', {
      * @public
      */
     construct: function () {
-        this.base( arguments );
+        this.super( arguments );
 
         var args = Array.prototype.slice.call( arguments );
 
