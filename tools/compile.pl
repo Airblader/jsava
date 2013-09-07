@@ -168,7 +168,7 @@ my $compileOrderArray = "'" . ( join "','", @compileOrder ) . "'";
 $jsavaShortenerContent =~ s/\Qvar compileOrder = [];\E/var compileOrder = [$compileOrderArray];/;
 system( "echo \"$jsavaShortenerContent\" >> ../jsava.js" );
 
-system( "cd ../lib && java -jar yuicompressor-2.4.8.jar ../jsava.js -o ../jsava.min.js" );
+system( "cd ../lib/UglifyJS/bin && ./uglifyjs ../../../jsava.js > ../../../jsava.min.js" );
 
 
 # Generate tests.jstd
