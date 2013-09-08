@@ -100,7 +100,7 @@ member (with corresponding annotations) and be defined in the enclosing class's 
 5. No member variable shall ever be initialized with `undefined`. Instead, the correct default value shall be taken, i.e.
 a simple `Number` member will be `0` while any complex object will default to `null`.
 6. If any implementation -- or its behavior -- differs from the original Java code, there shall be comments if necessary.
-7. Any static member that is not explicitly referenced from a class needs to be called via `this.statics( 'CONST_NAME' )` in order
+7. Any static member that is not explicitly referenced from a class needs to be called via `this.constructor.NAME` in order
 to allow hiding the value.
 
 ### Exceptions
