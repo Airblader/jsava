@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.InternalError', {
+defineClass( 'jsava.lang.InternalError', {
     extend: jsava.lang.VirtualMachineError,
 
     construct: function () {

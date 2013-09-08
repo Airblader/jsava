@@ -156,6 +156,7 @@ foreach( @files ) {
 }
 
 system( "rm -f ../jsava.js" );
+system( "cat ../jsava/jsavaInit.js >> ../jsava.js" );
 system( "cat ../lib/jsavaPrimitivesStubs.js >> ../jsava.js" );
 foreach( @compileOrder ) {
     my $filename = getFilenameFromClassName( $_ );

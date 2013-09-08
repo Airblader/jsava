@@ -1,2 +1,2 @@
-qx.Interface.define( 'jsava.io.Serializable', {
+defineInterface( 'jsava.io.Serializable', {
 } );

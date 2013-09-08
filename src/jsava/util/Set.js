@@ -1,4 +1,4 @@
-qx.Interface.define( 'jsava.util.Set', {
+defineInterface( 'jsava.util.Set', {
     extend: jsava.util.Collection,
 
     members: {

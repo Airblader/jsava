@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.util.LinkedList', {
+defineClass( 'jsava.util.LinkedList', {
     extend: jsava.util.AbstractList,
     implement: jsava.util.List,
 
@@ -18,7 +18,7 @@ qx.Class.define( 'jsava.util.LinkedList', {
         /** @private */
         serialVersionUID: 876323262645176,
 
-        Entry: qx.Class.define( 'jsava.util.LinkedList.Entry', {
+        Entry: defineClass( 'jsava.util.LinkedList.Entry', {
             extend: jsava.lang.Object,
             construct: function (element, next, previous) {
                 this.super( arguments );

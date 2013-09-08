@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.StringIndexOutOfBoundsException', {
+defineClass( 'jsava.lang.StringIndexOutOfBoundsException', {
     extend: jsava.lang.IndexOutOfBoundsException,
 
     construct: function () {

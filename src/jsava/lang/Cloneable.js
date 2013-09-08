@@ -1,2 +1,2 @@
-qx.Interface.define( 'jsava.lang.Cloneable', {
+defineInterface( 'jsava.lang.Cloneable', {
 } );

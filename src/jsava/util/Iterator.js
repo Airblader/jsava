@@ -1,4 +1,4 @@
-qx.Interface.define( 'jsava.util.Iterator', {
+defineInterface( 'jsava.util.Iterator', {
     members: {
         /**
          * @public

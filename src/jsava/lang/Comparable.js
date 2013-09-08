@@ -1,4 +1,4 @@
-qx.Interface.define( 'jsava.lang.Comparable', {
+defineInterface( 'jsava.lang.Comparable', {
     members: {
         /**
          * @public

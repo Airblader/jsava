@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.System', {
+defineClass( 'jsava.lang.System', {
     // TODO much more stuff implement
 
     extend: jsava.lang.Object,

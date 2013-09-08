@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.Object', {
+defineClass( 'jsava.lang.Object', {
     extend: qx.core.Object,
 
     members: {

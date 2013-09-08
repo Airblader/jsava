@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.util.LinkedHashMap', {
+defineClass( 'jsava.util.LinkedHashMap', {
     extend: jsava.util.HashMap,
     implement: jsava.util.Map,
 
@@ -108,7 +108,7 @@ qx.Class.define( 'jsava.util.LinkedHashMap', {
         /** @private */
         serialVersionUID: 3801124242820219,
 
-        Entry: qx.Class.define( 'jsava.util.LinkedHashMap.Entry', {
+        Entry: defineClass( 'jsava.util.LinkedHashMap.Entry', {
             extend: jsava.util.HashMap.Entry,
 
             /**

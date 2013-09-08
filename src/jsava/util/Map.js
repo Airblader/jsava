@@ -1,6 +1,6 @@
-qx.Interface.define( "jsava.util.Map", {
+defineInterface( "jsava.util.Map", {
     statics: {
-        Entry: qx.Interface.define( 'jsava.util.Map.Entry', {
+        Entry: defineInterface( 'jsava.util.Map.Entry', {
             members: {
                 /** @public */
                 getKey: function () {

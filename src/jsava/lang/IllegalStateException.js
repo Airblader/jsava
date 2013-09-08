@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.IllegalStateException', {
+defineClass( 'jsava.lang.IllegalStateException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {

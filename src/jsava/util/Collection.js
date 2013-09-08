@@ -1,4 +1,4 @@
-qx.Interface.define( 'jsava.util.Collection', {
+defineInterface( 'jsava.util.Collection', {
     extend: jsava.lang.Iterable,
 
     members: {

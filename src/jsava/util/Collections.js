@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.util.Collections', {
+defineClass( 'jsava.util.Collections', {
     extend: jsava.lang.Object,
 
     type: 'static',
@@ -30,7 +30,7 @@ qx.Class.define( 'jsava.util.Collections', {
         /**
          * Note : This is not actually synchronized as Javascript has no such feature
          */
-        SynchronizedCollection: qx.Class.define( 'jsava.util.Collections.SynchronizedCollection', {
+        SynchronizedCollection: defineClass( 'jsava.util.Collections.SynchronizedCollection', {
             extend: jsava.lang.Object,
             implement: [jsava.util.Collection, jsava.io.Serializable],
 
@@ -131,7 +131,7 @@ qx.Class.define( 'jsava.util.Collections', {
         /**
          * Note : This is not actually synchronized as Javascript has no such feature
          */
-        SynchronizedList: qx.Class.define( 'jsava.util.Collections.SynchronizedList', {
+        SynchronizedList: defineClass( 'jsava.util.Collections.SynchronizedList', {
             extend: jsava.util.Collections.SynchronizedCollection,
             implement: jsava.util.List,
 
@@ -214,7 +214,7 @@ qx.Class.define( 'jsava.util.Collections', {
         /**
          * Note : This is not actually synchronized as Javascript has no such feature
          */
-        SynchronizedRandomAccessList: qx.Class.define( 'jsava.util.Collections.SynchronizedRandomAccessList', {
+        SynchronizedRandomAccessList: defineClass( 'jsava.util.Collections.SynchronizedRandomAccessList', {
             extend: jsava.util.Collections.SynchronizedList,
             implement: jsava.util.RandomAccess,
 

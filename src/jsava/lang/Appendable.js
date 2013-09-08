@@ -1,4 +1,4 @@
-qx.Interface.define( 'jsava.lang.Appendable', {
+defineInterface( 'jsava.lang.Appendable', {
     /**
      * @public
      * @returns {jsava.lang.Appendable}

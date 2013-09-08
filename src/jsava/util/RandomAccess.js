@@ -1,2 +1,2 @@
-qx.Interface.define( 'jsava.util.RandomAccess', {
+defineInterface( 'jsava.util.RandomAccess', {
 } );

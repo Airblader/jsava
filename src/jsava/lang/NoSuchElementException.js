@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.NoSuchElementException', {
+defineClass( 'jsava.lang.NoSuchElementException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {

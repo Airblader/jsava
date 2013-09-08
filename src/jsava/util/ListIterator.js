@@ -1,4 +1,4 @@
-qx.Interface.define( 'jsava.util.ListIterator', {
+defineInterface( 'jsava.util.ListIterator', {
     extend: jsava.util.Iterator,
 
     members: {

@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.NullPointerException', {
+defineClass( 'jsava.lang.NullPointerException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {

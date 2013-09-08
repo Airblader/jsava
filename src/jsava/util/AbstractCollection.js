@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.util.AbstractCollection', {
+defineClass( 'jsava.util.AbstractCollection', {
     extend: jsava.lang.Object,
     implement: [jsava.util.Collection],
 

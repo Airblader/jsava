@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.util.HashMap', {
+defineClass( 'jsava.util.HashMap', {
     extend: jsava.util.AbstractMap,
     implement: [jsava.util.Map, jsava.io.Serializable, jsava.lang.Cloneable],
 
@@ -255,7 +255,7 @@ qx.Class.define( 'jsava.util.HashMap', {
             return hashCode & (length - 1);
         },
 
-        Entry: qx.Class.define( 'jsava.util.HashMap.Entry', {
+        Entry: defineClass( 'jsava.util.HashMap.Entry', {
             extend: jsava.lang.Object,
             implement: [jsava.util.Map.Entry],
 

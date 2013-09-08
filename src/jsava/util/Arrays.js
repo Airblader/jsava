@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.util.Arrays', {
+defineClass( 'jsava.util.Arrays', {
     extend: jsava.lang.Object,
 
     type: 'static',

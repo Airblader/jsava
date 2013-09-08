@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.CloneNotSupportedException', {
+defineClass( 'jsava.lang.CloneNotSupportedException', {
     extend: jsava.lang.Exception,
 
     construct: function () {

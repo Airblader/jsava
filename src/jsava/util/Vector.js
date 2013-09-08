@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.util.Vector', {
+defineClass( 'jsava.util.Vector', {
     extend: jsava.util.AbstractList,
     implement: [jsava.util.List, jsava.util.RandomAccess, jsava.lang.Cloneable, jsava.io.Serializable],
 

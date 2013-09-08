@@ -1,4 +1,4 @@
-qx.Interface.define( 'jsava.lang.CharSequence', {
+defineInterface( 'jsava.lang.CharSequence', {
     members: {
         /**
          * @public

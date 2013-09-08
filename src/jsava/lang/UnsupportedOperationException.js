@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.UnsupportedOperationException', {
+defineClass( 'jsava.lang.UnsupportedOperationException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {

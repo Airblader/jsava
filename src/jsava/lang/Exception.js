@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.Exception', {
+defineClass( 'jsava.lang.Exception', {
     extend: jsava.lang.Throwable,
 
     construct: function () {

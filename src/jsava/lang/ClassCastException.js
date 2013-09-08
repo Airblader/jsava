@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.ClassCastException', {
+defineClass( 'jsava.lang.ClassCastException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {

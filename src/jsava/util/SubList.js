@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.util.SubList', {
+defineClass( 'jsava.util.SubList', {
     extend: jsava.util.AbstractList,
 
     /**

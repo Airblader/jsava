@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.Integer', {
+defineClass( 'jsava.lang.Integer', {
     // TODO extend from Number
     extend: jsava.lang.Object,
     implement: [jsava.lang.Comparable],

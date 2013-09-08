@@ -1,4 +1,4 @@
-qx.Interface.define( 'jsava.util.Enumeration', {
+defineInterface( 'jsava.util.Enumeration', {
     /**
      * @public
      * @returns {Boolean}

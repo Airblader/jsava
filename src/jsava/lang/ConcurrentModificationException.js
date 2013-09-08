@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.lang.ConcurrentModificationException', {
+defineClass( 'jsava.lang.ConcurrentModificationException', {
     extend: jsava.lang.RuntimeException,
 
     construct: function () {

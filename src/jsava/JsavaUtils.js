@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.Utils', {
+defineClass( 'jsava.Utils', {
     extend: qx.core.Object,
 
     type: 'static',
@@ -11,7 +11,7 @@ qx.Class.define( 'jsava.Utils', {
         createAnonymousClass: function (config) {
             var clazzName = 'Anonymous';
 
-            var clazz = qx.Class.define( clazzName, config );
+            var clazz = defineClass( clazzName, config );
             qx.Class.undefine( clazzName );
 
             return clazz;

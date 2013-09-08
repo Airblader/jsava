@@ -1,4 +1,4 @@
-qx.Class.define( 'jsava.io.IOException', {
+defineClass( 'jsava.io.IOException', {
     extend: jsava.lang.Exception,
 
     construct: function () {
