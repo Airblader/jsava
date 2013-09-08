@@ -86,35 +86,6 @@ defineClass( 'jsava.lang.Object', {
         },
 
         /**
-         * Returns a static member (i.e. an static inner class) with given name and respect to the fact
-         * that subclasses can hide static members.
-         * All static fields that don't explicitly reference a class should use this method instead of
-         * this.self(arguments), this.constructor or similar techniques in order to allow subclasses to hide
-         * the value of the member.
-         *
-         * For an example refer to jsava.util.HashMap#createEntry
-         *
-         * @param {object} staticMember Name of the static member to look for. This can also be a reference to a class,
-         * in which case the basename will be extracted from it automatically.
-         * @returns {jsava.lang.Object}
-         */
-        statics: function (staticMember) {
-            var parent = this.constructor,
-                name = qx.Class.isSubClassOf( staticMember.constructor, jsava.lang.Object )
-                    ? staticMember.basename : staticMember;
-
-            while( typeof parent.superclass !== 'undefined' ) {
-                if( typeof parent[name] !== 'undefined' ) {
-                    return parent[name];
-                }
-
-                parent = parent.superclass.constructor;
-            }
-
-            throw new jsava.lang.IllegalStateException( 'could not find static member "' + name + '"' );
-        },
-
-        /**
          * Synonym for this.super(arguments) for more Java-like syntax.
          * @returns {*}
          */
