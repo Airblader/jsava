@@ -1,3 +1,7 @@
+/**
+ * @interface
+ * @class jsava.util.ListIterator
+ */
 defineInterface( 'jsava.util.ListIterator', {
     extend: jsava.util.Iterator,
 

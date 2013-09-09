@@ -1,3 +1,7 @@
+/**
+ * @interface
+ * @class jsava.lang.Appendable
+ */
 defineInterface( 'jsava.lang.Appendable', {
     /**
      * @public

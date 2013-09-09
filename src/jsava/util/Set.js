@@ -1,3 +1,7 @@
+/**
+ * @interface
+ * @class jsava.util.Set
+ */
 defineInterface( 'jsava.util.Set', {
     extend: jsava.util.Collection,
 

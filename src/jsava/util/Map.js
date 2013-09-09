@@ -1,5 +1,13 @@
+/**
+ * @interface
+ * @class jsava.util.Map
+ */
 defineInterface( "jsava.util.Map", {
     statics: {
+        /**
+         * @interface
+         * @class jsava.util.Map.Entry
+         */
         Entry: defineInterface( 'jsava.util.Map.Entry', {
             members: {
                 /** @public */

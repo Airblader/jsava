@@ -1,3 +1,7 @@
+/**
+ * @interface
+ * @class jsava.lang.Iterable
+ */
 defineInterface( 'jsava.lang.Iterable', {
     members: {
         /**

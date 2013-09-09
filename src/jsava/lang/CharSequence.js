@@ -1,3 +1,7 @@
+/**
+ * @interface
+ * @class jsava.lang.CharSequence
+ */
 defineInterface( 'jsava.lang.CharSequence', {
     members: {
         /**

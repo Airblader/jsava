@@ -1,3 +1,7 @@
+/**
+ * @interface
+ * @class jsava.lang.Comparable
+ */
 defineInterface( 'jsava.lang.Comparable', {
     members: {
         /**

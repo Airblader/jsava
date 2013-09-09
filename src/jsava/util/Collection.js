@@ -1,3 +1,7 @@
+/**
+ * @interface
+ * @class jsava.util.Collection
+ */
 defineInterface( 'jsava.util.Collection', {
     extend: jsava.lang.Iterable,
 
