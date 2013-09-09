@@ -38,8 +38,9 @@
         isLogEnabled && console.group(
             className === null ? 'Defining new anonymous class' : 'Defining new class ' + className );
 
+        var clazz = null;
         try {
-            var clazz = qx.Class.define( className, properties );
+            clazz = qx.Class.define( className, properties );
             inheritStatics( clazz );
         } finally {
             isLogEnabled && console.groupEnd();
