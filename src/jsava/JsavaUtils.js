@@ -10,12 +10,8 @@ defineClass( 'jsava.Utils', {
          * @returns {*}
          */
         createAnonymousClass: function (config) {
-            var clazzName = 'Anonymous';
-
-            var clazz = defineClass( clazzName, config );
-            qx.Class.undefine( clazzName );
-
-            return clazz;
+            // TODO inline
+            return defineClass( null, config );
         },
 
         /**
