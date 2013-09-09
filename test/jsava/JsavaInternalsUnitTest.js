@@ -130,4 +130,114 @@ describe( 'Jsava Internals', function () {
         })( jsava );
 
     } );
+
+    describe( 'inheritance of static members', function () {
+        it( 'works for members not existing in the subclass', function () {
+            var baseClass = defineClass( null, {
+                extend: jsava.lang.Object,
+
+                statics: {
+                    SOME_NEW_CONSTANT: 42
+                }
+            } );
+
+            var subClassA = defineClass( null, {
+                extend: baseClass
+            } );
+
+            var subClassB = defineClass( null, {
+                extend: subClassA
+            } );
+
+            expect( subClassA.SOME_NEW_CONSTANT ).toBe( 42 );
+            expect( subClassB.SOME_NEW_CONSTANT ).toBe( 42 );
+        } );
+
+        it( 'works for members already present in the subclass', function () {
+            var baseClass = defineClass( null, {
+                extend: jsava.lang.Object,
+
+                statics: {
+                    SOME_NEW_CONSTANT: 42
+                }
+            } );
+
+            var subClass = defineClass( null, {
+                extend: baseClass,
+
+                statics: {
+                    SOME_NEW_CONSTANT: -42
+                }
+            } );
+
+            expect( subClass.SOME_NEW_CONSTANT ).toBe( -42 );
+        } );
+
+        it( 'uses the most recent value for inheritance', function () {
+            var baseClass = defineClass( null, {
+                extend: jsava.lang.Object,
+
+                statics: {
+                    SOME_NEW_CONSTANT: 10
+                }
+            } );
+
+            var subClassA = defineClass( null, {
+                extend: baseClass,
+
+                statics: {
+                    SOME_NEW_CONSTANT: 20
+                }
+            } );
+
+            var subClassB = defineClass( null, {
+                extend: subClassA
+            } );
+
+            expect( subClassB.SOME_NEW_CONSTANT ).toBe( 20 );
+        } );
+
+        it( 'works within methods', function () {
+            var baseClass = defineClass( null, {
+                extend: jsava.lang.Object,
+
+                statics: {
+                    SOME_NEW_CONSTANT_A: 10,
+                    SOME_NEW_CONSTANT_B: 20,
+
+                    baseStaticMethod: function () {
+                        return this.constructor.SOME_NEW_CONSTANT_A;
+                    }
+                },
+
+                members: {
+                    baseInstanceMethod: function () {
+                        return this.constructor.SOME_NEW_CONSTANT_B;
+                    }
+                }
+            } );
+
+            var subClass = defineClass( null, {
+                extend: baseClass,
+
+                statics: {
+                    subStaticMethod: function () {
+                        return this.constructor.SOME_NEW_CONSTANT_A;
+                    }
+                },
+
+                members: {
+                    subInstanceMethod: function () {
+                        return this.constructor.SOME_NEW_CONSTANT_B;
+                    }
+                }
+            } );
+
+            expect( baseClass.baseStaticMethod() ).toBe( 10 );
+            expect( subClass.subStaticMethod() ).toBe( 10 );
+
+            expect( new baseClass().baseInstanceMethod() ).toBe( 20 );
+            expect( new subClass().subInstanceMethod() ).toBe( 20 );
+        } );
+    } );
 } );
