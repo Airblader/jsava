@@ -1,3 +1,4 @@
+/** @class jsava.lang.IllegalStateException */
 defineClass( 'jsava.lang.IllegalStateException', {
     extend: jsava.lang.RuntimeException,
 

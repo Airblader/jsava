@@ -1,3 +1,4 @@
+/** @class jsava.lang.Character */
 defineClass( 'jsava.lang.Character', {
     extend: jsava.lang.Object,
     implement: [jsava.io.Serializable, jsava.lang.Comparable],

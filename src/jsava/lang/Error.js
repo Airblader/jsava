@@ -1,3 +1,4 @@
+/** @class jsava.lang.Error */
 defineClass( 'jsava.lang.Error', {
     extend: jsava.lang.Throwable,
 

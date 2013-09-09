@@ -1,3 +1,4 @@
+/** @class jsava.lang.IllegalArgumentException */
 defineClass( 'jsava.lang.IllegalArgumentException', {
     extend: jsava.lang.RuntimeException,
 

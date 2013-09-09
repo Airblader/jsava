@@ -1,3 +1,4 @@
+/** @class jsava.lang.CloneNotSupportedException */
 defineClass( 'jsava.lang.CloneNotSupportedException', {
     extend: jsava.lang.Exception,
 

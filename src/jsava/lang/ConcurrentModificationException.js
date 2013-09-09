@@ -1,3 +1,4 @@
+/** @class jsava.lang.ConcurrentModificationException */
 defineClass( 'jsava.lang.ConcurrentModificationException', {
     extend: jsava.lang.RuntimeException,
 

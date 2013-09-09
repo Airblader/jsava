@@ -1,3 +1,4 @@
+/** @class jsava.util.RandomAccessSubList */
 defineClass( 'jsava.util.RandomAccessSubList', {
     extend: jsava.util.SubList,
     implement: jsava.util.RandomAccess,

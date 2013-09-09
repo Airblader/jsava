@@ -1,3 +1,4 @@
+/** @class jsava.lang.UnsupportedOperationException */
 defineClass( 'jsava.lang.UnsupportedOperationException', {
     extend: jsava.lang.RuntimeException,
 

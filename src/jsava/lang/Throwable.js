@@ -1,3 +1,4 @@
+/** @class jsava.lang.Throwable */
 defineClass( 'jsava.lang.Throwable', {
     extend: jsava.lang.Object,
     implement: [jsava.io.Serializable],

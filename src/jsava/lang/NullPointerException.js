@@ -1,3 +1,4 @@
+/** @class jsava.lang.NullPointerException */
 defineClass( 'jsava.lang.NullPointerException', {
     extend: jsava.lang.RuntimeException,
 

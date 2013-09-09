@@ -1,3 +1,4 @@
+/** @class jsava.util.AbstractMap */
 defineClass( 'jsava.util.AbstractMap', {
     extend: jsava.lang.Object,
     implement: jsava.util.Map,
@@ -10,6 +11,7 @@ defineClass( 'jsava.util.AbstractMap', {
     },
 
     statics: {
+        /** @class jsava.util.AbstractMap.SimpleEntry */
         SimpleEntry: defineClass( 'jsava.util.AbstractMap.SimpleEntry', {
             extend: jsava.lang.Object,
             implement: [jsava.util.Map.Entry, jsava.io.Serializable],
@@ -82,6 +84,7 @@ defineClass( 'jsava.util.AbstractMap', {
             }
         } ),
 
+        /** @class jsava.util.AbstractMap.SimpleImmutableEntry */
         SimpleImmutableEntry: defineClass( 'jsava.util.AbstractMap.SimpleImmutableEntry', {
             extend: jsava.lang.Object,
             implement: [jsava.util.Map.Entry, jsava.io.Serializable],

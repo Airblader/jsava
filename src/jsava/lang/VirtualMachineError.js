@@ -1,3 +1,4 @@
+/** @class jsava.lang.VirtualMachineError */
 defineClass( 'jsava.lang.VirtualMachineError', {
     extend: jsava.lang.Error,
 

@@ -1,3 +1,4 @@
+/** @class jsava.lang.ClassCastException */
 defineClass( 'jsava.lang.ClassCastException', {
     extend: jsava.lang.RuntimeException,
 

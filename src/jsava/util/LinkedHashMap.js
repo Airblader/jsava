@@ -1,3 +1,4 @@
+/** @class jsava.util.LinkedHashMap */
 defineClass( 'jsava.util.LinkedHashMap', {
     extend: jsava.util.HashMap,
     implement: jsava.util.Map,
@@ -108,6 +109,7 @@ defineClass( 'jsava.util.LinkedHashMap', {
         /** @private */
         serialVersionUID: 3801124242820219,
 
+        /** @class jsava.util.LinkedHashMap.Entry */
         Entry: defineClass( 'jsava.util.LinkedHashMap.Entry', {
             extend: jsava.util.HashMap.Entry,
 

@@ -1,3 +1,4 @@
+/** @class jsava.lang.ArrayIndexOutOfBoundsException */
 defineClass( 'jsava.lang.ArrayIndexOutOfBoundsException', {
     extend: jsava.lang.IndexOutOfBoundsException,
 

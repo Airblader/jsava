@@ -2,6 +2,7 @@
  * NOTE
  * Work on this class is currently abandoned due to the enormous complexity.
  */
+/** @class jsava.lang.AbstractStringBuilder */
 defineClass( 'jsava.lang.AbstractStringBuilder', {
     extend: jsava.lang.Object,
     implement: [jsava.lang.Appendable, jsava.lang.CharSequence],

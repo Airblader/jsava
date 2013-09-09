@@ -1,3 +1,4 @@
+/** @class jsava.io.IOException */
 defineClass( 'jsava.io.IOException', {
     extend: jsava.lang.Exception,
 

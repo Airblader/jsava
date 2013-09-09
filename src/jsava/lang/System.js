@@ -1,3 +1,4 @@
+/** @class jsava.lang.System */
 defineClass( 'jsava.lang.System', {
     // TODO much more stuff implement
 

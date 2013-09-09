@@ -1,3 +1,4 @@
+/** @class jsava.lang.Object */
 defineClass( 'jsava.lang.Object', {
     extend: qx.core.Object,
 

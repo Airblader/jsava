@@ -1,3 +1,4 @@
+/** @class jsava.util.AbstractSet */
 defineClass( 'jsava.util.AbstractSet', {
     extend: jsava.util.AbstractCollection,
     implement: [jsava.util.Set],

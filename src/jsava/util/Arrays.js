@@ -1,3 +1,4 @@
+/** @class jsava.util.Arrays */
 defineClass( 'jsava.util.Arrays', {
     extend: jsava.lang.Object,
 
