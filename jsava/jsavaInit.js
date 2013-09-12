@@ -1,7 +1,8 @@
 (function (window, undefined) {
     'use strict';
 
-    var qxInternals = ['$$implements', '$$extends', '$$flatImplements', '$$classtype', '$$inheritedStatics'],
+    // TODO maybe just use anything starting with '$$'
+    var qxInternals = ['$$implements', '$$extends', '$$flatImplements', '$$type', '$$classtype', '$$inheritedStatics'],
         isLogEnabled = true;
 
     var inheritStatics = function (clazz) {
@@ -29,6 +30,19 @@
         }
     };
 
+    var shortenName = function (clazz, nameProperty) {
+        if( clazz[nameProperty] === null ) {
+            return;
+        }
+
+        var shortName = clazz[nameProperty].split( /\./ ).pop();
+        shortName = typeof window[shortName] !== 'undefined' ? 'j' + shortName : shortName;
+
+        if( typeof window[shortName] === 'undefined' ) {
+            window[shortName] = clazz;
+        }
+    };
+
     /**
      * @param className
      * @param properties
@@ -41,7 +55,9 @@
         var clazz = null;
         try {
             clazz = qx.Class.define( className, properties );
+
             inheritStatics( clazz );
+            shortenName( clazz, 'classname' );
         } finally {
             isLogEnabled && console.groupEnd();
         }
@@ -55,7 +71,19 @@
      * @returns {qx.Interface|Interface|*}
      */
     var defineInterface = function (interfaceName, properties) {
-        return qx.Interface.define( interfaceName, properties );
+        var interfazz = null;
+        try {
+            interfazz = qx.Interface.define( interfaceName, properties );
+
+            // TODO doesn't work because 'superclass' is not defined (use $$extends instead -> but this is an array)
+            // inheritStatics( interfazz );
+
+            shortenName( interfazz, 'name' );
+        } finally {
+            // TODO logging
+        }
+
+        return interfazz;
     };
 
     window['defineClass'] = defineClass;
