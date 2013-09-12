@@ -164,11 +164,6 @@ foreach( @compileOrder ) {
     system( "echo \"\n\" >> ../jsava.js" );
 }
 
-my $jsavaShortenerContent = `cat ../lib/jsavaShortener.js`;
-my $compileOrderArray = "'" . ( join "','", @compileOrder ) . "'";
-$jsavaShortenerContent =~ s/\Qvar compileOrder = [];\E/var compileOrder = [$compileOrderArray];/;
-system( "echo \"$jsavaShortenerContent\" >> ../jsava.js" );
-
 system( "cd ../lib/UglifyJS/bin && ./uglifyjs --lift-vars -o ../../../jsava.min.js ../../../jsava.js" );
 
 
