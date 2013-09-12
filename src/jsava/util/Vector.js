@@ -128,7 +128,7 @@ defineClass( 'jsava.util.Vector', {
         elements: function () {
             var thisVector = this;
 
-            return new ( jsava.Utils.createAnonymousClass( {
+            return new ( defineClass( null, {
                 extend: jsava.lang.Object,
                 implement: jsava.util.Enumeration,
 

@@ -90,8 +90,7 @@ and `qx.Interface.define` to perform some additional tasks (e.g. inheriting stat
 7. Static inner classes must be instanciated with `new this.constructor.SomeClass(...)`, otherwise
 it will result in wrong behavior when the class is inherited (see example in `jsava.util.HashMap`).
 8. Inner classes, especially those requiring a reference to the enclosing class, shall be initialized with `null` as a
-member (with corresponding annotations) and be defined in the enclosing class's constructor using
-`jsava.Utils.createAnonymousClass` (see example in `jsava.util.HashMap`).
+member (with corresponding annotations) and be defined in the enclosing class's constructor (see example in `jsava.util.HashMap`).
 
 ### Members
 

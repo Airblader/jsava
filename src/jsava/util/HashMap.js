@@ -48,7 +48,7 @@ defineClass( 'jsava.util.HashMap', {
 
         var thisHashMap = this;
 
-        this.HashIterator = jsava.Utils.createAnonymousClass( {
+        this.HashIterator = defineClass( null, {
             extend: jsava.lang.Object,
             implement: [jsava.util.Iterator],
 
@@ -119,7 +119,7 @@ defineClass( 'jsava.util.HashMap', {
             }
         } );
 
-        this.EntrySet = jsava.Utils.createAnonymousClass( {
+        this.EntrySet = defineClass( null, {
             extend: jsava.util.AbstractSet,
 
             members: {
@@ -154,7 +154,7 @@ defineClass( 'jsava.util.HashMap', {
             }
         } );
 
-        this.ValueIterator = jsava.Utils.createAnonymousClass( {
+        this.ValueIterator = defineClass( null, {
             extend: thisHashMap.HashIterator,
 
             members: {
@@ -164,7 +164,7 @@ defineClass( 'jsava.util.HashMap', {
             }
         } );
 
-        this.KeyIterator = jsava.Utils.createAnonymousClass( {
+        this.KeyIterator = defineClass( null, {
             extend: thisHashMap.HashIterator,
 
             members: {
@@ -174,7 +174,7 @@ defineClass( 'jsava.util.HashMap', {
             }
         } );
 
-        this.EntryIterator = jsava.Utils.createAnonymousClass( {
+        this.EntryIterator = defineClass( null, {
             extend: thisHashMap.HashIterator,
 
             members: {
@@ -184,7 +184,7 @@ defineClass( 'jsava.util.HashMap', {
             }
         } );
 
-        this.KeySet = jsava.Utils.createAnonymousClass( {
+        this.KeySet = defineClass( null, {
             extend: jsava.util.AbstractSet,
 
             members: {
@@ -212,7 +212,7 @@ defineClass( 'jsava.util.HashMap', {
             }
         } );
 
-        this.Values = jsava.Utils.createAnonymousClass( {
+        this.Values = defineClass( null, {
             extend: jsava.util.AbstractCollection,
 
             members: {

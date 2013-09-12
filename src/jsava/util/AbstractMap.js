@@ -289,12 +289,12 @@ defineClass( 'jsava.util.AbstractMap', {
             if( this._keySet === null ) {
                 var _this = this;
 
-                this._keySet = new (jsava.Utils.createAnonymousClass( {
+                this._keySet = new (defineClass( null, {
                     extend: jsava.util.AbstractSet,
 
                     members: {
                         iterator: function () {
-                            return new (jsava.Utils.createAnonymousClass( {
+                            return new (defineClass( null, {
                                 extend: jsava.lang.Object,
                                 implement: [jsava.util.Iterator],
 
@@ -334,12 +334,12 @@ defineClass( 'jsava.util.AbstractMap', {
             if( this._values === null ) {
                 var thisAbstractMap = this;
 
-                this._values = new (jsava.Utils.createAnonymousClass( {
+                this._values = new (defineClass( null, {
                     extend: jsava.util.AbstractCollection,
 
                     members: {
                         iterator: function () {
-                            return new (jsava.Utils.createAnonymousClass( {
+                            return new (defineClass( null, {
                                 extend: jsava.lang.Object,
                                 implement: [jsava.util.Iterator],
 

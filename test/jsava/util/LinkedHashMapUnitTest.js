@@ -165,7 +165,7 @@ describe( 'LinkedHashMap', function () {
 
     describe( 'removeEldestEntry()', function () {
         it( 'works', function () {
-            var map = new (jsava.Utils.createAnonymousClass( {
+            var map = new (defineClass( null, {
                 extend: LinkedHashMap,
 
                 members: {

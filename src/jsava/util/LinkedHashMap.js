@@ -11,7 +11,7 @@ defineClass( 'jsava.util.LinkedHashMap', {
 
         var thisLinkedHashMap = this;
 
-        this.LinkedHashIterator = jsava.Utils.createAnonymousClass( {
+        this.LinkedHashIterator = defineClass( null, {
             extend: jsava.lang.Object,
             implement: jsava.util.Iterator,
 
@@ -74,7 +74,7 @@ defineClass( 'jsava.util.LinkedHashMap', {
             }
         } );
 
-        this.KeyIterator = jsava.Utils.createAnonymousClass( {
+        this.KeyIterator = defineClass( null, {
             extend: thisLinkedHashMap.LinkedHashIterator,
 
             members: {
@@ -84,7 +84,7 @@ defineClass( 'jsava.util.LinkedHashMap', {
             }
         } );
 
-        this.ValueIterator = jsava.Utils.createAnonymousClass( {
+        this.ValueIterator = defineClass( null, {
             extend: thisLinkedHashMap.LinkedHashIterator,
 
             members: {
@@ -94,7 +94,7 @@ defineClass( 'jsava.util.LinkedHashMap', {
             }
         } );
 
-        this.EntryIterator = jsava.Utils.createAnonymousClass( {
+        this.EntryIterator = defineClass( null, {
             extend: thisLinkedHashMap.LinkedHashIterator,
 
             members: {

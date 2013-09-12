@@ -359,11 +359,11 @@ describe( 'HashMap', function () {
     describe( 'recordAccess() and recordRemoval()', function () {
         var snapshotAfterRemoval = false,
             snapshotAfterAccess = false,
-            map = new (jsava.Utils.createAnonymousClass( {
+            map = new (defineClass( null, {
                 extend: HashMap,
 
                 statics: {
-                    Entry: jsava.Utils.createAnonymousClass( {
+                    Entry: defineClass( null, {
                         extend: HashMap.Entry,
 
                         members: {

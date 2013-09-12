@@ -6,15 +6,6 @@ defineClass( 'jsava.Utils', {
 
     statics: {
         /**
-         * Creates an anonymous class and returns it.
-         * @returns {*}
-         */
-        createAnonymousClass: function (config) {
-            // TODO inline
-            return defineClass( null, config );
-        },
-
-        /**
          * Creates and returns an array of given size.
          * @param size
          * @param defaultValue will default to null

@@ -131,7 +131,7 @@ defineClass( 'jsava.util.SubList', {
                 throw new jsava.lang.IndexOutOfBoundsException( 'Index: ' + index + ', Size: ' + this.__size );
             }
 
-            return new (jsava.Utils.createAnonymousClass( {
+            return new (defineClass( null, {
                 extend: jsava.lang.Object,
                 implement: jsava.util.ListIterator,
 

@@ -11,7 +11,7 @@ defineClass( 'jsava.util.AbstractList', {
 
         var thisAbstractList = this;
 
-        this.Itr = jsava.Utils.createAnonymousClass( {
+        this.Itr = defineClass( null, {
             extend: jsava.lang.Object,
             implement: jsava.util.Iterator,
 
@@ -87,7 +87,7 @@ defineClass( 'jsava.util.AbstractList', {
             }
         } );
 
-        this.ListItr = jsava.Utils.createAnonymousClass( {
+        this.ListItr = defineClass( null, {
             extend: thisAbstractList.Itr,
             implement: jsava.util.ListIterator,
 

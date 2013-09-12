@@ -1,36 +1,6 @@
 describe( 'Utils', function () {
     var Utils = jsava.Utils;
 
-    describe( 'createAnonymousClass()', function () {
-        it( 'returns a class that can be instanciated', function () {
-            var Clazz = Utils.createAnonymousClass( {
-                extend: jsava.lang.Object,
-
-                construct: function () {
-                    this.testProperty = 0;
-                },
-
-                members: {
-                    testProperty: -1,
-
-                    setTestProperty: function (newValue) {
-                        this.testProperty = newValue;
-                    },
-
-                    getTestProperty: function () {
-                        return this.testProperty;
-                    }
-                }
-            } );
-
-            var instance = new Clazz();
-            expect( instance.getTestProperty() ).toBe( 0 );
-
-            instance.setTestProperty( 42 );
-            expect( instance.getTestProperty() ).toBe( 42 );
-        } );
-    } );
-
     describe( 'arrayOfGivenSize()', function () {
         it( 'creates null array of given size', function () {
             expect( Utils.arrayOfGivenSize( 3, null ) ).toEqual( [null, null, null] );
