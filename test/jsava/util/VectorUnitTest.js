@@ -11,7 +11,7 @@ describe( 'Vector', function () {
 
         toCollection = function () {
             var args = Array.prototype.slice.call( arguments ),
-                collection = new ArrayList();
+                collection = new jsava.util.ArrayList();
             for( var i = 0; i < args.length; i++ ) {
                 collection.add( args[i] );
             }
@@ -83,7 +83,7 @@ describe( 'Vector', function () {
         } );
 
         it( 'from another collection', function () {
-            var collection = new ArrayList();
+            var collection = new jsava.util.ArrayList();
             collection.add( 10 );
             collection.add( 20 );
 
@@ -121,11 +121,11 @@ describe( 'Vector', function () {
         } );
 
         it( 'works for object', function () {
-            var map = new HashMap();
+            var map = new jsava.util.HashMap();
 
-            vector.add( new HashMap() );
+            vector.add( new jsava.util.HashMap() );
             vector.add( map );
-            vector.add( new HashMap() );
+            vector.add( new jsava.util.HashMap() );
 
             var wasRemoved = vector.remove( map );
             expect( wasRemoved ).toBe( true );
