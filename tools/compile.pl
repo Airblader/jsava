@@ -141,6 +141,22 @@ sub addSourceToCompileOrder {
     return @compileOrder;
 }
 
+sub validateClass {
+    my $content = $_[0];
+    my @lines = split /\n/, $content;
+    my $lineCounter = 1;
+
+    foreach( @lines ) {
+        if( $_ =~ m/\s==\s/ || $_ =~ m/\s!=\s/ ) {
+            return "Illegal non-strict comparison in line $lineCounter";
+        }
+
+        $lineCounter += 1;
+    }
+
+    return "";
+}
+
 sub writeToFile {
     my $filename = $_[0];
     my $content = $_[1];
@@ -189,8 +205,16 @@ $jsavaContent =~ s/\Q__JSAVAEXTENDBUILTINS__\E/$jsavaExtendBuiltInsContent/;
 my $jsavaClassesContent = "";
 foreach( @compileOrder ) {
     my $filename = getFilenameFromClassName( $_ );
+    my $classContent = readFromFile( $filename );
 
-    $jsavaClassesContent .= readFromFile( $filename );
+    my $validationResult = validateClass( $classContent );
+    if( $validationResult ne "" ) {
+        print "[E] Found errors during compilation of class $_\n";
+        print " - $validationResult\n";
+        exit -1;
+    }
+
+    $jsavaClassesContent .= $classContent;
     $jsavaClassesContent .= "\n\n";
 }
 $jsavaContent =~ s/\Q__JSAVACLASSES__\E/$jsavaClassesContent/;
