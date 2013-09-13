@@ -4,6 +4,22 @@ use 5.010;
 use strict;
 use warnings;
 use FindBin;
+use Getopt::Long;
+use Pod::Usage;
+
+
+# Parameters
+
+my $logLevel = '';
+my $help = '';
+
+GetOptions(
+  'log-level=s' => \$logLevel,
+  'h|help|?' => \$help
+);
+
+pod2usage( { -verbose => 1 } ) if $help;
+
 
 my $scriptDir = $FindBin::Bin;
 chdir( "$scriptDir/../" );
@@ -47,6 +63,11 @@ foreach( @compileOrder ) {
     $jsavaClassesContent .= "\n\n";
 }
 $jsavaContent =~ s/\Q__JSAVACLASSES__\E/$jsavaClassesContent/;
+
+if( !isBlank( $logLevel ) ) {
+    $logLevel = uc $logLevel;
+    $jsavaContent =~ s/\Q__JSAVALOGLEVEL__\E/$logLevel/;
+}
 
 writeToFile( "jsava.js", $jsavaContent );
 
@@ -259,3 +280,14 @@ sub readFromFile {
         <FILE>;
     };
 }
+
+sub isBlank {
+    return 1 if $_[0] =~ /^\s*$/;
+    return 0;
+}
+
+__END__
+
+=head1 SYNOPSIS
+
+TODO

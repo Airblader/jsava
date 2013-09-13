@@ -9,7 +9,7 @@
         NONE: 5
     };
 
-    var logLevel = Number( "__JSAVALOGLEVEL__" ) || Level.ERROR,
+    var logLevel = Level["__JSAVALOGLEVEL__"] || Level.ERROR,
         showGroups = logLevel <= Level.LOG;
 
     var jsavaConsole = {
