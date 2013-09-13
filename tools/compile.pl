@@ -8,7 +8,91 @@ use FindBin;
 my $scriptDir = $FindBin::Bin;
 chdir( "$scriptDir/../" );
 
-###
+my @files = split /\n/, `cd src/ && find * -type f -name "*.js" -print`;
+
+# holds a linear list of file names in the order they need to be compiled
+my @compileOrder;
+
+foreach( @files ) {
+    my $clazzName = getClassNameFromPath( $_ );
+    @compileOrder = addSourceToCompileOrder( \@compileOrder, $clazzName, "" );
+}
+
+
+# Generate main file (uncompressed)
+
+my $jsavaContent = readFromFile( "jsava/templates/jsava.js.template" );
+
+my $jsavaLogContent = readFromFile( "jsava/jsavaLog.js" );
+my $jsavaInitContent = readFromFile( "jsava/jsavaInit.js" );
+my $jsavaExtendBuiltInsContent = readFromFile( "jsava/jsavaExtendBuiltIns.js" );
+
+$jsavaContent =~ s/\Q__JSAVALOG__\E/$jsavaLogContent/;
+$jsavaContent =~ s/\Q__JSAVAINIT__\E/$jsavaInitContent/;
+$jsavaContent =~ s/\Q__JSAVAEXTENDBUILTINS__\E/$jsavaExtendBuiltInsContent/;
+
+my $jsavaClassesContent = "";
+foreach( @compileOrder ) {
+    my $filename = getFilenameFromClassName( $_ );
+    my $classContent = readFromFile( "src/$filename" );
+
+    my $validationResult = validateClass( $classContent );
+    if( $validationResult ne "" ) {
+        print "[E] Found errors during compilation of class $_\n";
+        print " - $validationResult\n";
+        exit -1;
+    }
+
+    $jsavaClassesContent .= $classContent;
+    $jsavaClassesContent .= "\n\n";
+}
+$jsavaContent =~ s/\Q__JSAVACLASSES__\E/$jsavaClassesContent/;
+
+writeToFile( "jsava.js", $jsavaContent );
+
+
+# Generate main file (compressed)
+
+system( "lib/UglifyJS/bin/uglifyjs --lift-vars -o jsava.min.js jsava.js" );
+
+
+# Generate tests.jstd
+
+my $testsContent = readFromFile( "jsava/templates/tests.jstd.template" );
+
+my $testsSourceFilesList = "";
+foreach( @compileOrder ) {
+    my $filename = getFilenameFromClassName( $_ );
+    $testsSourceFilesList .= "  - src/$filename\n";
+}
+
+my @testFiles = split/\n/, `cd test/ && find * -type f -name "*UnitTest.js" -print`;
+my $testsTestFilesList = "";
+foreach( @testFiles ) {
+    $testsTestFilesList .= "  - test/$_\n";
+}
+
+$testsContent =~ s/\Q__SOURCEFILES__\E/$testsSourceFilesList/;
+$testsContent =~ s/\Q__TESTFILES__\E/$testsTestFilesList/;
+
+writeToFile( "tests.jstd", $testsContent );
+
+
+# Generate SpecRunner.html
+
+my $specRunnerContent = readFromFile( "jsava/templates/SpecRunner.html.template" );
+
+my $specsList = "";
+foreach( @testFiles ) {
+    $specsList .= "    <script type=\"text/javascript\" src=\"test/$_\"></script>\n";
+}
+
+$specRunnerContent =~ s/\Q__SPECS__\E/$specsList/;
+$specRunnerContent =~ s/\Q__JSAVASRC__\E/jsava.js/;
+
+writeToFile( "SpecRunner.html", $specRunnerContent );
+
+### SUBROUTINES
 
 # Returns the qualified class name for a file based on its path, e.g.
 # 'jsava/io/Serializable.js' -> 'jsava.io.Serializable'
@@ -175,90 +259,3 @@ sub readFromFile {
         <FILE>;
     };
 }
-
-
-### MAIN
-
-my @files = split /\n/, `cd src/ && find * -type f -name "*.js" -print`;
-
-# holds a linear list of file names in the order they need to be compiled
-my @compileOrder;
-
-foreach( @files ) {
-    my $clazzName = getClassNameFromPath( $_ );
-    @compileOrder = addSourceToCompileOrder( \@compileOrder, $clazzName, "" );
-}
-
-
-# Generate main file (uncompressed)
-
-my $jsavaContent = readFromFile( "jsava/templates/jsava.js.template" );
-
-my $jsavaLogContent = readFromFile( "jsava/jsavaLog.js" );
-my $jsavaInitContent = readFromFile( "jsava/jsavaInit.js" );
-my $jsavaExtendBuiltInsContent = readFromFile( "jsava/jsavaExtendBuiltIns.js" );
-
-$jsavaContent =~ s/\Q__JSAVALOG__\E/$jsavaLogContent/;
-$jsavaContent =~ s/\Q__JSAVAINIT__\E/$jsavaInitContent/;
-$jsavaContent =~ s/\Q__JSAVAEXTENDBUILTINS__\E/$jsavaExtendBuiltInsContent/;
-
-my $jsavaClassesContent = "";
-foreach( @compileOrder ) {
-    my $filename = getFilenameFromClassName( $_ );
-    my $classContent = readFromFile( "src/$filename" );
-
-    my $validationResult = validateClass( $classContent );
-    if( $validationResult ne "" ) {
-        print "[E] Found errors during compilation of class $_\n";
-        print " - $validationResult\n";
-        exit -1;
-    }
-
-    $jsavaClassesContent .= $classContent;
-    $jsavaClassesContent .= "\n\n";
-}
-$jsavaContent =~ s/\Q__JSAVACLASSES__\E/$jsavaClassesContent/;
-
-writeToFile( "jsava.js", $jsavaContent );
-
-
-# Generate main file (compressed)
-
-system( "lib/UglifyJS/bin/uglifyjs --lift-vars -o jsava.min.js jsava.js" );
-
-
-# Generate tests.jstd
-
-my $testsContent = readFromFile( "jsava/templates/tests.jstd.template" );
-
-my $testsSourceFilesList = "";
-foreach( @compileOrder ) {
-    my $filename = getFilenameFromClassName( $_ );
-    $testsSourceFilesList .= "  - src/$filename\n";
-}
-
-my @testFiles = split/\n/, `cd test/ && find * -type f -name "*UnitTest.js" -print`;
-my $testsTestFilesList = "";
-foreach( @testFiles ) {
-    $testsTestFilesList .= "  - test/$_\n";
-}
-
-$testsContent =~ s/\Q__SOURCEFILES__\E/$testsSourceFilesList/;
-$testsContent =~ s/\Q__TESTFILES__\E/$testsTestFilesList/;
-
-writeToFile( "tests.jstd", $testsContent );
-
-
-# Generate SpecRunner.html
-
-my $specRunnerContent = readFromFile( "jsava/templates/SpecRunner.html.template" );
-
-my $specsList = "";
-foreach( @testFiles ) {
-    $specsList .= "    <script type=\"text/javascript\" src=\"test/$_\"></script>\n";
-}
-
-$specRunnerContent =~ s/\Q__SPECS__\E/$specsList/;
-$specRunnerContent =~ s/\Q__JSAVASRC__\E/jsava.js/;
-
-writeToFile( "SpecRunner.html", $specRunnerContent );
