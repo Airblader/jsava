@@ -1,44 +1,35 @@
 (function (window, undefined) {
     'use strict';
 
-    // TODO only checking one level of inheritance should suffice since now this will happen when declaring a class
     var inheritStatics = function (clazz) {
-        var hierarchy = [clazz],
-            currentSuperclass = null;
-        while( (currentSuperclass = hierarchy[hierarchy.length - 1].superclass) !== qx.core.Object
-            && typeof hierarchy[hierarchy.length - 1].$$inheritedStatics === 'undefined' ) {
-            hierarchy.push( currentSuperclass );
+        if( clazz.superclass === qx.core.Object ) {
+            return;
         }
 
-        for( var i = hierarchy.length - 1; i > 0; i-- ) {
-            var baseClass = hierarchy[i - 1],
-                superClass = hierarchy[i];
+        for( var staticMember in clazz.superclass ) {
+            if( !clazz.hasOwnProperty( staticMember )
+                && String.prototype.substring.call( staticMember, 0, 2 ) !== '$$' ) {
 
-            for( var staticMember in superClass ) {
-                if( !baseClass.hasOwnProperty( staticMember )
-                    && String.prototype.substring.call( staticMember, 0, 2 ) !== '$$' ) {
+                (function (superClass, staticMember) {
+                    Object.defineProperty( clazz, staticMember, {
+                        configurable: true,
+                        enumerable: true,
 
-                    (function (superClass, staticMember) {
-                        Object.defineProperty( baseClass, staticMember, {
-                            configurable: true,
-                            enumerable: true,
+                        get: function () {
+                            return superClass[staticMember];
+                        },
 
-                            get: function () {
-                                return superClass[staticMember];
-                            },
+                        set: function (value) {
+                            superClass[staticMember] = value;
+                        }
+                    } );
+                })( clazz.superclass, staticMember );
 
-                            set: function (value) {
-                                superClass[staticMember] = value;
-                            }
-                        } );
-                    })( superClass, staticMember );
-
-                    jsavaConsole.info( baseClass.classname + ': inherited ' + superClass.classname + '.' + staticMember );
-                }
+                jsavaConsole.info( clazz.classname + ': inherited ' + clazz.superclass.classname + '.' + staticMember );
             }
-
-            baseClass.$$inheritedStatics = true;
         }
+
+        clazz.$$inheritedStatics = true;
     };
 
     var shortenName = function (clazz, nameProperty) {
