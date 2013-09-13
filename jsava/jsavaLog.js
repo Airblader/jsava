@@ -10,7 +10,7 @@
     };
 
     var logLevel = Level["__JSAVALOGLEVEL__"] || Level.ERROR,
-        showGroups = logLevel <= Level.LOG;
+        showGroups = false;
 
     var jsavaConsole = {
         group: function () {
@@ -47,8 +47,14 @@
             if( logLevel <= Level.ERROR && typeof window.console.error !== 'undefined' ) {
                 window.console.error.apply( window.console, arguments );
             }
+        },
+
+        setLogLevel: function (level) {
+            logLevel = level;
+            showGroups = logLevel <= Level.LOG;
         }
     };
 
+    jsavaConsole.setLogLevel( logLevel );
     window['jsavaConsole'] = jsavaConsole;
 })( window );
