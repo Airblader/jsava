@@ -6,6 +6,7 @@
             return;
         }
 
+        // TODO use Object.keys
         for( var staticMember in clazz.superclass ) {
             if( !clazz.hasOwnProperty( staticMember )
                 && String.prototype.substring.call( staticMember, 0, 2 ) !== '$$' ) {
@@ -30,6 +31,41 @@
         }
 
         clazz.$$inheritedStatics = true;
+    };
+
+    // TOOD refactor to unify both inheritance methods, at least partly
+    // TODO write tests for this
+    var inheritStaticsForInterface = function (interfazz) {
+        if( typeof interfazz.$$extends === 'undefined' ) {
+            return;
+        }
+
+        for( var i = 0; i < interfazz.$$extends.length; i++ ) {
+            var superInterfazz = interfazz.$$extends[i],
+                keys = Object.keys( superInterfazz );
+            for( var i = 0; i < keys.length; i++ ) {
+                var key = keys[i];
+
+                if( !interfazz.hasOwnProperty( key ) && String.prototype.substring.call( key, 0, 2 ) !== '$$' ) {
+                    (function (superInterfazz, key) {
+                        Object.defineProperty( interfazz, key, {
+                            configurable: true,
+                            enumerable: true,
+
+                            get: function () {
+                                return superInterfazz[key];
+                            },
+
+                            set: function (value) {
+                                superInterfazz[key] = value;
+                            }
+                        } );
+                    })( superInterfazz, key );
+
+                    jsavaConsole.info( interfazz.name + ': inherited ' + superInterfazz.name + '.' + key );
+                }
+            }
+        }
     };
 
     var shortenName = function (clazz, nameProperty) {
@@ -79,9 +115,7 @@
         try {
             interfazz = qx.Interface.define( interfaceName, properties );
 
-            // TODO doesn't work because 'superclass' is not defined (use $$extends instead -> but this is an array)
-            // inheritStatics( interfazz );
-
+            inheritStaticsForInterface( interfazz );
             shortenName( interfazz, 'name' );
         } finally {
             jsavaConsole.groupEnd();
