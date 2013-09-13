@@ -197,6 +197,25 @@ describe( 'Jsava Internals', function () {
             expect( subClassB.SOME_NEW_CONSTANT ).toBe( 20 );
         } );
 
+        it( 'hiding works correctly when value is set', function () {
+            var baseClass = defineClass( null, {
+                extend: jsava.lang.Object,
+
+                statics: {
+                    SOME_NEW_CONSTANT: 10
+                }
+            } );
+
+            var subClass = defineClass( null, {
+                extend: baseClass
+            } );
+
+            expect( subClass.SOME_NEW_CONSTANT ).toBe( 10 );
+
+            baseClass.SOME_NEW_CONSTANT = 42;
+            expect( subClass.SOME_NEW_CONSTANT ).toBe( 42 );
+        } );
+
         it( 'works within methods', function () {
             var baseClass = defineClass( null, {
                 extend: jsava.lang.Object,
