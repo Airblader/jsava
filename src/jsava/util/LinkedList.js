@@ -131,7 +131,7 @@ defineClass( 'jsava.util.LinkedList', {
         toArray: function () {
             var result = new Array();
             var i = 0;
-            for( var e = this.header.next; e != this.header; e = e.next ) {
+            for( var e = this.header.next; e !== this.header; e = e.next ) {
                 result[i++] = e.element;
             }
             return result;
