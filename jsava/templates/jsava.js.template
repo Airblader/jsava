@@ -1,0 +1,7 @@
+(function (window, undefined) {
+__JSAVALOG__
+__JSAVAINIT__
+__JSAVAEXTENDBUILTINS__
+
+__JSAVACLASSES__
+})( window );

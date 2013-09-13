@@ -141,6 +141,24 @@ sub addSourceToCompileOrder {
     return @compileOrder;
 }
 
+sub writeToFile {
+    my $filename = $_[0];
+    my $content = $_[1];
+
+    open FILE, ">", $filename;
+    print FILE $content;
+    close FILE;
+}
+
+sub readFromFile {
+    my $filename = $_[0];
+    return do {
+        local $/ = undef;
+        open FILE, "<", $filename or die $!;
+        <FILE>;
+    };
+}
+
 
 ### MAIN
 
@@ -155,22 +173,40 @@ foreach( @files ) {
     @compileOrder = addSourceToCompileOrder( \@compileOrder, $clazzName, "" );
 }
 
-system( "rm -f ../jsava.js" );
-system( "cat ../jsava/jsavaInit.js >> ../jsava.js" );
-system( "cat ../jsava/jsavaExtendBuiltIns.js >> ../jsava.js" );
+
+# Generate main file (uncompressed)
+
+my $jsavaContent = readFromFile( "../jsava/templates/jsava.js.template" );
+
+my $jsavaLogContent = readFromFile( "../jsava/jsavaLog.js" );
+my $jsavaInitContent = readFromFile( "../jsava/jsavaInit.js" );
+my $jsavaExtendBuiltInsContent = readFromFile( "../jsava/jsavaExtendBuiltIns.js" );
+
+$jsavaContent =~ s/\Q__JSAVALOG__\E/$jsavaLogContent/;
+$jsavaContent =~ s/\Q__JSAVAINIT__\E/$jsavaInitContent/;
+$jsavaContent =~ s/\Q__JSAVAEXTENDBUILTINS__\E/$jsavaExtendBuiltInsContent/;
+
+my $jsavaClassesContent = "";
 foreach( @compileOrder ) {
     my $filename = getFilenameFromClassName( $_ );
-    system( "cat $filename >> ../jsava.js" );
-    system( "echo \"\n\" >> ../jsava.js" );
+
+    $jsavaClassesContent .= readFromFile( $filename );
+    $jsavaClassesContent .= "\n\n";
 }
+$jsavaContent =~ s/\Q__JSAVACLASSES__\E/$jsavaClassesContent/;
+
+writeToFile( "../jsava.js", $jsavaContent );
+
+
+# Generate main file (compressed)
 
 system( "cd ../lib/UglifyJS/bin && ./uglifyjs --lift-vars -o ../../../jsava.min.js ../../../jsava.js" );
 
 
 # Generate tests.jstd
+
 chdir( "../test" ) or die $!;
-system( "rm -f ../tests.jstd" );
-my $testsContent = `cat ../tools/tests.jstd.template`;
+my $testsContent = readFromFile( "../tools/tests.jstd.template" );
 
 my $testsSourceFilesList = "";
 foreach( @compileOrder ) {
@@ -187,11 +223,12 @@ foreach( @testFiles ) {
 $testsContent =~ s/\Q__SOURCEFILES__\E/$testsSourceFilesList/;
 $testsContent =~ s/\Q__TESTFILES__\E/$testsTestFilesList/;
 
-system( "echo \"$testsContent\" >> ../tests.jstd" );
+writeToFile( "../tests.jstd", $testsContent );
+
 
 # Generate SpecRunner.html
-system( "rm -f ../SpecRunner.html" );
-my $specRunnerContent = `cat ../tools/SpecRunner.html.template`;
+
+my $specRunnerContent = readFromFile( "../tools/SpecRunner.html.template" );
 
 my $specsList = "";
 foreach( @testFiles ) {
@@ -201,4 +238,4 @@ foreach( @testFiles ) {
 $specRunnerContent =~ s/\Q__SPECS__\E/$specsList/;
 $specRunnerContent =~ s/\Q__JSAVASRC__\E/jsava.js/;
 
-system( "echo \"$specRunnerContent\" >> ../SpecRunner.html" );
+writeToFile( "../SpecRunner.html", $specRunnerContent );
