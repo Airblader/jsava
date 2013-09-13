@@ -13,7 +13,7 @@ describe( 'Jsava Internals', function () {
 
             'use strict';
 
-            console.group( 'Verify that classes call super constructors' );
+            jsavaConsole.group( 'Verify that classes call super constructors' );
             var errors = [];
 
             var checkConstructor = function (Clazz) {
@@ -27,7 +27,7 @@ describe( 'Jsava Internals', function () {
                         addClassToErrors( Clazz );
                     }
                 } catch( e ) {
-                    console.info( 'Checking %s by spying failed. Using fallback.', Clazz );
+                    jsavaConsole.info( 'Checking %s by spying failed. Using fallback.', Clazz );
 
                     if( !checkByToString( Clazz ) ) {
                         addClassToErrors( Clazz );
@@ -117,14 +117,14 @@ describe( 'Jsava Internals', function () {
             })( root );
 
             if( errors.length !== 0 ) {
-                console.error( 'Found errors during validation' );
-                console.group( 'Classes with missing super constructor calls' );
+                jsavaConsole.error( 'Found errors during validation' );
+                jsavaConsole.group( 'Classes with missing super constructor calls' );
                 for( var i = 0; i < errors.length; i++ ) {
-                    console.debug( errors[i] );
+                    jsavaConsole.debug( errors[i] );
                 }
-                console.groupEnd();
+                jsavaConsole.groupEnd();
             }
-            console.groupEnd();
+            jsavaConsole.groupEnd();
 
             expect( errors.length ).toBe( 0 );
         })( jsava );
