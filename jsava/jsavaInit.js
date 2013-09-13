@@ -72,6 +72,9 @@
      * @returns {qx.Interface|Interface|*}
      */
     var defineInterface = function (interfaceName, properties) {
+        jsavaConsole.group( interfaceName === null ? 'Defining new anonymous interface' : 'Defining new interface '
+            + interfaceName );
+
         var interfazz = null;
         try {
             interfazz = qx.Interface.define( interfaceName, properties );
@@ -81,7 +84,7 @@
 
             shortenName( interfazz, 'name' );
         } finally {
-            // TODO logging
+            jsavaConsole.groupEnd();
         }
 
         return interfazz;
