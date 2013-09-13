@@ -146,7 +146,18 @@ sub validateClass {
     my @lines = split /\n/, $content;
     my $lineCounter = 1;
 
+    # either defineClass or defineInterface must be used
+    if( !( $content =~ m/define(Class|Interface)/ ) ) {
+        return "No class or interface definition found";
+    }
+
+    # any class definition that defines a constructor must call a super constructor
+    if( $content =~ m/defineClass/ && $content =~ m/construct/ && !( $content =~ m/(this\.base|this\.super)/ ) ) {
+        return "No super constructor call found";
+    }
+
     foreach( @lines ) {
+        # only strict comparison should be used
         if( $_ =~ m/\s==\s/ || $_ =~ m/\s!=\s/ ) {
             return "Illegal non-strict comparison in line $lineCounter";
         }
