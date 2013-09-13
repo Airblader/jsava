@@ -6,7 +6,7 @@ use warnings;
 use FindBin;
 
 my $scriptDir = $FindBin::Bin;
-chdir( $scriptDir );
+chdir( "$scriptDir/../" );
 
 ###
 
@@ -99,7 +99,7 @@ sub getInterfaces {
 # @param {string} fully qualified filename
 sub getRequiredClasses {
     my $filename = $_[0];
-    my $content = readFromFile( $filename );
+    my $content = readFromFile( "src/$filename" );
 
     my @requiredClasses = ( getInterfaces( $content ), getSuperClasses( $content ) );
     return @requiredClasses;
@@ -121,10 +121,7 @@ sub addSourceToCompileOrder {
 
     my @requiredClasses = getRequiredClasses( getFilenameFromClassName( $className ) );
     foreach( @requiredClasses ) {
-        # This is currently needed for inner classes which are not in separate files, but
-        # are still detected.
-        # TODO find a way to get rid of this
-        next if !-e getFilenameFromClassName( $_ );
+        next if !-e ( "src/" . getFilenameFromClassName( $_ ) );
 
         $startClassName = $className if $startClassName eq "";
         @compileOrder = addSourceToCompileOrder( \@compileOrder, $_, $startClassName );
@@ -182,8 +179,7 @@ sub readFromFile {
 
 ### MAIN
 
-chdir( "../src" ) or die $!;
-my @files = split /\n/, `find . -type f -name *.js -print`;
+my @files = split /\n/, `cd src/ && find * -type f -name "*.js" -print`;
 
 # holds a linear list of file names in the order they need to be compiled
 my @compileOrder;
@@ -196,11 +192,11 @@ foreach( @files ) {
 
 # Generate main file (uncompressed)
 
-my $jsavaContent = readFromFile( "../jsava/templates/jsava.js.template" );
+my $jsavaContent = readFromFile( "jsava/templates/jsava.js.template" );
 
-my $jsavaLogContent = readFromFile( "../jsava/jsavaLog.js" );
-my $jsavaInitContent = readFromFile( "../jsava/jsavaInit.js" );
-my $jsavaExtendBuiltInsContent = readFromFile( "../jsava/jsavaExtendBuiltIns.js" );
+my $jsavaLogContent = readFromFile( "jsava/jsavaLog.js" );
+my $jsavaInitContent = readFromFile( "jsava/jsavaInit.js" );
+my $jsavaExtendBuiltInsContent = readFromFile( "jsava/jsavaExtendBuiltIns.js" );
 
 $jsavaContent =~ s/\Q__JSAVALOG__\E/$jsavaLogContent/;
 $jsavaContent =~ s/\Q__JSAVAINIT__\E/$jsavaInitContent/;
@@ -209,7 +205,7 @@ $jsavaContent =~ s/\Q__JSAVAEXTENDBUILTINS__\E/$jsavaExtendBuiltInsContent/;
 my $jsavaClassesContent = "";
 foreach( @compileOrder ) {
     my $filename = getFilenameFromClassName( $_ );
-    my $classContent = readFromFile( $filename );
+    my $classContent = readFromFile( "src/$filename" );
 
     my $validationResult = validateClass( $classContent );
     if( $validationResult ne "" ) {
@@ -223,18 +219,17 @@ foreach( @compileOrder ) {
 }
 $jsavaContent =~ s/\Q__JSAVACLASSES__\E/$jsavaClassesContent/;
 
-writeToFile( "../jsava.js", $jsavaContent );
+writeToFile( "jsava.js", $jsavaContent );
 
 
 # Generate main file (compressed)
 
-system( "cd ../lib/UglifyJS/bin && ./uglifyjs --lift-vars -o ../../../jsava.min.js ../../../jsava.js" );
+system( "lib/UglifyJS/bin/uglifyjs --lift-vars -o jsava.min.js jsava.js" );
 
 
 # Generate tests.jstd
 
-chdir( "../test" ) or die $!;
-my $testsContent = readFromFile( "../jsava/templates/tests.jstd.template" );
+my $testsContent = readFromFile( "jsava/templates/tests.jstd.template" );
 
 my $testsSourceFilesList = "";
 foreach( @compileOrder ) {
@@ -242,7 +237,7 @@ foreach( @compileOrder ) {
     $testsSourceFilesList .= "  - src/$filename\n";
 }
 
-my @testFiles = split/\n/, `find * -type f -name "*UnitTest.js" -print`;
+my @testFiles = split/\n/, `cd test/ && find * -type f -name "*UnitTest.js" -print`;
 my $testsTestFilesList = "";
 foreach( @testFiles ) {
     $testsTestFilesList .= "  - test/$_\n";
@@ -251,12 +246,12 @@ foreach( @testFiles ) {
 $testsContent =~ s/\Q__SOURCEFILES__\E/$testsSourceFilesList/;
 $testsContent =~ s/\Q__TESTFILES__\E/$testsTestFilesList/;
 
-writeToFile( "../tests.jstd", $testsContent );
+writeToFile( "tests.jstd", $testsContent );
 
 
 # Generate SpecRunner.html
 
-my $specRunnerContent = readFromFile( "../jsava/templates/SpecRunner.html.template" );
+my $specRunnerContent = readFromFile( "jsava/templates/SpecRunner.html.template" );
 
 my $specsList = "";
 foreach( @testFiles ) {
@@ -266,4 +261,4 @@ foreach( @testFiles ) {
 $specRunnerContent =~ s/\Q__SPECS__\E/$specsList/;
 $specRunnerContent =~ s/\Q__JSAVASRC__\E/jsava.js/;
 
-writeToFile( "../SpecRunner.html", $specRunnerContent );
+writeToFile( "SpecRunner.html", $specRunnerContent );
