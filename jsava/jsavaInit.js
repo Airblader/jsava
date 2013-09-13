@@ -1,9 +1,6 @@
 (function (window, undefined) {
     'use strict';
 
-    // TODO maybe just use anything starting with '$$'
-    var qxInternals = ['$$implements', '$$extends', '$$flatImplements', '$$type', '$$classtype', '$$inheritedStatics'];
-
     var inheritStatics = function (clazz) {
         var hierarchy = [clazz],
             currentSuperclass = null;
@@ -18,7 +15,9 @@
 
             for( var staticMember in superClass ) {
                 // TODO private members should not be inherited
-                if( !baseClass.hasOwnProperty( staticMember ) && qxInternals.indexOf( staticMember ) === -1 ) {
+                if( !baseClass.hasOwnProperty( staticMember )
+                    && String.prototype.substring.call( staticMember, 0, 2 ) !== '$$' ) {
+
                     baseClass[staticMember] = superClass[staticMember];
                     jsavaConsole.info( baseClass.classname + ': inherited '
                         + superClass.classname + '.' + staticMember );
