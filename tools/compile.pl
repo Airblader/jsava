@@ -234,7 +234,7 @@ system( "cd ../lib/UglifyJS/bin && ./uglifyjs --lift-vars -o ../../../jsava.min.
 # Generate tests.jstd
 
 chdir( "../test" ) or die $!;
-my $testsContent = readFromFile( "../tools/tests.jstd.template" );
+my $testsContent = readFromFile( "../jsava/templates/tests.jstd.template" );
 
 my $testsSourceFilesList = "";
 foreach( @compileOrder ) {
