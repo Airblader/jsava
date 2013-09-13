@@ -99,14 +99,7 @@ sub getInterfaces {
 # @param {string} fully qualified filename
 sub getRequiredClasses {
     my $filename = $_[0];
-    open FILE, "<", "$filename" or die $!;
-
-    my $content = do {
-        local $/;
-        <FILE>;
-    };
-
-    close FILE;
+    my $content = readFromFile( $filename );
 
     my @requiredClasses = ( getInterfaces( $content ), getSuperClasses( $content ) );
     return @requiredClasses;
