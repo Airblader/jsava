@@ -9,17 +9,18 @@
         NONE: 5
     };
 
-    var logLevel = Number( "__JSAVALOGLEVEL__" ) || Level.ERROR;
+    var logLevel = Number( "__JSAVALOGLEVEL__" ) || Level.ERROR,
+        showGroups = logLevel <= Level.LOG;
 
     var jsavaConsole = {
         group: function () {
-            if( typeof window.console.group !== 'undefined' ) {
+            if( showGroups && typeof window.console.group !== 'undefined' ) {
                 window.console.group.apply( window.console, arguments );
             }
         },
 
         groupEnd: function () {
-            if( typeof window.console.groupEnd !== 'undefined' ) {
+            if( showGroups && typeof window.console.groupEnd !== 'undefined' ) {
                 window.console.groupEnd.apply( window.console, arguments );
             }
         },

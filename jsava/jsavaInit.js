@@ -2,8 +2,7 @@
     'use strict';
 
     // TODO maybe just use anything starting with '$$'
-    var qxInternals = ['$$implements', '$$extends', '$$flatImplements', '$$type', '$$classtype', '$$inheritedStatics'],
-        isLogEnabled = true;
+    var qxInternals = ['$$implements', '$$extends', '$$flatImplements', '$$type', '$$classtype', '$$inheritedStatics'];
 
     var inheritStatics = function (clazz) {
         var hierarchy = [clazz],
@@ -21,7 +20,7 @@
                 // TODO private members should not be inherited
                 if( !baseClass.hasOwnProperty( staticMember ) && qxInternals.indexOf( staticMember ) === -1 ) {
                     baseClass[staticMember] = superClass[staticMember];
-                    isLogEnabled && console.info( baseClass.classname + ': inherited '
+                    jsavaConsole.info( baseClass.classname + ': inherited '
                         + superClass.classname + '.' + staticMember );
                 }
             }
@@ -49,8 +48,7 @@
      * @returns {qx.Class|Class|*}
      */
     var defineClass = function (className, properties) {
-        isLogEnabled && console.group(
-            className === null ? 'Defining new anonymous class' : 'Defining new class ' + className );
+        jsavaConsole.group( className === null ? 'Defining new anonymous class' : 'Defining new class ' + className );
 
         var clazz = null;
         try {
@@ -59,7 +57,7 @@
             inheritStatics( clazz );
             shortenName( clazz, 'classname' );
         } finally {
-            isLogEnabled && console.groupEnd();
+            jsavaConsole.groupEnd();
         }
 
         return clazz;
