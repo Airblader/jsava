@@ -256,7 +256,7 @@ writeToFile( "../tests.jstd", $testsContent );
 
 # Generate SpecRunner.html
 
-my $specRunnerContent = readFromFile( "../tools/SpecRunner.html.template" );
+my $specRunnerContent = readFromFile( "../jsava/templates/SpecRunner.html.template" );
 
 my $specsList = "";
 foreach( @testFiles ) {
