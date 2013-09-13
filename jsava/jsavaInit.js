@@ -1,6 +1,7 @@
 (function (window, undefined) {
     'use strict';
 
+    // TODO only checking one level of inheritance should suffice since now this will happen when declaring a class
     var inheritStatics = function (clazz) {
         var hierarchy = [clazz],
             currentSuperclass = null;
@@ -14,13 +15,25 @@
                 superClass = hierarchy[i];
 
             for( var staticMember in superClass ) {
-                // TODO private members should not be inherited
                 if( !baseClass.hasOwnProperty( staticMember )
                     && String.prototype.substring.call( staticMember, 0, 2 ) !== '$$' ) {
 
-                    baseClass[staticMember] = superClass[staticMember];
-                    jsavaConsole.info( baseClass.classname + ': inherited '
-                        + superClass.classname + '.' + staticMember );
+                    (function (superClass, staticMember) {
+                        Object.defineProperty( baseClass, staticMember, {
+                            configurable: true,
+                            enumerable: true,
+
+                            get: function () {
+                                return superClass[staticMember];
+                            },
+
+                            set: function (value) {
+                                superClass[staticMember] = value;
+                            }
+                        } );
+                    })( superClass, staticMember );
+
+                    jsavaConsole.info( baseClass.classname + ': inherited ' + superClass.classname + '.' + staticMember );
                 }
             }
 
