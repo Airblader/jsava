@@ -11,7 +11,7 @@ Technology Stack
 * OOP Layer: [qooxdoo Core](http://qooxdoo.org/)
   * Although it comes with a toolchain, jsava currently utilizes its own compiler script to organize dependency management
   and task execution.
-* Testing: [Jasmine](http://pivotal.github.io/jasmine/)
+* Testing: [Jasmine](https://jasmine.github.io/)
 * Minification: [UglifyJS](https://github.com/mishoo/UglifyJS)
 * Code Style: configuration file is found in lib/style.xml
 
